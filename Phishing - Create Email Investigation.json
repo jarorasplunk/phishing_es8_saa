@@ -132,7 +132,7 @@
                     "targetPort": "9_in"
                 }
             ],
-            "hash": "31fd1787f8b556112a6cc8bbd5c52f71078110e3",
+            "hash": "9652459692b3601f4ee5d10cc04d0c8dff839c41",
             "nodes": {
                 "0": {
                     "data": {
@@ -299,7 +299,7 @@
                         "parameters": {
                             "id": "get_finding_or_investigation_1:action_result.data.*.investigation_id",
                             "phase_name": "Ingestion",
-                            "response_template_name": "get_finding_or_investigation_1:action_result.data.*.response_plans.*.name"
+                            "response_template_name": "get_phase_id_1:action_result.data.*.response_plans.*.name"
                         },
                         "requiredParameters": [
                             {
@@ -320,7 +320,11 @@
                     "errors": {},
                     "id": "14",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 960,
                     "y": 840
                 },
@@ -352,7 +356,7 @@
                         "parameters": {
                             "id": "get_finding_or_investigation_1:action_result.data.*.investigation_id",
                             "phase_name": "Ingestion",
-                            "response_template_name": "get_finding_or_investigation_1:action_result.data.*.response_plans.*.name",
+                            "response_template_name": "get_phase_id_1:action_result.data.*.response_plans.*.name",
                             "task_name": "Review%20details"
                         },
                         "requiredParameters": [
@@ -816,7 +820,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 960,
-                    "y": 520
+                    "y": 560
                 },
                 "7": {
                     "data": {
@@ -960,7 +964,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-11T07:17:08.890468+00:00",
+    "create_time": "2024-12-11T07:21:00.150767+00:00",
     "draft_mode": false,
     "labels": [
         "email"
