@@ -161,7 +161,7 @@ def get_finding_or_investigation_1(action=None, success=None, container=None, re
 def reported_email_details(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("reported_email_details() called")
 
-    template = """## Email Header Details:\nReporting method: {0}\nFrom: {1}\nTo: {2}\nSubject: {3}\nBody Text: {4}\nDate: {5}\n\n## Email Attachments/Files Details:\nFile Name: {6}\nSOAR Vault ID: {7}\nFile SHA1: {8}\nFile SHA256: {9}\n\n## SOAR Container/Event link: [SOAR]({10})"""
+    template = """## Email Header Details:\nReporting method: {0}\nFrom: {1}\nTo: {2}\nSubject: {3}\nBody Text: {4}\nDate: {5}\n\n"""
 
     # parameter list for template variable replacement
     parameters = [
@@ -170,12 +170,7 @@ def reported_email_details(action=None, success=None, container=None, results=No
         "filtered-data:filter_2:condition_1:artifact:*.cef.emailHeaders.To",
         "filtered-data:filter_2:condition_1:artifact:*.cef.emailHeaders.Subject",
         "filtered-data:filter_2:condition_1:artifact:*.cef.bodyText",
-        "filtered-data:filter_2:condition_1:artifact:*.cef.emailHeaders.Date",
-        "filtered-data:filter_2:condition_2:artifact:*.cef.fileName",
-        "filtered-data:filter_2:condition_2:artifact:*.cef.vaultId",
-        "filtered-data:filter_2:condition_2:artifact:*.cef.fileHashSha1",
-        "filtered-data:filter_2:condition_2:artifact:*.cef.fileHashSha256",
-        "container:url"
+        "filtered-data:filter_2:condition_1:artifact:*.cef.emailHeaders.Date"
     ]
 
     ################################################################################
@@ -190,7 +185,7 @@ def reported_email_details(action=None, success=None, container=None, results=No
 
     phantom.format(container=container, template=template, parameters=parameters, name="reported_email_details")
 
-    add_task_note_1(container=container)
+    join_create_event_1(container=container)
 
     return
 
@@ -223,7 +218,7 @@ def filter_2(action=None, success=None, container=None, results=None, handle=Non
 
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_2 or matched_results_2:
-        reported_email_details(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_2, filtered_results=matched_results_2)
+        soar_vault_details(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_2, filtered_results=matched_results_2)
 
     return
 
@@ -275,15 +270,17 @@ def add_task_note_1(action=None, success=None, container=None, results=None, han
         parameters=[])
     content_formatted_string = phantom.format(
         container=container,
-        template="""{0}""",
+        template="""{0}\n\n\n\n{1}""",
         parameters=[
-            "reported_email_details:formatted_data"
+            "reported_email_details:formatted_data",
+            "soar_vault_details:formatted_data"
         ])
 
     get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.investigation_id","get_finding_or_investigation_1:action_result.data.*.response_plans.*.id","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
     get_task_id_1_result_data = phantom.collect2(container=container, datapath=["get_task_id_1:action_result.data.*.task_id","get_task_id_1:action_result.parameter.context.artifact_id"], action_results=results)
     get_phase_id_1_result_data = phantom.collect2(container=container, datapath=["get_phase_id_1:action_result.data.*.phase_id","get_phase_id_1:action_result.parameter.context.artifact_id"], action_results=results)
     reported_email_details = phantom.get_format_data(name="reported_email_details")
+    soar_vault_details = phantom.get_format_data(name="soar_vault_details")
 
     parameters = []
 
@@ -312,7 +309,7 @@ def add_task_note_1(action=None, success=None, container=None, results=None, han
     ## Custom Code End
     ################################################################################
 
-    phantom.act("add task note", parameters=parameters, name="add_task_note_1", assets=["builtin_mc_connector"], callback=create_event_1)
+    phantom.act("add task note", parameters=parameters, name="add_task_note_1", assets=["builtin_mc_connector"])
 
     return
 
@@ -354,6 +351,17 @@ def get_task_id_1(action=None, success=None, container=None, results=None, handl
 
 
 @phantom.playbook_block()
+def join_create_event_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("join_create_event_1() called")
+
+    if phantom.completed(action_names=["get_task_id_1"]):
+        # call connected block "create_event_1"
+        create_event_1(container=container, handle=handle)
+
+    return
+
+
+@phantom.playbook_block()
 def create_event_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("create_event_1() called")
 
@@ -385,7 +393,7 @@ def create_event_1(action=None, success=None, container=None, results=None, hand
     ## Custom Code End
     ################################################################################
 
-    phantom.act("create event", parameters=parameters, name="create_event_1", assets=["builtin_mc_connector"])
+    phantom.act("create event", parameters=parameters, name="create_event_1", assets=["builtin_mc_connector"], callback=add_task_note_1)
 
     return
 
@@ -444,6 +452,38 @@ def recipient_dedup(action=None, success=None, container=None, results=None, han
     ################################################################################
 
     phantom.custom_function(custom_function="community/list_deduplicate", parameters=parameters, name="recipient_dedup", callback=start_investigations_1)
+
+    return
+
+
+@phantom.playbook_block()
+def soar_vault_details(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("soar_vault_details() called")
+
+    template = """## Email Attachments/Files Details:\nFile Name: {0}\nSOAR Vault ID: {1}\nFile SHA1: {2}\nFile SHA256: {3}\n\n## SOAR Container/Event link: [SOAR]({4})\n"""
+
+    # parameter list for template variable replacement
+    parameters = [
+        "filtered-data:filter_2:condition_2:artifact:*.cef.fileName",
+        "filtered-data:filter_2:condition_2:artifact:*.cef.vaultId",
+        "filtered-data:filter_2:condition_2:artifact:*.cef.fileHashSha1",
+        "filtered-data:filter_2:condition_2:artifact:*.cef.fileHashSha256",
+        "container:url"
+    ]
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.format(container=container, template=template, parameters=parameters, name="soar_vault_details")
+
+    join_create_event_1(container=container)
 
     return
 
