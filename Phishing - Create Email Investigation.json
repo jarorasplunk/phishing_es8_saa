@@ -14,14 +14,14 @@
                     "targetPort": "3_in"
                 },
                 {
-                    "id": "port_3_to_port_1",
+                    "id": "port_3_to_port_6",
                     "sourceNode": "3",
                     "sourcePort": "3_out",
-                    "targetNode": "1",
-                    "targetPort": "1_in"
+                    "targetNode": "6",
+                    "targetPort": "6_in"
                 }
             ],
-            "hash": "f4e585f32f8c02eacc150a1d433baa60414c6d11",
+            "hash": "d514ae14829601eb791a983479d6ceab89ffac8f",
             "nodes": {
                 "0": {
                     "data": {
@@ -32,12 +32,18 @@
                         "id": "0",
                         "type": "start"
                     },
-                    "errors": {},
+                    "errors": {
+                        "input_spec": [
+                            {
+                                "name": "Name is required"
+                            }
+                        ]
+                    },
                     "id": "0",
                     "type": "start",
                     "warnings": {},
-                    "x": 1000,
-                    "y": 419.9999999999999
+                    "x": 980,
+                    "y": 160
                 },
                 "1": {
                     "data": {
@@ -53,7 +59,7 @@
                     "type": "end",
                     "warnings": {},
                     "x": 1000,
-                    "y": 1000
+                    "y": 690
                 },
                 "3": {
                     "data": {
@@ -81,7 +87,22 @@
                             "pauseValue": 2
                         },
                         "parameters": {
-                            "name": "Test Investigation"
+                            "description": {
+                                "functionId": 1,
+                                "parameters": [
+                                    "container:name"
+                                ],
+                                "template": "Investigation created for the phishing email with subject: {0}\n"
+                            },
+                            "findings_data": [],
+                            "name": {
+                                "functionId": 1,
+                                "parameters": [
+                                    "container:name"
+                                ],
+                                "template": "Phishing Email Investigation: {0}\n"
+                            },
+                            "status": ""
                         },
                         "requiredParameters": [
                             {
@@ -95,9 +116,54 @@
                     "errors": {},
                     "id": "3",
                     "type": "enterpriseSecurity",
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
+                    "x": 980,
+                    "y": 280
+                },
+                "6": {
+                    "data": {
+                        "action": "update finding or investigation",
+                        "actionType": "post",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": 191,
+                        "connectorVersion": "v1",
+                        "functionId": 1,
+                        "functionName": "update_finding_or_investigation_1",
+                        "id": "6",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {},
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "6",
+                    "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 990,
-                    "y": 564.5
+                    "x": 980,
+                    "y": 400
                 }
             },
             "notes": ""
@@ -105,15 +171,15 @@
         "input_spec": null,
         "output_spec": null,
         "playbook_trigger": "artifact_created",
-        "playbook_type": "es",
+        "playbook_type": "automation",
         "python_version": "3",
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-11T06:07:43.261337+00:00",
+    "create_time": "2024-12-11T06:16:41.794289+00:00",
     "draft_mode": false,
     "labels": [
-        "es_soar_integration"
+        "email"
     ],
     "tags": []
 }
