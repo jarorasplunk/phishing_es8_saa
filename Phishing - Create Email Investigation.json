@@ -99,13 +99,6 @@
                     "targetPort": "1_in"
                 },
                 {
-                    "id": "port_0_to_port_17",
-                    "sourceNode": "0",
-                    "sourcePort": "0_out",
-                    "targetNode": "17",
-                    "targetPort": "17_in"
-                },
-                {
                     "id": "port_17_to_port_18",
                     "sourceNode": "17",
                     "sourcePort": "17_out",
@@ -132,6 +125,7 @@
                     "targetPort": "9_in"
                 }
             ],
+            "hash": "174fdbb1d4af8da8df13e2ac2d93cf5627b6d3f3",
             "nodes": {
                 "0": {
                     "data": {
@@ -494,7 +488,11 @@
                     "errors": {},
                     "id": "17",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "context": [
+                            "Connect block to playbook flow."
+                        ]
+                    },
                     "x": 1310,
                     "y": 324.5
                 },
@@ -959,7 +957,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-11T07:28:11.131961+00:00",
+    "create_time": "2024-12-11T07:34:08.975956+00:00",
     "draft_mode": false,
     "labels": [
         "email"

@@ -14,8 +14,6 @@ def on_start(container):
 
     # call 'filter_1' block
     filter_1(container=container)
-    # call 'get_response_plans_1' block
-    get_response_plans_1(container=container)
 
     return
 
