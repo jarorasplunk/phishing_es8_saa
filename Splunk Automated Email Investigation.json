@@ -212,16 +212,21 @@
                             "index": 0
                         }
                     ],
-                    "id": "port_14_to_port_24",
-                    "sourceNode": "14",
-                    "sourcePort": "14_out",
-                    "targetNode": "24",
-                    "targetPort": "24_in"
+                    "id": "port_37_to_port_36",
+                    "sourceNode": "37",
+                    "sourcePort": "37_out",
+                    "targetNode": "36",
+                    "targetPort": "36_in"
                 },
                 {
-                    "id": "port_2_to_port_37",
-                    "sourceNode": "2",
-                    "sourcePort": "2_out",
+                    "conditions": [
+                        {
+                            "index": 0
+                        }
+                    ],
+                    "id": "port_14_to_port_37",
+                    "sourceNode": "14",
+                    "sourcePort": "14_out",
                     "targetNode": "37",
                     "targetPort": "37_in"
                 },
@@ -231,14 +236,14 @@
                             "index": 0
                         }
                     ],
-                    "id": "port_37_to_port_36",
+                    "id": "port_37_to_port_24",
                     "sourceNode": "37",
                     "sourcePort": "37_out",
-                    "targetNode": "36",
-                    "targetPort": "36_in"
+                    "targetNode": "24",
+                    "targetPort": "24_in"
                 }
             ],
-            "hash": "af7b22b9251a35e009cbbe2d5ef2b8975b165494",
+            "hash": "58749c56b0befe433533d2bb371d9eab63fc20af",
             "nodes": {
                 "0": {
                     "data": {
@@ -259,8 +264,8 @@
                     "id": "0",
                     "type": "start",
                     "warnings": {},
-                    "x": 450,
-                    "y": -3.907985046680551e-14
+                    "x": 370,
+                    "y": 0
                 },
                 "1": {
                     "data": {
@@ -275,8 +280,8 @@
                     "id": "1",
                     "type": "end",
                     "warnings": {},
-                    "x": 360,
-                    "y": 2920
+                    "x": 520,
+                    "y": 3200
                 },
                 "14": {
                     "data": {
@@ -371,8 +376,8 @@
                     "id": "14",
                     "type": "decision",
                     "warnings": {},
-                    "x": 480,
-                    "y": 1400
+                    "x": 430,
+                    "y": 1418
                 },
                 "16": {
                     "data": {
@@ -441,8 +446,8 @@
                     "id": "16",
                     "type": "playbook",
                     "warnings": {},
-                    "x": 720,
-                    "y": 2140
+                    "x": -40,
+                    "y": 2600
                 },
                 "19": {
                     "data": {
@@ -612,8 +617,8 @@
                             "Reconfigure invalid datapath."
                         ]
                     },
-                    "x": 340,
-                    "y": 2460
+                    "x": -560,
+                    "y": 2860
                 },
                 "2": {
                     "data": {
@@ -657,8 +662,8 @@
                     "id": "2",
                     "type": "playbook",
                     "warnings": {},
-                    "x": 440,
-                    "y": 1260
+                    "x": 350,
+                    "y": 1268
                 },
                 "20": {
                     "data": {
@@ -703,8 +708,8 @@
                     "type": "code",
                     "userCode": "    \n    aggregate_data__json = []\n    suspect_urls = filtered_cf_result_0_data_output\n    suspect_files = filtered_cf_result_1_data_output\n    suspect_emails = [item for item in splunk_attack_analyzer_output_observable_values if item]\n    url_activity_list = [item for item in who_interacted_with_urls_output_observable_values if item]\n    file_activity_list = [item for item in who_interacted_with_files_output_observable_values if item]\n    message_activity_list = [item for item in who_received_email_output_observable_values if item]\n    \n    # Change labels here based on desired artifact labeling.\n    # By default, the label is based on the vendor technology and IoC involved.\n    email_interaction_label = \"splunk_email_interaction\"\n    file_interaction_label = \"splunk_file_interaction\"\n    url_interaction_label = \"splunk_url_interaction\"\n    suspect_url_label = \"saa_url_report\"\n    suspect_file_label = \"saa_file_report\"\n    suspect_email_label = \"saa_email_report\"\n\n    for email in suspect_emails:\n        email.pop('related_observables', None)\n        artifact = {'cef': email, 'name': f'{email[\"source\"]} reputation', 'label': suspect_email_label, 'cef_types': {'value': [email['type']]} }\n        aggregate_data__json.append(artifact)  \n    \n    for url in suspect_urls:\n        artifact = {'cef': url, 'name': f'{url[\"source\"]} reputation', 'label': suspect_url_label, 'cef_types': {'value': [url['type']]}}\n        aggregate_data__json.append(artifact)  \n    \n    for file in suspect_files:\n        artifact = {'cef': file, 'name': f'{file[\"source\"]} reputation', 'label': suspect_file_label, 'cef_types': {'value': [file['type']]} }\n        aggregate_data__json.append(artifact)  \n\n    for message_activity in message_activity_list:\n        aggregate_data__json.append({'cef': message_activity, 'label': email_interaction_label, 'name': 'Received suspect email', 'cef_types': {'value': [message_activity['type']]}})\n        \n    for url_act in url_activity_list:\n        artifact = {'label': url_interaction_label, 'name': 'Interaction with suspect url', 'cef_types': {'value': [url_act['type']]}}\n        identifier_activity = url_act.pop('identifier_activity', [])\n        url_act.pop('total_count', None)\n        artifact['cef'] = url_act\n        # future proofing in case the identifier_activity changes type to dict\n        if isinstance(identifier_activity, list):\n            for item in identifier_activity:\n                sub_artifact = artifact.copy()\n                sub_artifact['cef']['identifier_activity'] = item\n                aggregate_data__json.append(sub_artifact)  \n        else:\n            artifact['cef']['identifier_activity'] = identifier_activity\n            aggregate_data__json.append(artifact) \n    \n    for file_act in file_activity_list:\n        artifact = {'label': file_interaction_label, 'name': 'Interaction with suspect file', 'cef_types': {'value': [file_act['type']]}}\n        identifier_activity = file_act.pop('identifier_activity', [])\n        file_act.pop('total_count', None)\n        artifact['cef'] = file_act\n        # future proofing in case the identifier_activity changes type to dict\n        if isinstance(identifier_activity, list):\n            for item in identifier_activity:\n                sub_artifact = artifact.copy()\n                sub_artifact['cef']['identifier_activity'] = item\n                aggregate_data__json.append(sub_artifact)  \n        else:\n            artifact['cef']['identifier_activity'] = identifier_activity\n            aggregate_data__json.append(artifact) \n        \n    convert_to_artifacts__json = aggregate_data__json\n",
                     "warnings": {},
-                    "x": 340,
-                    "y": 2260
+                    "x": -560,
+                    "y": 2700
                 },
                 "22": {
                     "data": {
@@ -780,7 +785,7 @@
                     "type": "filter",
                     "warnings": {},
                     "x": 400,
-                    "y": 1820
+                    "y": 2080
                 },
                 "23": {
                     "data": {
@@ -854,8 +859,8 @@
                     "id": "23",
                     "type": "playbook",
                     "warnings": {},
-                    "x": 520,
-                    "y": 1980
+                    "x": 140,
+                    "y": 2320
                 },
                 "24": {
                     "data": {
@@ -918,7 +923,7 @@
                         "utilityType": "custom_function",
                         "values": {
                             "list_demux": {
-                                "input_list": "splunk_attack_analyzer:playbook_output:observable.related_observables"
+                                "input_list": "filtered-data:filter_2:condition_1:splunk_attack_analyzer:playbook_output:observable.related_observables"
                             }
                         }
                     },
@@ -926,8 +931,8 @@
                     "id": "24",
                     "type": "utility",
                     "warnings": {},
-                    "x": 200,
-                    "y": 1620
+                    "x": 340,
+                    "y": 1880
                 },
                 "25": {
                     "data": {
@@ -954,8 +959,8 @@
                     "id": "25",
                     "type": "format",
                     "warnings": {},
-                    "x": 690,
-                    "y": 2282
+                    "x": -120,
+                    "y": 2840
                 },
                 "27": {
                     "data": {
@@ -980,8 +985,8 @@
                     "id": "27",
                     "type": "format",
                     "warnings": {},
-                    "x": 1.4210854715202004e-14,
-                    "y": 2280
+                    "x": -1380,
+                    "y": 2880
                 },
                 "28": {
                     "data": {
@@ -1023,7 +1028,7 @@
                     "id": "28",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 430,
+                    "x": 350,
                     "y": 612
                 },
                 "29": {
@@ -1086,8 +1091,8 @@
                     "id": "29",
                     "type": "utility",
                     "warnings": {},
-                    "x": 440,
-                    "y": 760
+                    "x": 350,
+                    "y": 762
                 },
                 "3": {
                     "data": {
@@ -1174,7 +1179,7 @@
                     "id": "3",
                     "type": "utility",
                     "warnings": {},
-                    "x": 430,
+                    "x": 350,
                     "y": 912
                 },
                 "30": {
@@ -1227,7 +1232,7 @@
                     "id": "30",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 430,
+                    "x": 350,
                     "y": 312
                 },
                 "31": {
@@ -1270,8 +1275,8 @@
                     "id": "31",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 430,
-                    "y": 149.99999999999997
+                    "x": 350,
+                    "y": 150
                 },
                 "32": {
                     "data": {
@@ -1328,7 +1333,7 @@
                     "id": "32",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 430,
+                    "x": 350,
                     "y": 462
                 },
                 "33": {
@@ -1402,8 +1407,8 @@
                     "id": "33",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": -460,
-                    "y": 2500
+                    "x": -1380,
+                    "y": 3060
                 },
                 "34": {
                     "data": {
@@ -1487,8 +1492,8 @@
                             "Reconfigure invalid datapath."
                         ]
                     },
-                    "x": 340,
-                    "y": 2640
+                    "x": -560,
+                    "y": 3000
                 },
                 "35": {
                     "data": {
@@ -1561,8 +1566,8 @@
                     "id": "35",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 1180,
-                    "y": 2500
+                    "x": -120,
+                    "y": 3000
                 },
                 "36": {
                     "data": {
@@ -1741,8 +1746,8 @@
                     "id": "36",
                     "type": "utility",
                     "warnings": {},
-                    "x": -360,
-                    "y": 1560
+                    "x": 740,
+                    "y": 1740
                 },
                 "37": {
                     "data": {
@@ -1772,8 +1777,8 @@
                     "id": "37",
                     "type": "filter",
                     "warnings": {},
-                    "x": 160,
-                    "y": 1380
+                    "x": 410,
+                    "y": 1598
                 },
                 "4": {
                     "data": {
@@ -1813,8 +1818,8 @@
                     "id": "4",
                     "type": "filter",
                     "warnings": {},
-                    "x": 500,
-                    "y": 1080
+                    "x": 410,
+                    "y": 1088
                 },
                 "7": {
                     "data": {
@@ -1892,8 +1897,8 @@
                     "id": "7",
                     "type": "playbook",
                     "warnings": {},
-                    "x": 160,
-                    "y": 1980
+                    "x": 720,
+                    "y": 2320
                 }
             },
             "notes": "Ensure the four input playbooks are loaded onto the system. The input playbooks are designed to be swappable within the same category (e.g., Message Activity Analysis) with minimal to no changes downstream.",
@@ -1912,7 +1917,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-11T14:01:20.285602+00:00",
+    "create_time": "2024-12-11T14:06:15.904464+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

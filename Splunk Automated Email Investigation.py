@@ -41,19 +41,7 @@ def splunk_attack_analyzer(action=None, success=None, container=None, results=No
     ################################################################################
 
     # call playbook "local/Splunk_Attack_Analyzer_Dynamic_Analysis", returns the playbook_run_id
-    playbook_run_id = phantom.playbook("local/Splunk_Attack_Analyzer_Dynamic_Analysis", container=container, name="splunk_attack_analyzer", callback=splunk_attack_analyzer_callback, inputs=inputs)
-
-    return
-
-
-@phantom.playbook_block()
-def splunk_attack_analyzer_callback(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("splunk_attack_analyzer_callback() called")
-
-    
-    high_score_indicator_decision(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=filtered_artifacts, filtered_results=filtered_results)
-    filter_2(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=filtered_artifacts, filtered_results=filtered_results)
-
+    playbook_run_id = phantom.playbook("local/Splunk_Attack_Analyzer_Dynamic_Analysis", container=container, name="splunk_attack_analyzer", callback=high_score_indicator_decision, inputs=inputs)
 
     return
 
@@ -156,7 +144,7 @@ def high_score_indicator_decision(action=None, success=None, container=None, res
 
     # call connected blocks if condition 1 matched
     if found_match_1:
-        split_related_observables(action=action, success=success, container=container, results=results, handle=handle)
+        filter_2(action=action, success=success, container=container, results=results, handle=handle)
         return
 
     # check for 'elif' condition 2
@@ -463,14 +451,14 @@ def who_interacted_with_files(action=None, success=None, container=None, results
 def split_related_observables(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("split_related_observables() called")
 
-    splunk_attack_analyzer_output_observable = phantom.collect2(container=container, datapath=["splunk_attack_analyzer:playbook_output:observable.related_observables"])
+    filtered_output_0_splunk_attack_analyzer_output_observable = phantom.collect2(container=container, datapath=["filtered-data:filter_2:condition_1:splunk_attack_analyzer:playbook_output:observable.related_observables"])
 
     parameters = []
 
     # build parameters list for 'split_related_observables' call
-    for splunk_attack_analyzer_output_observable_item in splunk_attack_analyzer_output_observable:
+    for filtered_output_0_splunk_attack_analyzer_output_observable_item in filtered_output_0_splunk_attack_analyzer_output_observable:
         parameters.append({
-            "input_list": splunk_attack_analyzer_output_observable_item[0],
+            "input_list": filtered_output_0_splunk_attack_analyzer_output_observable_item[0],
         })
 
     ################################################################################
@@ -915,6 +903,7 @@ def filter_2(action=None, success=None, container=None, results=None, handle=Non
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_1 or matched_results_1:
         debug_3(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)
+        split_related_observables(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)
 
     return
 
