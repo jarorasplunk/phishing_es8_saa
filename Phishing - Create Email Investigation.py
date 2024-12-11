@@ -296,6 +296,11 @@ def get_phase_id_1(action=None, success=None, container=None, results=None, hand
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
+    phase_name_formatted_string = phantom.format(
+        container=container,
+        template="""Ingestion""",
+        parameters=[])
+
     get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.investigation_id","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
     get_phase_id_1_result_data = phantom.collect2(container=container, datapath=["get_phase_id_1:action_result.data.*.response_plans.*.name","get_phase_id_1:action_result.parameter.context.artifact_id"], action_results=results)
 
@@ -304,10 +309,10 @@ def get_phase_id_1(action=None, success=None, container=None, results=None, hand
     # build parameters list for 'get_phase_id_1' call
     for get_finding_or_investigation_1_result_item in get_finding_or_investigation_1_result_data:
         for get_phase_id_1_result_item in get_phase_id_1_result_data:
-            if get_finding_or_investigation_1_result_item[0] is not None and get_phase_id_1_result_item[0] is not None:
+            if get_finding_or_investigation_1_result_item[0] is not None and phase_name_formatted_string is not None and get_phase_id_1_result_item[0] is not None:
                 parameters.append({
                     "id": get_finding_or_investigation_1_result_item[0],
-                    "phase_name": "Ingestion",
+                    "phase_name": phase_name_formatted_string,
                     "response_template_name": get_phase_id_1_result_item[0],
                     "context": {'artifact_id': get_phase_id_1_result_item[1]},
                 })

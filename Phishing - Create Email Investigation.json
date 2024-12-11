@@ -132,6 +132,7 @@
                     "targetPort": "9_in"
                 }
             ],
+            "hash": "4984bb4fd79b76f1abc3e5a0ea96e4f83219de0c",
             "nodes": {
                 "0": {
                     "data": {
@@ -297,7 +298,10 @@
                         },
                         "parameters": {
                             "id": "get_finding_or_investigation_1:action_result.data.*.investigation_id",
-                            "phase_name": "Ingestion",
+                            "phase_name": {
+                                "parameters": [],
+                                "template": "Ingestion"
+                            },
                             "response_template_name": "get_phase_id_1:action_result.data.*.response_plans.*.name"
                         },
                         "requiredParameters": [
@@ -963,7 +967,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-11T07:21:00.150767+00:00",
+    "create_time": "2024-12-11T07:22:24.024998+00:00",
     "draft_mode": false,
     "labels": [
         "email"
