@@ -7,13 +7,6 @@
             "description": "",
             "edges": [
                 {
-                    "id": "port_0_to_port_3",
-                    "sourceNode": "0",
-                    "sourcePort": "0_out",
-                    "targetNode": "3",
-                    "targetPort": "3_in"
-                },
-                {
                     "id": "port_3_to_port_6",
                     "sourceNode": "3",
                     "sourcePort": "3_out",
@@ -26,9 +19,28 @@
                     "sourcePort": "6_out",
                     "targetNode": "1",
                     "targetPort": "1_in"
+                },
+                {
+                    "id": "port_0_to_port_7",
+                    "sourceNode": "0",
+                    "sourcePort": "0_out",
+                    "targetNode": "7",
+                    "targetPort": "7_in"
+                },
+                {
+                    "conditions": [
+                        {
+                            "index": 0
+                        }
+                    ],
+                    "id": "port_7_to_port_3",
+                    "sourceNode": "7",
+                    "sourcePort": "7_out",
+                    "targetNode": "3",
+                    "targetPort": "3_in"
                 }
             ],
-            "hash": "0456b4ec6aacbdd999724ed453297891293e16d7",
+            "hash": "6825b23ea6dd322f60b36bbbaf4488b9344c2828",
             "nodes": {
                 "0": {
                     "data": {
@@ -66,7 +78,7 @@
                     "type": "end",
                     "warnings": {},
                     "x": 980,
-                    "y": 580
+                    "y": 700
                 },
                 "3": {
                     "data": {
@@ -127,7 +139,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 960,
-                    "y": 260
+                    "y": 440
                 },
                 "6": {
                     "data": {
@@ -176,7 +188,45 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 960,
-                    "y": 360
+                    "y": 560
+                },
+                "7": {
+                    "data": {
+                        "advanced": {
+                            "join": []
+                        },
+                        "conditions": [
+                            {
+                                "comparisons": [
+                                    {
+                                        "conditionIndex": 0,
+                                        "op": "!=",
+                                        "param": "artifact:*.cef.emailHeaders.Subject",
+                                        "value": ""
+                                    },
+                                    {
+                                        "conditionIndex": 0,
+                                        "op": "!=",
+                                        "param": "artifact:*.cef.emailHeaders.To",
+                                        "value": ""
+                                    }
+                                ],
+                                "conditionIndex": 0,
+                                "customName": "subject and recipient",
+                                "logic": "and"
+                            }
+                        ],
+                        "functionId": 1,
+                        "functionName": "filter_1",
+                        "id": "7",
+                        "type": "filter"
+                    },
+                    "errors": {},
+                    "id": "7",
+                    "type": "filter",
+                    "warnings": {},
+                    "x": 1020,
+                    "y": 280
                 }
             },
             "notes": ""
@@ -189,7 +239,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-11T06:22:44.400819+00:00",
+    "create_time": "2024-12-11T06:25:48.214442+00:00",
     "draft_mode": false,
     "labels": [
         "email"

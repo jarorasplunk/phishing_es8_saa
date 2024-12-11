@@ -12,8 +12,8 @@ from datetime import datetime, timedelta
 def on_start(container):
     phantom.debug('on_start() called')
 
-    # call 'start_investigations_1' block
-    start_investigations_1(container=container)
+    # call 'filter_1' block
+    filter_1(container=container)
 
     return
 
@@ -99,6 +99,28 @@ def add_response_plan_1(action=None, success=None, container=None, results=None,
     ################################################################################
 
     phantom.act("add response plan", parameters=parameters, name="add_response_plan_1", assets=["builtin_mc_connector"])
+
+    return
+
+
+@phantom.playbook_block()
+def filter_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("filter_1() called")
+
+    # collect filtered artifact ids and results for 'if' condition 1
+    matched_artifacts_1, matched_results_1 = phantom.condition(
+        container=container,
+        logical_operator="and",
+        conditions=[
+            ["artifact:*.cef.emailHeaders.Subject", "!=", ""],
+            ["artifact:*.cef.emailHeaders.To", "!=", ""]
+        ],
+        name="filter_1:condition_1",
+        delimiter=None)
+
+    # call connected blocks if filtered artifacts or results
+    if matched_artifacts_1 or matched_results_1:
+        start_investigations_1(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)
 
     return
 
