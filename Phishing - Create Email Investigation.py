@@ -27,32 +27,33 @@ def start_investigations_1(action=None, success=None, container=None, results=No
         container=container,
         template="""Phishing Email Investigation: {0}\n""",
         parameters=[
-            "filtered-data:filter_1:condition_1:artifact:*.cef.emailHeaders.Subject"
+            "subject_dedup:custom_function_result.data.*.item"
         ])
     description_formatted_string = phantom.format(
         container=container,
         template="""Investigation created for the phishing email \nSubject: {0}\nRecipient: {1}""",
         parameters=[
-            "filtered-data:filter_1:condition_1:artifact:*.cef.emailHeaders.Subject",
-            "filtered-data:filter_1:condition_1:artifact:*.cef.emailHeaders.To"
+            "subject_dedup:custom_function_result.data.*.item",
+            "recipient_dedup:custom_function_result.data.*.item"
         ])
 
-    filtered_artifact_0_data_filter_1 = phantom.collect2(container=container, datapath=["filtered-data:filter_1:condition_1:artifact:*.cef.emailHeaders.Subject","filtered-data:filter_1:condition_1:artifact:*.cef.emailHeaders.To","filtered-data:filter_1:condition_1:artifact:*.id"])
+    subject_dedup_data = phantom.collect2(container=container, datapath=["subject_dedup:custom_function_result.data.*.item"])
+    recipient_dedup_data = phantom.collect2(container=container, datapath=["recipient_dedup:custom_function_result.data.*.item"])
 
     parameters = []
 
     # build parameters list for 'start_investigations_1' call
-    for filtered_artifact_0_item_filter_1 in filtered_artifact_0_data_filter_1:
-        if name_formatted_string is not None:
-            parameters.append({
-                "name": name_formatted_string,
-                "status": "",
-                "description": description_formatted_string,
-                "findings_data": [
-                ],
-                "investigation_type": "email",
-                "context": {'artifact_id': filtered_artifact_0_item_filter_1[2]},
-            })
+    for subject_dedup_data_item in subject_dedup_data:
+        for recipient_dedup_data_item in recipient_dedup_data:
+            if name_formatted_string is not None:
+                parameters.append({
+                    "name": name_formatted_string,
+                    "status": "",
+                    "description": description_formatted_string,
+                    "findings_data": [
+                    ],
+                    "investigation_type": "email",
+                })
 
     ################################################################################
     ## Custom Code Start
@@ -118,7 +119,7 @@ def filter_1(action=None, success=None, container=None, results=None, handle=Non
 
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_1 or matched_results_1:
-        start_investigations_1(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)
+        subject_dedup(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)
 
     return
 
@@ -385,6 +386,64 @@ def create_event_1(action=None, success=None, container=None, results=None, hand
     ################################################################################
 
     phantom.act("create event", parameters=parameters, name="create_event_1", assets=["builtin_mc_connector"])
+
+    return
+
+
+@phantom.playbook_block()
+def subject_dedup(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("subject_dedup() called")
+
+    filtered_artifact_0_data_filter_1 = phantom.collect2(container=container, datapath=["filtered-data:filter_1:condition_1:artifact:*.cef.emailHeaders.Subject","filtered-data:filter_1:condition_1:artifact:*.id"])
+
+    filtered_artifact_0__cef_emailheaders_subject = [item[0] for item in filtered_artifact_0_data_filter_1]
+
+    parameters = []
+
+    parameters.append({
+        "input_list": filtered_artifact_0__cef_emailheaders_subject,
+    })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.custom_function(custom_function="community/list_deduplicate", parameters=parameters, name="subject_dedup", callback=recipient_dedup)
+
+    return
+
+
+@phantom.playbook_block()
+def recipient_dedup(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("recipient_dedup() called")
+
+    filtered_artifact_0_data_filter_1 = phantom.collect2(container=container, datapath=["filtered-data:filter_1:condition_1:artifact:*.cef.emailHeaders.To","filtered-data:filter_1:condition_1:artifact:*.id"])
+
+    filtered_artifact_0__cef_emailheaders_to = [item[0] for item in filtered_artifact_0_data_filter_1]
+
+    parameters = []
+
+    parameters.append({
+        "input_list": filtered_artifact_0__cef_emailheaders_to,
+    })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.custom_function(custom_function="community/list_deduplicate", parameters=parameters, name="recipient_dedup", callback=start_investigations_1)
 
     return
 
