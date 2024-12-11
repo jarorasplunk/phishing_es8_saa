@@ -97,7 +97,7 @@
                     "targetPort": "1_in"
                 }
             ],
-            "hash": "bed728bb42120db0304f2bc953f7f406e365c3a5",
+            "hash": "159a03eef5e97c51d2f0a39d35e73f7a47c228c7",
             "nodes": {
                 "0": {
                     "data": {
@@ -160,7 +160,7 @@
                             "filtered-data:filter_2:condition_2:artifact:*.cef.fileHashSha256",
                             "container:url"
                         ],
-                        "template": "## Email Header Details:\nReporting method: {0}\nFrom: {1}\nTo: {2}\nSubject: {3}\nBody Text: {4}\nDate: {5}\n\n## Email Attachments/Files Details:\nFile Name: {6}\nSOAR Vault ID: {7}\nFile SHA1: {8}\nFile SHA256: {9}\n\n## SOAR Container/Event link: []({10})\n{6}{7}{8}{9}{10}",
+                        "template": "## Email Header Details:\nReporting method: {0}\nFrom: {1}\nTo: {2}\nSubject: {3}\nBody Text: {4}\nDate: {5}\n\n## Email Attachments/Files Details:\nFile Name: {6}\nSOAR Vault ID: {7}\nFile SHA1: {8}\nFile SHA256: {9}\n\n## SOAR Container/Event link: [SOAR]({10})",
                         "type": "format"
                     },
                     "errors": {},
@@ -664,7 +664,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-11T10:42:31.647125+00:00",
+    "create_time": "2024-12-11T11:10:51.865830+00:00",
     "draft_mode": false,
     "labels": [
         "email"

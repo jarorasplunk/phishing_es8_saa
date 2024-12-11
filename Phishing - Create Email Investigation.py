@@ -162,7 +162,7 @@ def get_finding_or_investigation_1(action=None, success=None, container=None, re
 def reported_email_details(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("reported_email_details() called")
 
-    template = """## Email Header Details:\nReporting method: {0}\nFrom: {1}\nTo: {2}\nSubject: {3}\nBody Text: {4}\nDate: {5}\n\n## Email Attachments/Files Details:\nFile Name: {6}\nSOAR Vault ID: {7}\nFile SHA1: {8}\nFile SHA256: {9}\n\n## SOAR Container/Event link: []({10})\n{6}{7}{8}{9}{10}"""
+    template = """## Email Header Details:\nReporting method: {0}\nFrom: {1}\nTo: {2}\nSubject: {3}\nBody Text: {4}\nDate: {5}\n\n## Email Attachments/Files Details:\nFile Name: {6}\nSOAR Vault ID: {7}\nFile SHA1: {8}\nFile SHA256: {9}\n\n## SOAR Container/Event link: [SOAR]({10})"""
 
     # parameter list for template variable replacement
     parameters = [
