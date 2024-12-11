@@ -125,7 +125,7 @@
                     "targetPort": "11_in"
                 }
             ],
-            "hash": "b8cc15428a26dbe6709d2b3552b4a2322d83f434",
+            "hash": "32ee65bcb6ae40ac953fe54d6f2f1f8f13358fad",
             "nodes": {
                 "0": {
                     "data": {
@@ -674,7 +674,7 @@
                         },
                         "parameters": {
                             "id": "get_finding_or_investigation_1:action_result.data.*.investigation_id",
-                            "phase_name": "ingestion",
+                            "phase_name": "Ingestion",
                             "response_template_name": "get_finding_or_investigation_1:action_result.data.*.response_plans.*.name",
                             "task_name": "Review"
                         },
@@ -702,8 +702,8 @@
                     "id": "21",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 980,
-                    "y": 960
+                    "x": 960,
+                    "y": 940
                 },
                 "3": {
                     "data": {
@@ -957,7 +957,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-11T07:35:30.841257+00:00",
+    "create_time": "2024-12-11T07:36:52.310976+00:00",
     "draft_mode": false,
     "labels": [
         "email"
