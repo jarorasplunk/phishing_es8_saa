@@ -186,7 +186,7 @@ def get_finding_or_investigation_1(action=None, success=None, container=None, re
     ## Custom Code End
     ################################################################################
 
-    phantom.act("get finding or investigation", parameters=parameters, name="get_finding_or_investigation_1", assets=["builtin_mc_connector"], callback=filter_2)
+    phantom.act("get finding or investigation", parameters=parameters, name="get_finding_or_investigation_1", assets=["builtin_mc_connector"], callback=get_phase_id_1)
 
     return
 
@@ -195,7 +195,7 @@ def get_finding_or_investigation_1(action=None, success=None, container=None, re
 def reported_email_details(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("reported_email_details() called")
 
-    template = """Reporting method: {0}\n\nFrom: {1}\nTo: {2}\nSubject: {3}\nBody Text: {4}\nDate: {5}"""
+    template = """Reporting method: {0}\nFrom: {1}\nTo: {2}\nSubject: {3}\nBody Text: {4}\nDate: {5}"""
 
     # parameter list for template variable replacement
     parameters = [
@@ -218,6 +218,8 @@ def reported_email_details(action=None, success=None, container=None, results=No
     ################################################################################
 
     phantom.format(container=container, template=template, parameters=parameters, name="reported_email_details")
+
+    join_add_task_note_1(container=container)
 
     return
 
@@ -259,7 +261,7 @@ def filter_2(action=None, success=None, container=None, results=None, handle=Non
 def vault_files_details(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("vault_files_details() called")
 
-    template = """Associated file details:\n\nFile Name: {0}\nSOAR Vault ID: {1}\nFile SHA1: {2}\nFile SHA256: {3}"""
+    template = """File Name: {0}\nSOAR Vault ID: {1}\nFile SHA1: {2}\nFile SHA256: {3}"""
 
     # parameter list for template variable replacement
     parameters = [
@@ -280,6 +282,144 @@ def vault_files_details(action=None, success=None, container=None, results=None,
     ################################################################################
 
     phantom.format(container=container, template=template, parameters=parameters, name="vault_files_details")
+
+    join_add_task_note_1(container=container)
+
+    return
+
+
+@phantom.playbook_block()
+def get_phase_id_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("get_phase_id_1() called")
+
+    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
+
+    get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.investigation_id","get_finding_or_investigation_1:action_result.data.*.response_plans.*.name","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
+
+    parameters = []
+
+    # build parameters list for 'get_phase_id_1' call
+    for get_finding_or_investigation_1_result_item in get_finding_or_investigation_1_result_data:
+        if get_finding_or_investigation_1_result_item[0] is not None and get_finding_or_investigation_1_result_item[1] is not None:
+            parameters.append({
+                "id": get_finding_or_investigation_1_result_item[0],
+                "phase_name": "Ingestion",
+                "response_template_name": get_finding_or_investigation_1_result_item[1],
+                "context": {'artifact_id': get_finding_or_investigation_1_result_item[2]},
+            })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.act("get phase id", parameters=parameters, name="get_phase_id_1", assets=["builtin_mc_connector"], callback=get_task_id_1)
+
+    return
+
+
+@phantom.playbook_block()
+def get_task_id_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("get_task_id_1() called")
+
+    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
+
+    get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.investigation_id","get_finding_or_investigation_1:action_result.data.*.response_plans.*.name","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
+
+    parameters = []
+
+    # build parameters list for 'get_task_id_1' call
+    for get_finding_or_investigation_1_result_item in get_finding_or_investigation_1_result_data:
+        if get_finding_or_investigation_1_result_item[0] is not None and get_finding_or_investigation_1_result_item[1] is not None:
+            parameters.append({
+                "id": get_finding_or_investigation_1_result_item[0],
+                "task_name": "Review details",
+                "phase_name": "Ingestion",
+                "response_template_name": get_finding_or_investigation_1_result_item[1],
+                "context": {'artifact_id': get_finding_or_investigation_1_result_item[2]},
+            })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.act("get task id", parameters=parameters, name="get_task_id_1", assets=["builtin_mc_connector"], callback=filter_2)
+
+    return
+
+
+@phantom.playbook_block()
+def join_add_task_note_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("join_add_task_note_1() called")
+
+    if phantom.completed(action_names=["get_task_id_1"]):
+        # call connected block "add_task_note_1"
+        add_task_note_1(container=container, handle=handle)
+
+    return
+
+
+@phantom.playbook_block()
+def add_task_note_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("add_task_note_1() called")
+
+    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
+
+    content_formatted_string = phantom.format(
+        container=container,
+        template="""SOAR Container/Event link: {2}\n\nEmail Header Details:\n\n{0}\n\nEmail Attachments/Files Details:\n\n{1}""",
+        parameters=[
+            "reported_email_details:formatted_data",
+            "vault_files_details:formatted_data",
+            "container:url"
+        ])
+
+    url_value = container.get("url", None)
+    get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.investigation_id","get_finding_or_investigation_1:action_result.data.*.response_plans.*.id","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
+    get_task_id_1_result_data = phantom.collect2(container=container, datapath=["get_task_id_1:action_result.data.*.task_id","get_task_id_1:action_result.parameter.context.artifact_id"], action_results=results)
+    get_phase_id_1_result_data = phantom.collect2(container=container, datapath=["get_phase_id_1:action_result.data.*.phase_id","get_phase_id_1:action_result.parameter.context.artifact_id"], action_results=results)
+    reported_email_details = phantom.get_format_data(name="reported_email_details")
+    vault_files_details = phantom.get_format_data(name="vault_files_details")
+
+    parameters = []
+
+    # build parameters list for 'add_task_note_1' call
+    for get_finding_or_investigation_1_result_item in get_finding_or_investigation_1_result_data:
+        for get_task_id_1_result_item in get_task_id_1_result_data:
+            for get_phase_id_1_result_item in get_phase_id_1_result_data:
+                if get_finding_or_investigation_1_result_item[0] is not None and content_formatted_string is not None and get_task_id_1_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and get_finding_or_investigation_1_result_item[1] is not None:
+                    parameters.append({
+                        "id": get_finding_or_investigation_1_result_item[0],
+                        "title": "Reported Email Artifacts",
+                        "content": content_formatted_string,
+                        "task_id": get_task_id_1_result_item[0],
+                        "phase_id": get_phase_id_1_result_item[0],
+                        "response_plan_id": get_finding_or_investigation_1_result_item[1],
+                        "context": {'artifact_id': get_finding_or_investigation_1_result_item[2]},
+                    })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.act("add task note", parameters=parameters, name="add_task_note_1", assets=["builtin_mc_connector"])
 
     return
 
