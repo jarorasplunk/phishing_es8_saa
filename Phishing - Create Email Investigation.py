@@ -33,26 +33,28 @@ def start_investigations_1(action=None, success=None, container=None, results=No
         container=container,
         template="""Investigation created for the phishing email with subject: {0}, sent to: {1}\n""",
         parameters=[
-            "artifact:*.cef.emailHeaders.Subject",
-            "artifact:*.cef.emailHeaders.To"
+            "filtered-data:filter_1:condition_1:artifact:*.cef.emailHeaders.Subject",
+            "filtered-data:filter_1:condition_1:artifact:*.cef.emailHeaders.To"
         ])
 
-    container_artifact_data = phantom.collect2(container=container, datapath=["artifact:*.cef.emailHeaders.Subject","artifact:*.cef.emailHeaders.To","artifact:*.id"])
+    container_artifact_data = phantom.collect2(container=container, datapath=["artifact:*.cef.emailHeaders.Subject","artifact:*.id"])
+    filtered_artifact_0_data_filter_1 = phantom.collect2(container=container, datapath=["filtered-data:filter_1:condition_1:artifact:*.cef.emailHeaders.Subject","filtered-data:filter_1:condition_1:artifact:*.cef.emailHeaders.To","filtered-data:filter_1:condition_1:artifact:*.id"])
 
     parameters = []
 
     # build parameters list for 'start_investigations_1' call
     for container_artifact_item in container_artifact_data:
-        if name_formatted_string is not None:
-            parameters.append({
-                "name": name_formatted_string,
-                "status": "",
-                "description": description_formatted_string,
-                "findings_data": [
-                ],
-                "investigation_type": "email",
-                "context": {'artifact_id': container_artifact_item[2]},
-            })
+        for filtered_artifact_0_item_filter_1 in filtered_artifact_0_data_filter_1:
+            if name_formatted_string is not None:
+                parameters.append({
+                    "name": name_formatted_string,
+                    "status": "",
+                    "description": description_formatted_string,
+                    "findings_data": [
+                    ],
+                    "investigation_type": "email",
+                    "context": {'artifact_id': filtered_artifact_0_item_filter_1[2]},
+                })
 
     ################################################################################
     ## Custom Code Start

@@ -40,7 +40,7 @@
                     "targetPort": "3_in"
                 }
             ],
-            "hash": "6825b23ea6dd322f60b36bbbaf4488b9344c2828",
+            "hash": "52c0c7fdd19583e99abce284c33c9199ac336e95",
             "nodes": {
                 "0": {
                     "data": {
@@ -109,8 +109,8 @@
                             "description": {
                                 "functionId": 1,
                                 "parameters": [
-                                    "artifact:*.cef.emailHeaders.Subject",
-                                    "artifact:*.cef.emailHeaders.To"
+                                    "filtered-data:filter_1:condition_1:artifact:*.cef.emailHeaders.Subject",
+                                    "filtered-data:filter_1:condition_1:artifact:*.cef.emailHeaders.To"
                                 ],
                                 "template": "Investigation created for the phishing email with subject: {0}, sent to: {1}\n"
                             },
@@ -239,7 +239,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-11T06:25:48.214442+00:00",
+    "create_time": "2024-12-11T06:28:03.901959+00:00",
     "draft_mode": false,
     "labels": [
         "email"
