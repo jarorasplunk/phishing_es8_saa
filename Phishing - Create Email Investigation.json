@@ -14,13 +14,6 @@
                     "targetPort": "6_in"
                 },
                 {
-                    "id": "port_6_to_port_1",
-                    "sourceNode": "6",
-                    "sourcePort": "6_out",
-                    "targetNode": "1",
-                    "targetPort": "1_in"
-                },
-                {
                     "id": "port_0_to_port_7",
                     "sourceNode": "0",
                     "sourcePort": "0_out",
@@ -38,9 +31,54 @@
                     "sourcePort": "7_out",
                     "targetNode": "3",
                     "targetPort": "3_in"
+                },
+                {
+                    "id": "port_6_to_port_8",
+                    "sourceNode": "6",
+                    "sourcePort": "6_out",
+                    "targetNode": "8",
+                    "targetPort": "8_in"
+                },
+                {
+                    "id": "port_8_to_port_9",
+                    "sourceNode": "8",
+                    "sourcePort": "8_out",
+                    "targetNode": "9",
+                    "targetPort": "9_in"
+                },
+                {
+                    "id": "port_9_to_port_11",
+                    "sourceNode": "9",
+                    "sourcePort": "9_out",
+                    "targetNode": "11",
+                    "targetPort": "11_in"
+                },
+                {
+                    "conditions": [
+                        {
+                            "index": 0
+                        }
+                    ],
+                    "id": "port_11_to_port_10",
+                    "sourceNode": "11",
+                    "sourcePort": "11_out",
+                    "targetNode": "10",
+                    "targetPort": "10_in"
+                },
+                {
+                    "conditions": [
+                        {
+                            "index": 1
+                        }
+                    ],
+                    "id": "port_11_to_port_12",
+                    "sourceNode": "11",
+                    "sourcePort": "11_out",
+                    "targetNode": "12",
+                    "targetPort": "12_in"
                 }
             ],
-            "hash": "8a1cd3ffeaa631c39dfc705de6d13ed856a5bdd3",
+            "hash": "1d43447930d262a206409dc9ef2728cd58638bd0",
             "nodes": {
                 "0": {
                     "data": {
@@ -78,7 +116,102 @@
                     "type": "end",
                     "warnings": {},
                     "x": 980,
-                    "y": 700
+                    "y": 1340
+                },
+                "10": {
+                    "data": {
+                        "advanced": {
+                            "customName": "reported email details",
+                            "customNameId": 0,
+                            "join": []
+                        },
+                        "functionId": 2,
+                        "functionName": "reported_email_details",
+                        "id": "10",
+                        "parameters": [
+                            "artifact:*.description",
+                            "",
+                            "",
+                            "",
+                            "",
+                            ""
+                        ],
+                        "template": "Email ingested from: {0}\n\nFrom: {1}\nTo: {2}\nSubject: {3}\nBody Text: {4}\nDate: {5}",
+                        "type": "format"
+                    },
+                    "errors": {},
+                    "id": "10",
+                    "type": "format",
+                    "warnings": {},
+                    "x": 740,
+                    "y": 1100
+                },
+                "11": {
+                    "data": {
+                        "advanced": {
+                            "join": []
+                        },
+                        "conditions": [
+                            {
+                                "comparisons": [
+                                    {
+                                        "conditionIndex": 0,
+                                        "op": "==",
+                                        "param": "artifact:*.name",
+                                        "value": "Email Artifact"
+                                    }
+                                ],
+                                "conditionIndex": 0,
+                                "customName": "Email",
+                                "logic": "and"
+                            },
+                            {
+                                "comparisons": [
+                                    {
+                                        "op": "==",
+                                        "param": "artifact:*.name",
+                                        "value": "Vault Artifact"
+                                    }
+                                ],
+                                "conditionIndex": 1,
+                                "customName": "Vault",
+                                "logic": "and"
+                            }
+                        ],
+                        "functionId": 2,
+                        "functionName": "filter_2",
+                        "id": "11",
+                        "type": "filter"
+                    },
+                    "errors": {},
+                    "id": "11",
+                    "type": "filter",
+                    "warnings": {},
+                    "x": 1020,
+                    "y": 924.5
+                },
+                "12": {
+                    "data": {
+                        "advanced": {
+                            "customName": "vault files details",
+                            "customNameId": 0,
+                            "join": []
+                        },
+                        "functionId": 3,
+                        "functionName": "vault_files_details",
+                        "id": "12",
+                        "parameters": [
+                            ""
+                        ],
+                        "template": "{0}\n",
+                        "type": "format"
+                    },
+                    "errors": {},
+                    "id": "12",
+                    "type": "format",
+                    "warnings": {},
+                    "x": 1190,
+                    "y": 1104.5
                 },
                 "3": {
                     "data": {
@@ -227,6 +360,92 @@
                     "warnings": {},
                     "x": 1020,
                     "y": 280
+                },
+                "8": {
+                    "data": {
+                        "action": "refresh finding or investigation",
+                        "actionType": "get",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": 191,
+                        "connectorVersion": "v1",
+                        "functionId": 1,
+                        "functionName": "refresh_finding_or_investigation_1",
+                        "id": "8",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "id": "start_investigations_1:action_result.data.*.id"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "8",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 960,
+                    "y": 664.5
+                },
+                "9": {
+                    "data": {
+                        "action": "get finding or investigation",
+                        "actionType": "get",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": 191,
+                        "connectorVersion": "v1",
+                        "functionId": 1,
+                        "functionName": "get_finding_or_investigation_1",
+                        "id": "9",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "id": "refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "9",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 960,
+                    "y": 780
                 }
             },
             "notes": ""
@@ -239,7 +458,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-11T06:29:14.668103+00:00",
+    "create_time": "2024-12-11T06:51:38.094813+00:00",
     "draft_mode": false,
     "labels": [
         "email"
