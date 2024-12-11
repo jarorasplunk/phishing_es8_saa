@@ -64,20 +64,6 @@
                     "targetPort": "14_in"
                 },
                 {
-                    "id": "port_14_to_port_15",
-                    "sourceNode": "14",
-                    "sourcePort": "14_out",
-                    "targetNode": "15",
-                    "targetPort": "15_in"
-                },
-                {
-                    "id": "port_15_to_port_11",
-                    "sourceNode": "15",
-                    "sourcePort": "15_out",
-                    "targetNode": "11",
-                    "targetPort": "11_in"
-                },
-                {
                     "id": "port_10_to_port_16",
                     "sourceNode": "10",
                     "sourcePort": "10_out",
@@ -123,9 +109,23 @@
                     "sourcePort": "6_out",
                     "targetNode": "9",
                     "targetPort": "9_in"
+                },
+                {
+                    "id": "port_14_to_port_21",
+                    "sourceNode": "14",
+                    "sourcePort": "14_out",
+                    "targetNode": "21",
+                    "targetPort": "21_in"
+                },
+                {
+                    "id": "port_21_to_port_11",
+                    "sourceNode": "21",
+                    "sourcePort": "21_out",
+                    "targetNode": "11",
+                    "targetPort": "11_in"
                 }
             ],
-            "hash": "174fdbb1d4af8da8df13e2ac2d93cf5627b6d3f3",
+            "hash": "b8cc15428a26dbe6709d2b3552b4a2322d83f434",
             "nodes": {
                 "0": {
                     "data": {
@@ -316,64 +316,6 @@
                     "warnings": {},
                     "x": 960,
                     "y": 840
-                },
-                "15": {
-                    "data": {
-                        "action": "get task id",
-                        "actionType": "get",
-                        "advanced": {
-                            "join": []
-                        },
-                        "connector": "Enterprise Security",
-                        "connectorConfigs": [
-                            "builtin_mc_connector"
-                        ],
-                        "connectorId": 191,
-                        "connectorVersion": "v1",
-                        "functionId": 1,
-                        "functionName": "get_task_id_1",
-                        "id": "15",
-                        "loop": {
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "parameters": {
-                            "id": "get_finding_or_investigation_1:action_result.data.*.investigation_id",
-                            "phase_name": "Ingestion",
-                            "response_template_name": "get_finding_or_investigation_1:action_result.data.*.response_plans.*.name",
-                            "task_name": "Review%20details"
-                        },
-                        "requiredParameters": [
-                            {
-                                "data_type": "string",
-                                "field": "id"
-                            },
-                            {
-                                "data_type": "string",
-                                "field": "task_name"
-                            },
-                            {
-                                "data_type": "string",
-                                "field": "phase_name"
-                            },
-                            {
-                                "data_type": "string",
-                                "field": "response_template_name"
-                            }
-                        ],
-                        "type": "enterpriseSecurity"
-                    },
-                    "errors": {},
-                    "id": "15",
-                    "type": "enterpriseSecurity",
-                    "warnings": {},
-                    "x": 960,
-                    "y": 960
                 },
                 "16": {
                     "data": {
@@ -705,6 +647,64 @@
                     "x": 1340,
                     "y": 660
                 },
+                "21": {
+                    "data": {
+                        "action": "get task id",
+                        "actionType": "get",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": 191,
+                        "connectorVersion": "v1",
+                        "functionId": 1,
+                        "functionName": "get_task_id_1",
+                        "id": "21",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "id": "get_finding_or_investigation_1:action_result.data.*.investigation_id",
+                            "phase_name": "ingestion",
+                            "response_template_name": "get_finding_or_investigation_1:action_result.data.*.response_plans.*.name",
+                            "task_name": "Review"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "task_name"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "phase_name"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "response_template_name"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "21",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 980,
+                    "y": 960
+                },
                 "3": {
                     "data": {
                         "action": "start investigations",
@@ -957,7 +957,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-11T07:34:08.975956+00:00",
+    "create_time": "2024-12-11T07:35:30.841257+00:00",
     "draft_mode": false,
     "labels": [
         "email"
