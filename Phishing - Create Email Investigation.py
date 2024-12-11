@@ -27,27 +27,32 @@ def start_investigations_1(action=None, success=None, container=None, results=No
         container=container,
         template="""Phishing Email Investigation: {0}\n""",
         parameters=[
-            "container:name"
+            "artifact:*.cef.emailHeaders.Subject"
         ])
     description_formatted_string = phantom.format(
         container=container,
-        template="""Investigation created for the phishing email with subject: {0}\n""",
+        template="""Investigation created for the phishing email with subject: {0}, sent to: {1}\n""",
         parameters=[
-            "container:name"
+            "artifact:*.cef.emailHeaders.Subject",
+            "artifact:*.cef.emailHeaders.To"
         ])
 
-    name_value = container.get("name", None)
+    container_artifact_data = phantom.collect2(container=container, datapath=["artifact:*.cef.emailHeaders.Subject","artifact:*.cef.emailHeaders.To","artifact:*.id"])
 
     parameters = []
 
-    if name_formatted_string is not None:
-        parameters.append({
-            "name": name_formatted_string,
-            "status": "",
-            "description": description_formatted_string,
-            "findings_data": [
-            ],
-        })
+    # build parameters list for 'start_investigations_1' call
+    for container_artifact_item in container_artifact_data:
+        if name_formatted_string is not None:
+            parameters.append({
+                "name": name_formatted_string,
+                "status": "",
+                "description": description_formatted_string,
+                "findings_data": [
+                ],
+                "investigation_type": "email",
+                "context": {'artifact_id': container_artifact_item[2]},
+            })
 
     ################################################################################
     ## Custom Code Start
@@ -59,22 +64,29 @@ def start_investigations_1(action=None, success=None, container=None, results=No
     ## Custom Code End
     ################################################################################
 
-    phantom.act("start investigations", parameters=parameters, name="start_investigations_1", assets=["builtin_mc_connector"], callback=update_finding_or_investigation_1)
+    phantom.act("start investigations", parameters=parameters, name="start_investigations_1", assets=["builtin_mc_connector"], callback=add_response_plan_1)
 
     return
 
 
 @phantom.playbook_block()
-def update_finding_or_investigation_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("update_finding_or_investigation_1() called")
+def add_response_plan_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("add_response_plan_1() called")
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
+    start_investigations_1_result_data = phantom.collect2(container=container, datapath=["start_investigations_1:action_result.data.*.id","start_investigations_1:action_result.parameter.context.artifact_id"], action_results=results)
+
     parameters = []
 
-    parameters.append({
-        "id": "",
-    })
+    # build parameters list for 'add_response_plan_1' call
+    for start_investigations_1_result_item in start_investigations_1_result_data:
+        if start_investigations_1_result_item[0] is not None:
+            parameters.append({
+                "id": start_investigations_1_result_item[0],
+                "response_template_id": "f927eaeb-fb05-4d6d-b79b-677f501fe2da",
+                "context": {'artifact_id': start_investigations_1_result_item[1]},
+            })
 
     ################################################################################
     ## Custom Code Start
@@ -86,7 +98,7 @@ def update_finding_or_investigation_1(action=None, success=None, container=None,
     ## Custom Code End
     ################################################################################
 
-    phantom.act("update finding or investigation", parameters=parameters, name="update_finding_or_investigation_1", assets=["builtin_mc_connector"])
+    phantom.act("add response plan", parameters=parameters, name="add_response_plan_1", assets=["builtin_mc_connector"])
 
     return
 

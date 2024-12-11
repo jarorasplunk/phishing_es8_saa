@@ -19,9 +19,16 @@
                     "sourcePort": "3_out",
                     "targetNode": "6",
                     "targetPort": "6_in"
+                },
+                {
+                    "id": "port_6_to_port_1",
+                    "sourceNode": "6",
+                    "sourcePort": "6_out",
+                    "targetNode": "1",
+                    "targetPort": "1_in"
                 }
             ],
-            "hash": "d514ae14829601eb791a983479d6ceab89ffac8f",
+            "hash": "0456b4ec6aacbdd999724ed453297891293e16d7",
             "nodes": {
                 "0": {
                     "data": {
@@ -58,8 +65,8 @@
                     "id": "1",
                     "type": "end",
                     "warnings": {},
-                    "x": 1000,
-                    "y": 690
+                    "x": 980,
+                    "y": 580
                 },
                 "3": {
                     "data": {
@@ -90,15 +97,17 @@
                             "description": {
                                 "functionId": 1,
                                 "parameters": [
-                                    "container:name"
+                                    "artifact:*.cef.emailHeaders.Subject",
+                                    "artifact:*.cef.emailHeaders.To"
                                 ],
-                                "template": "Investigation created for the phishing email with subject: {0}\n"
+                                "template": "Investigation created for the phishing email with subject: {0}, sent to: {1}\n"
                             },
                             "findings_data": [],
+                            "investigation_type": "email",
                             "name": {
                                 "functionId": 1,
                                 "parameters": [
-                                    "container:name"
+                                    "artifact:*.cef.emailHeaders.Subject"
                                 ],
                                 "template": "Phishing Email Investigation: {0}\n"
                             },
@@ -116,17 +125,13 @@
                     "errors": {},
                     "id": "3",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
-                    "x": 980,
-                    "y": 280
+                    "warnings": {},
+                    "x": 960,
+                    "y": 260
                 },
                 "6": {
                     "data": {
-                        "action": "update finding or investigation",
+                        "action": "add response plan",
                         "actionType": "post",
                         "advanced": {
                             "join": []
@@ -138,7 +143,7 @@
                         "connectorId": 191,
                         "connectorVersion": "v1",
                         "functionId": 1,
-                        "functionName": "update_finding_or_investigation_1",
+                        "functionName": "add_response_plan_1",
                         "id": "6",
                         "loop": {
                             "enabled": false,
@@ -149,11 +154,19 @@
                             "pauseUnit": "m",
                             "pauseValue": 2
                         },
-                        "parameters": {},
+                        "parameters": {
+                            "id": "start_investigations_1:action_result.data.*.id",
+                            "response_template_id": "f927eaeb-fb05-4d6d-b79b-677f501fe2da"
+                        },
                         "requiredParameters": [
                             {
                                 "data_type": "string",
                                 "field": "id"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "",
+                                "field": "response_template_id"
                             }
                         ],
                         "type": "enterpriseSecurity"
@@ -162,8 +175,8 @@
                     "id": "6",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 980,
-                    "y": 400
+                    "x": 960,
+                    "y": 360
                 }
             },
             "notes": ""
@@ -176,7 +189,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-11T06:16:41.794289+00:00",
+    "create_time": "2024-12-11T06:22:44.400819+00:00",
     "draft_mode": false,
     "labels": [
         "email"
