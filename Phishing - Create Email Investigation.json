@@ -97,7 +97,7 @@
                     "targetPort": "1_in"
                 }
             ],
-            "hash": "854a43a3fbc18557107fbd753c88062f8c2e7b87",
+            "hash": "f375c1ab7a545eccf56f4392a81dbf55cdafb991",
             "nodes": {
                 "0": {
                     "data": {
@@ -492,10 +492,9 @@
                                 "functionId": 1,
                                 "parameters": [
                                     "filtered-data:filter_1:condition_1:artifact:*.cef.emailHeaders.Subject",
-                                    "filtered-data:filter_1:condition_1:artifact:*.cef.emailHeaders.To",
-                                    "container:id"
+                                    "filtered-data:filter_1:condition_1:artifact:*.cef.emailHeaders.To"
                                 ],
-                                "template": "Investigation created for the phishing email \nSubject: {0}\nRecipient: {1}\nSOAR Event ID: {2}"
+                                "template": "Investigation created for the phishing email \nSubject: {0}\nRecipient: {1}"
                             },
                             "findings_data": [],
                             "investigation_type": "email",
@@ -520,12 +519,8 @@
                     "errors": {},
                     "id": "3",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
-                    "x": 960,
+                    "warnings": {},
+                    "x": 940,
                     "y": 440
                 },
                 "6": {
@@ -663,7 +658,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-11T11:15:02.381363+00:00",
+    "create_time": "2024-12-11T11:15:54.922708+00:00",
     "draft_mode": false,
     "labels": [
         "email"

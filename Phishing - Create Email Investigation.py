@@ -31,14 +31,12 @@ def start_investigations_1(action=None, success=None, container=None, results=No
         ])
     description_formatted_string = phantom.format(
         container=container,
-        template="""Investigation created for the phishing email \nSubject: {0}\nRecipient: {1}\nSOAR Event ID: {2}""",
+        template="""Investigation created for the phishing email \nSubject: {0}\nRecipient: {1}""",
         parameters=[
             "filtered-data:filter_1:condition_1:artifact:*.cef.emailHeaders.Subject",
-            "filtered-data:filter_1:condition_1:artifact:*.cef.emailHeaders.To",
-            "container:id"
+            "filtered-data:filter_1:condition_1:artifact:*.cef.emailHeaders.To"
         ])
 
-    id_value = container.get("id", None)
     filtered_artifact_0_data_filter_1 = phantom.collect2(container=container, datapath=["filtered-data:filter_1:condition_1:artifact:*.cef.emailHeaders.Subject","filtered-data:filter_1:condition_1:artifact:*.cef.emailHeaders.To","filtered-data:filter_1:condition_1:artifact:*.id"])
 
     parameters = []
