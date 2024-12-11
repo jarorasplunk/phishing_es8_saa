@@ -125,7 +125,7 @@
                     "targetPort": "11_in"
                 }
             ],
-            "hash": "32ee65bcb6ae40ac953fe54d6f2f1f8f13358fad",
+            "hash": "d30038bd62efd1f0d98c1cf7f86ec2390c19cd3b",
             "nodes": {
                 "0": {
                     "data": {
@@ -793,7 +793,7 @@
                         },
                         "parameters": {
                             "id": "start_investigations_1:action_result.data.*.id",
-                            "response_template_id": "cd1bb27b-05d2-4899-be69-a519b77372f5"
+                            "response_template_id": "70f636d1-e0ea-4d22-b51b-a4c86f655173"
                         },
                         "requiredParameters": [
                             {
@@ -957,7 +957,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-11T07:36:52.310976+00:00",
+    "create_time": "2024-12-11T07:37:49.884042+00:00",
     "draft_mode": false,
     "labels": [
         "email"
