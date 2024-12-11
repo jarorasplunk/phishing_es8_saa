@@ -132,7 +132,7 @@
                     "type": "start",
                     "warnings": {},
                     "x": 960,
-                    "y": 20
+                    "y": 19.999999999999964
                 },
                 "1": {
                     "data": {
@@ -179,11 +179,7 @@
                     "errors": {},
                     "id": "10",
                     "type": "format",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 960,
                     "y": 1240
                 },
