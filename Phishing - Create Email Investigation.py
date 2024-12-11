@@ -195,7 +195,7 @@ def get_finding_or_investigation_1(action=None, success=None, container=None, re
 def reported_email_details(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("reported_email_details() called")
 
-    template = """Reporting method: {0}\nFrom: {1}\nTo: {2}\nSubject: {3}\nBody Text: {4}\nDate: {5}"""
+    template = """## Email Header Details:\nReporting method: {0}\nFrom: {1}\nTo: {2}\nSubject: {3}\nBody Text: {4}\nDate: {5}\n\n## Email Attachments/Files Details:\nFile Name: {6}\nSOAR Vault ID: {7}\nFile SHA1: {8}\nFile SHA256: {9}\n\n## SOAR Container/Event link: []({10})\n{6}{7}{8}{9}{10}"""
 
     # parameter list for template variable replacement
     parameters = [
@@ -204,7 +204,12 @@ def reported_email_details(action=None, success=None, container=None, results=No
         "filtered-data:filter_2:condition_1:artifact:*.cef.emailHeaders.To",
         "filtered-data:filter_2:condition_1:artifact:*.cef.emailHeaders.Subject",
         "filtered-data:filter_2:condition_1:artifact:*.cef.bodyText",
-        "filtered-data:filter_2:condition_1:artifact:*.cef.emailHeaders.Date"
+        "filtered-data:filter_2:condition_1:artifact:*.cef.emailHeaders.Date",
+        "filtered-data:filter_2:condition_2:artifact:*.cef.fileName",
+        "filtered-data:filter_2:condition_2:artifact:*.cef.vaultId",
+        "filtered-data:filter_2:condition_2:artifact:*.cef.fileHashSha1",
+        "filtered-data:filter_2:condition_2:artifact:*.cef.fileHashSha256",
+        "container:url"
     ]
 
     ################################################################################
@@ -219,7 +224,7 @@ def reported_email_details(action=None, success=None, container=None, results=No
 
     phantom.format(container=container, template=template, parameters=parameters, name="reported_email_details")
 
-    vault_files_details(container=container)
+    add_task_note_1(container=container)
 
     return
 
@@ -253,37 +258,6 @@ def filter_2(action=None, success=None, container=None, results=None, handle=Non
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_2 or matched_results_2:
         reported_email_details(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_2, filtered_results=matched_results_2)
-
-    return
-
-
-@phantom.playbook_block()
-def vault_files_details(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("vault_files_details() called")
-
-    template = """File Name: {0}\nSOAR Vault ID: {1}\nFile SHA1: {2}\nFile SHA256: {3}"""
-
-    # parameter list for template variable replacement
-    parameters = [
-        "filtered-data:filter_2:condition_2:artifact:*.cef.fileName",
-        "filtered-data:filter_2:condition_2:artifact:*.cef.vaultId",
-        "filtered-data:filter_2:condition_2:artifact:*.cef.fileHashSha1",
-        "filtered-data:filter_2:condition_2:artifact:*.cef.fileHashSha256"
-    ]
-
-    ################################################################################
-    ## Custom Code Start
-    ################################################################################
-
-    # Write your custom code here...
-
-    ################################################################################
-    ## Custom Code End
-    ################################################################################
-
-    phantom.format(container=container, template=template, parameters=parameters, name="vault_files_details")
-
-    add_task_note_1(container=container)
 
     return
 
@@ -329,21 +303,21 @@ def add_task_note_1(action=None, success=None, container=None, results=None, han
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
+    title_formatted_string = phantom.format(
+        container=container,
+        template="""# Reported Email Artifacts\n""",
+        parameters=[])
     content_formatted_string = phantom.format(
         container=container,
-        template="""SOAR Container/Event link: {2}\n\nEmail Header Details:\n\n{0}\n\nEmail Attachments/Files Details:\n\n{1}""",
+        template="""{0}""",
         parameters=[
-            "reported_email_details:formatted_data",
-            "vault_files_details:formatted_data",
-            "container:url"
+            "reported_email_details:formatted_data"
         ])
 
-    url_value = container.get("url", None)
     get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.investigation_id","get_finding_or_investigation_1:action_result.data.*.response_plans.*.id","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
     get_task_id_1_result_data = phantom.collect2(container=container, datapath=["get_task_id_1:action_result.data.*.task_id","get_task_id_1:action_result.parameter.context.artifact_id"], action_results=results)
     get_phase_id_1_result_data = phantom.collect2(container=container, datapath=["get_phase_id_1:action_result.data.*.phase_id","get_phase_id_1:action_result.parameter.context.artifact_id"], action_results=results)
     reported_email_details = phantom.get_format_data(name="reported_email_details")
-    vault_files_details = phantom.get_format_data(name="vault_files_details")
 
     parameters = []
 
@@ -351,10 +325,10 @@ def add_task_note_1(action=None, success=None, container=None, results=None, han
     for get_finding_or_investigation_1_result_item in get_finding_or_investigation_1_result_data:
         for get_task_id_1_result_item in get_task_id_1_result_data:
             for get_phase_id_1_result_item in get_phase_id_1_result_data:
-                if get_finding_or_investigation_1_result_item[0] is not None and content_formatted_string is not None and get_task_id_1_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and get_finding_or_investigation_1_result_item[1] is not None:
+                if get_finding_or_investigation_1_result_item[0] is not None and title_formatted_string is not None and content_formatted_string is not None and get_task_id_1_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and get_finding_or_investigation_1_result_item[1] is not None:
                     parameters.append({
                         "id": get_finding_or_investigation_1_result_item[0],
-                        "title": "Reported Email Artifacts",
+                        "title": title_formatted_string,
                         "content": content_formatted_string,
                         "task_id": get_task_id_1_result_item[0],
                         "phase_id": get_phase_id_1_result_item[0],

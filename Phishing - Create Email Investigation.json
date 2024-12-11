@@ -102,21 +102,14 @@
                     "targetPort": "11_in"
                 },
                 {
-                    "id": "port_10_to_port_12",
+                    "id": "port_10_to_port_16",
                     "sourceNode": "10",
                     "sourcePort": "10_out",
-                    "targetNode": "12",
-                    "targetPort": "12_in"
-                },
-                {
-                    "id": "port_12_to_port_16",
-                    "sourceNode": "12",
-                    "sourcePort": "12_out",
                     "targetNode": "16",
                     "targetPort": "16_in"
                 }
             ],
-            "hash": "f19b725c3d4992030311b4496c31cc3a3b7f0da4",
+            "hash": "08386a3496cb8dd76b75b4f1f708ca87dd95456c",
             "nodes": {
                 "0": {
                     "data": {
@@ -153,8 +146,8 @@
                     "id": "1",
                     "type": "end",
                     "warnings": {},
-                    "x": 960,
-                    "y": 1580
+                    "x": 980,
+                    "y": 1640
                 },
                 "10": {
                     "data": {
@@ -172,15 +165,24 @@
                             "filtered-data:filter_2:condition_1:artifact:*.cef.emailHeaders.To",
                             "filtered-data:filter_2:condition_1:artifact:*.cef.emailHeaders.Subject",
                             "filtered-data:filter_2:condition_1:artifact:*.cef.bodyText",
-                            "filtered-data:filter_2:condition_1:artifact:*.cef.emailHeaders.Date"
+                            "filtered-data:filter_2:condition_1:artifact:*.cef.emailHeaders.Date",
+                            "filtered-data:filter_2:condition_2:artifact:*.cef.fileName",
+                            "filtered-data:filter_2:condition_2:artifact:*.cef.vaultId",
+                            "filtered-data:filter_2:condition_2:artifact:*.cef.fileHashSha1",
+                            "filtered-data:filter_2:condition_2:artifact:*.cef.fileHashSha256",
+                            "container:url"
                         ],
-                        "template": "Reporting method: {0}\nFrom: {1}\nTo: {2}\nSubject: {3}\nBody Text: {4}\nDate: {5}",
+                        "template": "## Email Header Details:\nReporting method: {0}\nFrom: {1}\nTo: {2}\nSubject: {3}\nBody Text: {4}\nDate: {5}\n\n## Email Attachments/Files Details:\nFile Name: {6}\nSOAR Vault ID: {7}\nFile SHA1: {8}\nFile SHA256: {9}\n\n## SOAR Container/Event link: []({10})\n{6}{7}{8}{9}{10}",
                         "type": "format"
                     },
                     "errors": {},
                     "id": "10",
                     "type": "format",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 960,
                     "y": 1240
                 },
@@ -228,32 +230,6 @@
                     "warnings": {},
                     "x": 1020,
                     "y": 1060
-                },
-                "12": {
-                    "data": {
-                        "advanced": {
-                            "customName": "vault files details",
-                            "customNameId": 0,
-                            "join": []
-                        },
-                        "functionId": 3,
-                        "functionName": "vault_files_details",
-                        "id": "12",
-                        "parameters": [
-                            "filtered-data:filter_2:condition_2:artifact:*.cef.fileName",
-                            "filtered-data:filter_2:condition_2:artifact:*.cef.vaultId",
-                            "filtered-data:filter_2:condition_2:artifact:*.cef.fileHashSha1",
-                            "filtered-data:filter_2:condition_2:artifact:*.cef.fileHashSha256"
-                        ],
-                        "template": "File Name: {0}\nSOAR Vault ID: {1}\nFile SHA1: {2}\nFile SHA256: {3}",
-                        "type": "format"
-                    },
-                    "errors": {},
-                    "id": "12",
-                    "type": "format",
-                    "warnings": {},
-                    "x": 960,
-                    "y": 1340
                 },
                 "14": {
                     "data": {
@@ -335,19 +311,20 @@
                         },
                         "parameters": {
                             "content": {
-                                "functionId": 1,
                                 "parameters": [
-                                    "reported_email_details:formatted_data",
-                                    "vault_files_details:formatted_data",
-                                    "container:url"
+                                    "reported_email_details:formatted_data"
                                 ],
-                                "template": "SOAR Container/Event link: {2}\n\nEmail Header Details:\n\n{0}\n\nEmail Attachments/Files Details:\n\n{1}"
+                                "template": "{0}"
                             },
                             "id": "get_finding_or_investigation_1:action_result.data.*.investigation_id",
                             "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
                             "response_plan_id": "get_finding_or_investigation_1:action_result.data.*.response_plans.*.id",
                             "task_id": "get_task_id_1:action_result.data.*.task_id",
-                            "title": "Reported Email Artifacts"
+                            "title": {
+                                "functionId": 1,
+                                "parameters": [],
+                                "template": "# Reported Email Artifacts\n"
+                            }
                         },
                         "requiredParameters": [
                             {
@@ -382,13 +359,9 @@
                     "errors": {},
                     "id": "16",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
-                    "x": 940,
-                    "y": 1480
+                    "warnings": {},
+                    "x": 960,
+                    "y": 1380
                 },
                 "17": {
                     "data": {
@@ -949,7 +922,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-11T07:40:24.495759+00:00",
+    "create_time": "2024-12-11T10:04:59.364210+00:00",
     "draft_mode": false,
     "labels": [
         "email"
