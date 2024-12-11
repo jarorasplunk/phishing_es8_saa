@@ -97,13 +97,6 @@
                     "targetPort": "22_in"
                 },
                 {
-                    "id": "port_16_to_port_20",
-                    "sourceNode": "16",
-                    "sourcePort": "16_out",
-                    "targetNode": "20",
-                    "targetPort": "20_in"
-                },
-                {
                     "id": "port_16_to_port_25",
                     "sourceNode": "16",
                     "sourcePort": "16_out",
@@ -179,20 +172,6 @@
                     "targetPort": "1_in"
                 },
                 {
-                    "id": "port_19_to_port_34",
-                    "sourceNode": "19",
-                    "sourcePort": "19_out",
-                    "targetNode": "34",
-                    "targetPort": "34_in"
-                },
-                {
-                    "id": "port_34_to_port_1",
-                    "sourceNode": "34",
-                    "sourcePort": "34_out",
-                    "targetNode": "1",
-                    "targetPort": "1_in"
-                },
-                {
                     "id": "port_25_to_port_35",
                     "sourceNode": "25",
                     "sourcePort": "25_out",
@@ -241,9 +220,16 @@
                     "sourcePort": "37_out",
                     "targetNode": "24",
                     "targetPort": "24_in"
+                },
+                {
+                    "id": "port_19_to_port_1",
+                    "sourceNode": "19",
+                    "sourcePort": "19_out",
+                    "targetNode": "1",
+                    "targetPort": "1_in"
                 }
             ],
-            "hash": "f8687c0dc65bdfa081387f52282128e97f77b26b",
+            "hash": "27ee773e40793069288b47117996ee4a66a53e28",
             "nodes": {
                 "0": {
                     "data": {
@@ -617,8 +603,8 @@
                             "Reconfigure invalid datapath."
                         ]
                     },
-                    "x": -560,
-                    "y": 2860
+                    "x": -600,
+                    "y": 2900
                 },
                 "2": {
                     "data": {
@@ -707,7 +693,14 @@
                     "id": "20",
                     "type": "code",
                     "userCode": "    \n    aggregate_data__json = []\n    suspect_urls = filtered_cf_result_0_data_output\n    suspect_files = filtered_cf_result_1_data_output\n    suspect_emails = [item for item in splunk_attack_analyzer_output_observable_values if item]\n    if who_interacted_with_urls_output_observable_values:\n        url_activity_list = [item for item in who_interacted_with_urls_output_observable_values if item]\n    file_activity_list = [item for item in who_interacted_with_files_output_observable_values if item]\n    message_activity_list = [item for item in who_received_email_output_observable_values if item]\n    \n    # Change labels here based on desired artifact labeling.\n    # By default, the label is based on the vendor technology and IoC involved.\n    email_interaction_label = \"splunk_email_interaction\"\n    file_interaction_label = \"splunk_file_interaction\"\n    url_interaction_label = \"splunk_url_interaction\"\n    suspect_url_label = \"saa_url_report\"\n    suspect_file_label = \"saa_file_report\"\n    suspect_email_label = \"saa_email_report\"\n\n    for email in suspect_emails:\n        email.pop('related_observables', None)\n        artifact = {'cef': email, 'name': f'{email[\"source\"]} reputation', 'label': suspect_email_label, 'cef_types': {'value': [email['type']]} }\n        aggregate_data__json.append(artifact)  \n    \n    for url in suspect_urls:\n        artifact = {'cef': url, 'name': f'{url[\"source\"]} reputation', 'label': suspect_url_label, 'cef_types': {'value': [url['type']]}}\n        aggregate_data__json.append(artifact)  \n    \n    for file in suspect_files:\n        artifact = {'cef': file, 'name': f'{file[\"source\"]} reputation', 'label': suspect_file_label, 'cef_types': {'value': [file['type']]} }\n        aggregate_data__json.append(artifact)  \n\n    for message_activity in message_activity_list:\n        aggregate_data__json.append({'cef': message_activity, 'label': email_interaction_label, 'name': 'Received suspect email', 'cef_types': {'value': [message_activity['type']]}})\n        \n    if url_activity_list:\n        for url_act in url_activity_list:\n            artifact = {'label': url_interaction_label, 'name': 'Interaction with suspect url', 'cef_types': {'value': [url_act['type']]}}\n            identifier_activity = url_act.pop('identifier_activity', [])\n            url_act.pop('total_count', None)\n            artifact['cef'] = url_act\n            # future proofing in case the identifier_activity changes type to dict\n            if isinstance(identifier_activity, list):\n                for item in identifier_activity:\n                    sub_artifact = artifact.copy()\n                    sub_artifact['cef']['identifier_activity'] = item\n                    aggregate_data__json.append(sub_artifact)  \n            else:\n                artifact['cef']['identifier_activity'] = identifier_activity\n                aggregate_data__json.append(artifact) \n    \n    for file_act in file_activity_list:\n        artifact = {'label': file_interaction_label, 'name': 'Interaction with suspect file', 'cef_types': {'value': [file_act['type']]}}\n        identifier_activity = file_act.pop('identifier_activity', [])\n        file_act.pop('total_count', None)\n        artifact['cef'] = file_act\n        # future proofing in case the identifier_activity changes type to dict\n        if isinstance(identifier_activity, list):\n            for item in identifier_activity:\n                sub_artifact = artifact.copy()\n                sub_artifact['cef']['identifier_activity'] = item\n                aggregate_data__json.append(sub_artifact)  \n        else:\n            artifact['cef']['identifier_activity'] = identifier_activity\n            aggregate_data__json.append(artifact) \n        \n    convert_to_artifacts__json = aggregate_data__json\n",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ],
+                        "context": [
+                            "Connect block to playbook flow."
+                        ]
+                    },
                     "x": -560,
                     "y": 2700
                 },
@@ -1410,91 +1403,6 @@
                     "x": -1380,
                     "y": 3060
                 },
-                "34": {
-                    "data": {
-                        "action": "add task note",
-                        "actionType": "post",
-                        "advanced": {
-                            "join": []
-                        },
-                        "connector": "Enterprise Security",
-                        "connectorConfigs": [
-                            "builtin_mc_connector"
-                        ],
-                        "connectorId": 191,
-                        "connectorVersion": "v1",
-                        "functionId": 2,
-                        "functionName": "add_task_note_2",
-                        "id": "34",
-                        "loop": {
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "parameters": {
-                            "content": {
-                                "functionId": 2,
-                                "parameters": [
-                                    "add_artifacts_0:custom_function_result.data.artifact_id",
-                                    "convert_to_artifacts:custom_function:json"
-                                ],
-                                "template": "Artifact IDs: {0}\n\nDetails: \n{1}"
-                            },
-                            "id": "get_finding_or_investigation_1:action_result.data.*.investigation_id",
-                            "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
-                            "response_plan_id": "get_finding_or_investigation_1:action_result.data.*.response_plans.*.id",
-                            "task_id": "get_task_id_1:action_result.data.*.task_id",
-                            "title": {
-                                "functionId": 2,
-                                "parameters": [],
-                                "template": "# SOAR Artifacts added\n"
-                            }
-                        },
-                        "requiredParameters": [
-                            {
-                                "data_type": "string",
-                                "field": "id"
-                            },
-                            {
-                                "data_type": "string",
-                                "default": "",
-                                "field": "title"
-                            },
-                            {
-                                "data_type": "string",
-                                "default": "",
-                                "field": "content"
-                            },
-                            {
-                                "data_type": "string",
-                                "field": "task_id"
-                            },
-                            {
-                                "data_type": "string",
-                                "field": "phase_id"
-                            },
-                            {
-                                "data_type": "string",
-                                "field": "response_plan_id"
-                            }
-                        ],
-                        "type": "enterpriseSecurity"
-                    },
-                    "errors": {},
-                    "id": "34",
-                    "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
-                    "x": -560,
-                    "y": 3000
-                },
                 "35": {
                     "data": {
                         "action": "add task note",
@@ -1917,7 +1825,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-11T14:13:44.492519+00:00",
+    "create_time": "2024-12-11T14:51:25.535647+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

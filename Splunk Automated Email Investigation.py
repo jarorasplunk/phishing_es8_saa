@@ -209,19 +209,7 @@ def who_received_email(action=None, success=None, container=None, results=None, 
     ################################################################################
 
     # call playbook "local/Splunk_Message_Identifier_Activity_Analysis", returns the playbook_run_id
-    playbook_run_id = phantom.playbook("local/Splunk_Message_Identifier_Activity_Analysis", container=container, name="who_received_email", callback=who_received_email_callback, inputs=inputs)
-
-    return
-
-
-@phantom.playbook_block()
-def who_received_email_callback(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("who_received_email_callback() called")
-
-    
-    convert_to_artifacts_0(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=filtered_artifacts, filtered_results=filtered_results)
-    merge_playbook_reports(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=filtered_artifacts, filtered_results=filtered_results)
-
+    playbook_run_id = phantom.playbook("local/Splunk_Message_Identifier_Activity_Analysis", container=container, name="who_received_email", callback=merge_playbook_reports, inputs=inputs)
 
     return
 
@@ -275,7 +263,7 @@ def add_artifacts_0(action=None, success=None, container=None, results=None, han
     ## Custom Code End
     ################################################################################
 
-    phantom.custom_function(custom_function="community/artifact_create", parameters=parameters, name="add_artifacts_0", callback=add_task_note_2)
+    phantom.custom_function(custom_function="community/artifact_create", parameters=parameters, name="add_artifacts_0")
 
     return
 
@@ -742,62 +730,6 @@ def add_task_note_1(action=None, success=None, container=None, results=None, han
     ################################################################################
 
     phantom.act("add task note", parameters=parameters, name="add_task_note_1", assets=["builtin_mc_connector"])
-
-    return
-
-
-@phantom.playbook_block()
-def add_task_note_2(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("add_task_note_2() called")
-
-    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
-
-    title_formatted_string = phantom.format(
-        container=container,
-        template="""# SOAR Artifacts added\n""",
-        parameters=[])
-    content_formatted_string = phantom.format(
-        container=container,
-        template="""Artifact IDs: {0}\n\nDetails: \n{1}""",
-        parameters=[
-            "add_artifacts_0:custom_function_result.data.artifact_id",
-            "convert_to_artifacts:custom_function:json"
-        ])
-
-    get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.investigation_id","get_finding_or_investigation_1:action_result.data.*.response_plans.*.id","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
-    add_artifacts_0__result = phantom.collect2(container=container, datapath=["add_artifacts_0:custom_function_result.data.artifact_id"])
-    get_task_id_1_result_data = phantom.collect2(container=container, datapath=["get_task_id_1:action_result.data.*.task_id","get_task_id_1:action_result.parameter.context.artifact_id"], action_results=results)
-    get_phase_id_1_result_data = phantom.collect2(container=container, datapath=["get_phase_id_1:action_result.data.*.phase_id","get_phase_id_1:action_result.parameter.context.artifact_id"], action_results=results)
-    convert_to_artifacts__json = json.loads(_ if (_ := phantom.get_run_data(key="convert_to_artifacts:json")) != "" else "null")  # pylint: disable=used-before-assignment
-
-    parameters = []
-
-    # build parameters list for 'add_task_note_2' call
-    for get_finding_or_investigation_1_result_item in get_finding_or_investigation_1_result_data:
-        for add_artifacts_0__result_item in add_artifacts_0__result:
-            for get_task_id_1_result_item in get_task_id_1_result_data:
-                for get_phase_id_1_result_item in get_phase_id_1_result_data:
-                    if get_finding_or_investigation_1_result_item[0] is not None and title_formatted_string is not None and content_formatted_string is not None and get_task_id_1_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and get_finding_or_investigation_1_result_item[1] is not None:
-                        parameters.append({
-                            "id": get_finding_or_investigation_1_result_item[0],
-                            "title": title_formatted_string,
-                            "content": content_formatted_string,
-                            "task_id": get_task_id_1_result_item[0],
-                            "phase_id": get_phase_id_1_result_item[0],
-                            "response_plan_id": get_finding_or_investigation_1_result_item[1],
-                        })
-
-    ################################################################################
-    ## Custom Code Start
-    ################################################################################
-
-    # Write your custom code here...
-
-    ################################################################################
-    ## Custom Code End
-    ################################################################################
-
-    phantom.act("add task note", parameters=parameters, name="add_task_note_2", assets=["builtin_mc_connector"])
 
     return
 
