@@ -352,8 +352,8 @@
                     "id": "14",
                     "type": "decision",
                     "warnings": {},
-                    "x": 510,
-                    "y": 1418
+                    "x": 480,
+                    "y": 1400
                 },
                 "16": {
                     "data": {
@@ -422,8 +422,8 @@
                     "id": "16",
                     "type": "playbook",
                     "warnings": {},
-                    "x": 600,
-                    "y": 2160
+                    "x": 720,
+                    "y": 2140
                 },
                 "19": {
                     "data": {
@@ -760,8 +760,8 @@
                     "id": "22",
                     "type": "filter",
                     "warnings": {},
-                    "x": 490,
-                    "y": 1790
+                    "x": 400,
+                    "y": 1820
                 },
                 "23": {
                     "data": {
@@ -907,8 +907,8 @@
                     "id": "24",
                     "type": "utility",
                     "warnings": {},
-                    "x": 430,
-                    "y": 1598
+                    "x": 320,
+                    "y": 1660
                 },
                 "25": {
                     "data": {
@@ -1666,7 +1666,13 @@
                     "y": 1980
                 }
             },
-            "notes": "Ensure the four input playbooks are loaded onto the system. The input playbooks are designed to be swappable within the same category (e.g., Message Activity Analysis) with minimal to no changes downstream."
+            "notes": "Ensure the four input playbooks are loaded onto the system. The input playbooks are designed to be swappable within the same category (e.g., Message Activity Analysis) with minimal to no changes downstream.",
+            "origin": {
+                "playbook_id": 626,
+                "playbook_name": "Splunk_Automated_Email_Investigation",
+                "playbook_repo_id": 6,
+                "playbook_repo_name": "phishing_es8_saa"
+            }
         },
         "input_spec": null,
         "output_spec": null,
