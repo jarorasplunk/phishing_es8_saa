@@ -31,12 +31,14 @@ def start_investigations_1(action=None, success=None, container=None, results=No
         ])
     description_formatted_string = phantom.format(
         container=container,
-        template="""Investigation created for the phishing email \nSubject: {0}\nRecipient: {1}\n""",
+        template="""Investigation created for the phishing email \nSubject: {0}\nRecipient: {1}\nSOAR Event ID: {2}""",
         parameters=[
             "filtered-data:filter_1:condition_1:artifact:*.cef.emailHeaders.Subject",
-            "filtered-data:filter_1:condition_1:artifact:*.cef.emailHeaders.To"
+            "filtered-data:filter_1:condition_1:artifact:*.cef.emailHeaders.To",
+            "container:id"
         ])
 
+    id_value = container.get("id", None)
     filtered_artifact_0_data_filter_1 = phantom.collect2(container=container, datapath=["filtered-data:filter_1:condition_1:artifact:*.cef.emailHeaders.Subject","filtered-data:filter_1:condition_1:artifact:*.cef.emailHeaders.To","filtered-data:filter_1:condition_1:artifact:*.id"])
 
     parameters = []
@@ -110,10 +112,8 @@ def filter_1(action=None, success=None, container=None, results=None, handle=Non
     # collect filtered artifact ids and results for 'if' condition 1
     matched_artifacts_1, matched_results_1 = phantom.condition(
         container=container,
-        logical_operator="and",
         conditions=[
-            ["artifact:*.cef.emailHeaders.Subject", "!=", ""],
-            ["artifact:*.cef.emailHeaders.To", "!=", ""]
+            ["artifact:*.cef.emailHeaders.Subject", "!=", ""]
         ],
         name="filter_1:condition_1",
         delimiter=None)
