@@ -676,9 +676,9 @@ def get_task_id_1(action=None, success=None, container=None, results=None, handl
     for get_finding_or_investigation_1_result_item in get_finding_or_investigation_1_result_data:
         if get_finding_or_investigation_1_result_item[0] is not None and get_finding_or_investigation_1_result_item[1] is not None:
             parameters.append({
+                "id": get_finding_or_investigation_1_result_item[0],
                 "task_name": "Detonate_and_Analyze",
                 "phase_name": "Investigation",
-                "id": get_finding_or_investigation_1_result_item[0],
                 "response_template_name": get_finding_or_investigation_1_result_item[1],
             })
 
