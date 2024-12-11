@@ -55,25 +55,6 @@
                     "targetPort": "14_in"
                 },
                 {
-                    "id": "port_17_to_port_18",
-                    "sourceNode": "17",
-                    "sourcePort": "17_out",
-                    "targetNode": "18",
-                    "targetPort": "18_in"
-                },
-                {
-                    "conditions": [
-                        {
-                            "index": 0
-                        }
-                    ],
-                    "id": "port_18_to_port_20",
-                    "sourceNode": "18",
-                    "sourcePort": "18_out",
-                    "targetNode": "20",
-                    "targetPort": "20_in"
-                },
-                {
                     "id": "port_6_to_port_9",
                     "sourceNode": "6",
                     "sourcePort": "6_out",
@@ -116,6 +97,7 @@
                     "targetPort": "1_in"
                 }
             ],
+            "hash": "bed728bb42120db0304f2bc953f7f406e365c3a5",
             "nodes": {
                 "0": {
                     "data": {
@@ -369,255 +351,6 @@
                     "x": 960,
                     "y": 1380
                 },
-                "17": {
-                    "data": {
-                        "action": "get response plans",
-                        "actionType": "get",
-                        "advanced": {
-                            "join": []
-                        },
-                        "connector": "Enterprise Security",
-                        "connectorConfigs": [
-                            "builtin_mc_connector"
-                        ],
-                        "connectorId": 191,
-                        "connectorVersion": "v1",
-                        "functionId": 1,
-                        "functionName": "get_response_plans_1",
-                        "id": "17",
-                        "loop": {
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "parameters": {},
-                        "requiredParameters": [],
-                        "type": "enterpriseSecurity"
-                    },
-                    "errors": {},
-                    "id": "17",
-                    "type": "enterpriseSecurity",
-                    "warnings": {
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
-                    "x": 1310,
-                    "y": 324.5
-                },
-                "18": {
-                    "data": {
-                        "advanced": {
-                            "join": []
-                        },
-                        "conditions": [
-                            {
-                                "comparisons": [
-                                    {
-                                        "conditionIndex": 0,
-                                        "op": "==",
-                                        "param": "get_response_plans_1:action_result.data.*.items.*.name",
-                                        "value": "Phishing Email Investigation"
-                                    }
-                                ],
-                                "conditionIndex": 0,
-                                "logic": "and"
-                            }
-                        ],
-                        "functionId": 3,
-                        "functionName": "filter_3",
-                        "id": "18",
-                        "type": "filter"
-                    },
-                    "errors": {},
-                    "id": "18",
-                    "type": "filter",
-                    "warnings": {},
-                    "x": 1360,
-                    "y": 480
-                },
-                "20": {
-                    "data": {
-                        "advanced": {
-                            "join": []
-                        },
-                        "customFunction": {
-                            "draftMode": false,
-                            "name": "debug",
-                            "repoName": "community"
-                        },
-                        "functionId": 1,
-                        "functionName": "debug_1",
-                        "id": "20",
-                        "loop": {
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "selectMore": false,
-                        "type": "utility",
-                        "utilities": {
-                            "debug": {
-                                "description": "Print debug messages with the type and value of 0-10 different inputs. This is useful for checking the values of input data or the outputs of other playbook blocks.",
-                                "fields": [
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_1",
-                                        "name": "input_1",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_2",
-                                        "name": "input_2",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_3",
-                                        "name": "input_3",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_4",
-                                        "name": "input_4",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_5",
-                                        "name": "input_5",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_6",
-                                        "name": "input_6",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_7",
-                                        "name": "input_7",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_8",
-                                        "name": "input_8",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_9",
-                                        "name": "input_9",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_10",
-                                        "name": "input_10",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    }
-                                ],
-                                "label": "debug",
-                                "name": "debug"
-                            }
-                        },
-                        "utilityType": "custom_function",
-                        "values": {
-                            "debug": {
-                                "input_1": [
-                                    "filtered-data:filter_3:condition_1:get_response_plans_1:action_result.data.*.items.*.name"
-                                ],
-                                "input_10": null,
-                                "input_2": null,
-                                "input_3": null,
-                                "input_4": null,
-                                "input_5": null,
-                                "input_6": null,
-                                "input_7": null,
-                                "input_8": null,
-                                "input_9": null
-                            }
-                        }
-                    },
-                    "errors": {},
-                    "id": "20",
-                    "type": "utility",
-                    "warnings": {},
-                    "x": 1340,
-                    "y": 660
-                },
                 "21": {
                     "data": {
                         "action": "get task id",
@@ -817,7 +550,7 @@
                         },
                         "parameters": {
                             "id": "start_investigations_1:action_result.data.*.id",
-                            "response_template_id": "70f636d1-e0ea-4d22-b51b-a4c86f655173"
+                            "response_template_id": "7da1e2a7-4491-4479-8fdf-68bf9ea72f23"
                         },
                         "requiredParameters": [
                             {
@@ -877,56 +610,6 @@
                     "x": 1000,
                     "y": 280
                 },
-                "8": {
-                    "data": {
-                        "action": "refresh finding or investigation",
-                        "actionType": "get",
-                        "advanced": {
-                            "join": []
-                        },
-                        "connector": "Enterprise Security",
-                        "connectorConfigs": [
-                            "builtin_mc_connector"
-                        ],
-                        "connectorId": 191,
-                        "connectorVersion": "v1",
-                        "functionId": 1,
-                        "functionName": "refresh_finding_or_investigation_1",
-                        "id": "8",
-                        "loop": {
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "parameters": {
-                            "id": "start_investigations_1:action_result.data.*.id"
-                        },
-                        "requiredParameters": [
-                            {
-                                "data_type": "string",
-                                "field": "id"
-                            }
-                        ],
-                        "type": "enterpriseSecurity"
-                    },
-                    "errors": {},
-                    "id": "8",
-                    "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ],
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
-                    "x": 620,
-                    "y": 620
-                },
                 "9": {
                     "data": {
                         "action": "get finding or investigation",
@@ -981,7 +664,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-11T10:13:35.529690+00:00",
+    "create_time": "2024-12-11T10:42:31.647125+00:00",
     "draft_mode": false,
     "labels": [
         "email"
