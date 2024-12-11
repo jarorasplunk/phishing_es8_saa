@@ -108,10 +108,10 @@ def who_interacted_with_urls(action=None, success=None, container=None, results=
     filtered_cf_result_0_data_output_value = [item[0] for item in filtered_cf_result_0]
 
     inputs = {
-        "ip": [],
         "url": filtered_cf_result_0_data_output_value,
         "file": [],
         "domain": [],
+        "ip": [],
     }
 
     ################################################################################
@@ -308,7 +308,8 @@ def convert_to_artifacts_0(action=None, success=None, container=None, results=No
     suspect_urls = filtered_cf_result_0_data_output
     suspect_files = filtered_cf_result_1_data_output
     suspect_emails = [item for item in splunk_attack_analyzer_output_observable_values if item]
-    url_activity_list = [item for item in who_interacted_with_urls_output_observable_values if item]
+    if who_interacted_with_urls_output_observable_values:
+        url_activity_list = [item for item in who_interacted_with_urls_output_observable_values if item]
     file_activity_list = [item for item in who_interacted_with_files_output_observable_values if item]
     message_activity_list = [item for item in who_received_email_output_observable_values if item]
     
@@ -337,20 +338,21 @@ def convert_to_artifacts_0(action=None, success=None, container=None, results=No
     for message_activity in message_activity_list:
         aggregate_data__json.append({'cef': message_activity, 'label': email_interaction_label, 'name': 'Received suspect email', 'cef_types': {'value': [message_activity['type']]}})
         
-    for url_act in url_activity_list:
-        artifact = {'label': url_interaction_label, 'name': 'Interaction with suspect url', 'cef_types': {'value': [url_act['type']]}}
-        identifier_activity = url_act.pop('identifier_activity', [])
-        url_act.pop('total_count', None)
-        artifact['cef'] = url_act
-        # future proofing in case the identifier_activity changes type to dict
-        if isinstance(identifier_activity, list):
-            for item in identifier_activity:
-                sub_artifact = artifact.copy()
-                sub_artifact['cef']['identifier_activity'] = item
-                aggregate_data__json.append(sub_artifact)  
-        else:
-            artifact['cef']['identifier_activity'] = identifier_activity
-            aggregate_data__json.append(artifact) 
+    if url_activity_list:
+        for url_act in url_activity_list:
+            artifact = {'label': url_interaction_label, 'name': 'Interaction with suspect url', 'cef_types': {'value': [url_act['type']]}}
+            identifier_activity = url_act.pop('identifier_activity', [])
+            url_act.pop('total_count', None)
+            artifact['cef'] = url_act
+            # future proofing in case the identifier_activity changes type to dict
+            if isinstance(identifier_activity, list):
+                for item in identifier_activity:
+                    sub_artifact = artifact.copy()
+                    sub_artifact['cef']['identifier_activity'] = item
+                    aggregate_data__json.append(sub_artifact)  
+            else:
+                artifact['cef']['identifier_activity'] = identifier_activity
+                aggregate_data__json.append(artifact) 
     
     for file_act in file_activity_list:
         artifact = {'label': file_interaction_label, 'name': 'Interaction with suspect file', 'cef_types': {'value': [file_act['type']]}}
