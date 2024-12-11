@@ -7,13 +7,6 @@
             "description": "Leverages Splunk technologies to determine if a .eml or .msg file in the vault is malicious, whether or not it contained suspect URLs or Files, and who may have interacted with the IoCs (email, URLs, or Files).",
             "edges": [
                 {
-                    "id": "port_0_to_port_3",
-                    "sourceNode": "0",
-                    "sourcePort": "0_out",
-                    "targetNode": "3",
-                    "targetPort": "3_in"
-                },
-                {
                     "id": "port_3_to_port_4",
                     "sourceNode": "3",
                     "sourcePort": "3_out",
@@ -64,20 +57,6 @@
                     "sourcePort": "20_out",
                     "targetNode": "19",
                     "targetPort": "19_in"
-                },
-                {
-                    "id": "port_21_to_port_1",
-                    "sourceNode": "21",
-                    "sourcePort": "21_out",
-                    "targetNode": "1",
-                    "targetPort": "1_in"
-                },
-                {
-                    "id": "port_19_to_port_1",
-                    "sourceNode": "19",
-                    "sourcePort": "19_out",
-                    "targetNode": "1",
-                    "targetPort": "1_in"
                 },
                 {
                     "conditions": [
@@ -137,20 +116,6 @@
                     "targetPort": "24_in"
                 },
                 {
-                    "id": "port_25_to_port_26",
-                    "sourceNode": "25",
-                    "sourcePort": "25_out",
-                    "targetNode": "26",
-                    "targetPort": "26_in"
-                },
-                {
-                    "id": "port_26_to_port_1",
-                    "sourceNode": "26",
-                    "sourcePort": "26_out",
-                    "targetNode": "1",
-                    "targetPort": "1_in"
-                },
-                {
                     "id": "port_16_to_port_25",
                     "sourceNode": "16",
                     "sourcePort": "16_out",
@@ -170,14 +135,91 @@
                     "targetPort": "27_in"
                 },
                 {
-                    "id": "port_27_to_port_21",
+                    "id": "port_28_to_port_29",
+                    "sourceNode": "28",
+                    "sourcePort": "28_out",
+                    "targetNode": "29",
+                    "targetPort": "29_in"
+                },
+                {
+                    "id": "port_29_to_port_3",
+                    "sourceNode": "29",
+                    "sourcePort": "29_out",
+                    "targetNode": "3",
+                    "targetPort": "3_in"
+                },
+                {
+                    "id": "port_0_to_port_31",
+                    "sourceNode": "0",
+                    "sourcePort": "0_out",
+                    "targetNode": "31",
+                    "targetPort": "31_in"
+                },
+                {
+                    "id": "port_31_to_port_30",
+                    "sourceNode": "31",
+                    "sourcePort": "31_out",
+                    "targetNode": "30",
+                    "targetPort": "30_in"
+                },
+                {
+                    "id": "port_30_to_port_32",
+                    "sourceNode": "30",
+                    "sourcePort": "30_out",
+                    "targetNode": "32",
+                    "targetPort": "32_in"
+                },
+                {
+                    "id": "port_32_to_port_28",
+                    "sourceNode": "32",
+                    "sourcePort": "32_out",
+                    "targetNode": "28",
+                    "targetPort": "28_in"
+                },
+                {
+                    "id": "port_27_to_port_33",
                     "sourceNode": "27",
                     "sourcePort": "27_out",
-                    "targetNode": "21",
-                    "targetPort": "21_in"
+                    "targetNode": "33",
+                    "targetPort": "33_in"
+                },
+                {
+                    "id": "port_33_to_port_1",
+                    "sourceNode": "33",
+                    "sourcePort": "33_out",
+                    "targetNode": "1",
+                    "targetPort": "1_in"
+                },
+                {
+                    "id": "port_19_to_port_34",
+                    "sourceNode": "19",
+                    "sourcePort": "19_out",
+                    "targetNode": "34",
+                    "targetPort": "34_in"
+                },
+                {
+                    "id": "port_34_to_port_1",
+                    "sourceNode": "34",
+                    "sourcePort": "34_out",
+                    "targetNode": "1",
+                    "targetPort": "1_in"
+                },
+                {
+                    "id": "port_25_to_port_35",
+                    "sourceNode": "25",
+                    "sourcePort": "25_out",
+                    "targetNode": "35",
+                    "targetPort": "35_in"
+                },
+                {
+                    "id": "port_35_to_port_1",
+                    "sourceNode": "35",
+                    "sourcePort": "35_out",
+                    "targetNode": "1",
+                    "targetPort": "1_in"
                 }
             ],
-            "hash": "5a8d96dcafd9aac72f669fc10ee51809ce0106a4",
+            "hash": "1ad2b643b9e9025d1fe0d3f25535a825820c4c53",
             "nodes": {
                 "0": {
                     "data": {
@@ -188,12 +230,18 @@
                         "id": "0",
                         "type": "start"
                     },
-                    "errors": {},
+                    "errors": {
+                        "input_spec": [
+                            {
+                                "name": "Name is required"
+                            }
+                        ]
+                    },
                     "id": "0",
                     "type": "start",
                     "warnings": {},
                     "x": 450,
-                    "y": -6.146194664324867e-13
+                    "y": 0
                 },
                 "1": {
                     "data": {
@@ -208,8 +256,8 @@
                     "id": "1",
                     "type": "end",
                     "warnings": {},
-                    "x": 340,
-                    "y": 2040
+                    "x": 360,
+                    "y": 2920
                 },
                 "14": {
                     "data": {
@@ -305,7 +353,7 @@
                     "type": "decision",
                     "warnings": {},
                     "x": 510,
-                    "y": 654
+                    "y": 1418
                 },
                 "16": {
                     "data": {
@@ -374,8 +422,8 @@
                     "id": "16",
                     "type": "playbook",
                     "warnings": {},
-                    "x": 520,
-                    "y": 1522
+                    "x": 600,
+                    "y": 2160
                 },
                 "19": {
                     "data": {
@@ -391,7 +439,7 @@
                             "repoName": "community"
                         },
                         "functionId": 6,
-                        "functionName": "add_artifacts",
+                        "functionName": "add_artifacts_0",
                         "id": "19",
                         "loop": {
                             "enabled": false,
@@ -526,7 +574,7 @@
                                 "cef_data_type": null,
                                 "cef_field": null,
                                 "cef_value": null,
-                                "container": "container:id",
+                                "container": "soar_event_id:custom_function_result.data.*.item",
                                 "input_json": "convert_to_artifacts:custom_function:json",
                                 "label": "",
                                 "name": "",
@@ -539,14 +587,14 @@
                     "errors": {},
                     "id": "19",
                     "type": "utility",
-                    "userCode": "\n    parameters = []\n    for artifact_json in convert_to_artifacts__json:\n\n        parameters.append({\n            \"name\": \"Interaction with phish indicators\",\n            \"tags\": None,\n            \"label\": None,\n            \"severity\": None,\n            \"cef_field\": None,\n            \"cef_value\": None,\n            \"container\": id_value,\n            \"input_json\": artifact_json,\n            \"cef_data_type\": None,\n            \"run_automation\": None,\n        })\n\n\n",
+                    "userCode": "\n    parameters = []\n    for artifact_json in convert_to_artifacts__json:\n\n        parameters.append({\n            \"name\": \"Interaction with phish indicators\",\n            \"tags\": None,\n            \"label\": None,\n            \"severity\": None,\n            \"cef_field\": None,\n            \"cef_value\": None,\n            \"container\": soar_event_id_data_item[0],\n            \"input_json\": artifact_json,\n            \"cef_data_type\": None,\n            \"run_automation\": None,\n        })\n\n\n",
                     "warnings": {
                         "config": [
                             "Reconfigure invalid datapath."
                         ]
                     },
-                    "x": 520,
-                    "y": 1820
+                    "x": 340,
+                    "y": 2460
                 },
                 "2": {
                     "data": {
@@ -590,8 +638,8 @@
                     "id": "2",
                     "type": "playbook",
                     "warnings": {},
-                    "x": 430,
-                    "y": 506
+                    "x": 440,
+                    "y": 1260
                 },
                 "20": {
                     "data": {
@@ -616,7 +664,7 @@
                             }
                         },
                         "functionId": 2,
-                        "functionName": "convert_to_artifacts",
+                        "functionName": "convert_to_artifacts_0",
                         "id": "20",
                         "inputParameters": [
                             "who_received_email:playbook_output:observable",
@@ -636,126 +684,8 @@
                     "type": "code",
                     "userCode": "    \n    aggregate_data__json = []\n    suspect_urls = filtered_cf_result_0_data_output\n    suspect_files = filtered_cf_result_1_data_output\n    suspect_emails = [item for item in splunk_attack_analyzer_output_observable_values if item]\n    url_activity_list = [item for item in who_interacted_with_urls_output_observable_values if item]\n    file_activity_list = [item for item in who_interacted_with_files_output_observable_values if item]\n    message_activity_list = [item for item in who_received_email_output_observable_values if item]\n    \n    # Change labels here based on desired artifact labeling.\n    # By default, the label is based on the vendor technology and IoC involved.\n    email_interaction_label = \"splunk_email_interaction\"\n    file_interaction_label = \"splunk_file_interaction\"\n    url_interaction_label = \"splunk_url_interaction\"\n    suspect_url_label = \"saa_url_report\"\n    suspect_file_label = \"saa_file_report\"\n    suspect_email_label = \"saa_email_report\"\n\n    for email in suspect_emails:\n        email.pop('related_observables', None)\n        artifact = {'cef': email, 'name': f'{email[\"source\"]} reputation', 'label': suspect_email_label, 'cef_types': {'value': [email['type']]} }\n        aggregate_data__json.append(artifact)  \n    \n    for url in suspect_urls:\n        artifact = {'cef': url, 'name': f'{url[\"source\"]} reputation', 'label': suspect_url_label, 'cef_types': {'value': [url['type']]}}\n        aggregate_data__json.append(artifact)  \n    \n    for file in suspect_files:\n        artifact = {'cef': file, 'name': f'{file[\"source\"]} reputation', 'label': suspect_file_label, 'cef_types': {'value': [file['type']]} }\n        aggregate_data__json.append(artifact)  \n\n    for message_activity in message_activity_list:\n        aggregate_data__json.append({'cef': message_activity, 'label': email_interaction_label, 'name': 'Received suspect email', 'cef_types': {'value': [message_activity['type']]}})\n        \n    for url_act in url_activity_list:\n        artifact = {'label': url_interaction_label, 'name': 'Interaction with suspect url', 'cef_types': {'value': [url_act['type']]}}\n        identifier_activity = url_act.pop('identifier_activity', [])\n        url_act.pop('total_count', None)\n        artifact['cef'] = url_act\n        # future proofing in case the identifier_activity changes type to dict\n        if isinstance(identifier_activity, list):\n            for item in identifier_activity:\n                sub_artifact = artifact.copy()\n                sub_artifact['cef']['identifier_activity'] = item\n                aggregate_data__json.append(sub_artifact)  \n        else:\n            artifact['cef']['identifier_activity'] = identifier_activity\n            aggregate_data__json.append(artifact) \n    \n    for file_act in file_activity_list:\n        artifact = {'label': file_interaction_label, 'name': 'Interaction with suspect file', 'cef_types': {'value': [file_act['type']]}}\n        identifier_activity = file_act.pop('identifier_activity', [])\n        file_act.pop('total_count', None)\n        artifact['cef'] = file_act\n        # future proofing in case the identifier_activity changes type to dict\n        if isinstance(identifier_activity, list):\n            for item in identifier_activity:\n                sub_artifact = artifact.copy()\n                sub_artifact['cef']['identifier_activity'] = item\n                aggregate_data__json.append(sub_artifact)  \n        else:\n            artifact['cef']['identifier_activity'] = identifier_activity\n            aggregate_data__json.append(artifact) \n        \n    convert_to_artifacts__json = aggregate_data__json\n",
                     "warnings": {},
-                    "x": 520,
-                    "y": 1670
-                },
-                "21": {
-                    "data": {
-                        "advanced": {
-                            "customName": "add analysis note",
-                            "customNameId": 0,
-                            "join": [],
-                            "note": "Adds a note from the dynamic analysis when the reputation score of the email is not high enough to be considered suspicious."
-                        },
-                        "functionId": 7,
-                        "functionName": "add_analysis_note",
-                        "id": "21",
-                        "loop": {
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "selectMore": false,
-                        "tab": "apis",
-                        "type": "utility",
-                        "utilities": {
-                            "add_note": {
-                                "description": "",
-                                "fields": [
-                                    {
-                                        "description": "",
-                                        "label": "title",
-                                        "name": "title",
-                                        "placeholder": "Enter a note title",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "description": "",
-                                        "label": "content",
-                                        "name": "content",
-                                        "placeholder": "Enter the note content",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "choices": [
-                                            "markdown",
-                                            "html"
-                                        ],
-                                        "default": "markdown",
-                                        "description": "",
-                                        "label": "note format",
-                                        "name": "note_format",
-                                        "placeholder": "Enter the note content",
-                                        "renderType": "dropdown",
-                                        "required": false
-                                    },
-                                    {
-                                        "hidden": true,
-                                        "name": "container",
-                                        "required": false
-                                    },
-                                    {
-                                        "default": "general",
-                                        "hidden": true,
-                                        "name": "note_type",
-                                        "required": false
-                                    },
-                                    {
-                                        "hidden": true,
-                                        "name": "author",
-                                        "required": false
-                                    },
-                                    {
-                                        "hidden": true,
-                                        "name": "event_id",
-                                        "required": false
-                                    },
-                                    {
-                                        "hidden": true,
-                                        "name": "task_id",
-                                        "required": false
-                                    },
-                                    {
-                                        "hidden": true,
-                                        "name": "trace",
-                                        "required": false
-                                    }
-                                ],
-                                "label": "add note",
-                                "name": "add_note"
-                            }
-                        },
-                        "utilityType": "api",
-                        "values": {
-                            "add_note": {
-                                "_internal": [
-                                    "container",
-                                    "note_type",
-                                    "author",
-                                    "event_id",
-                                    "task_id",
-                                    "trace"
-                                ],
-                                "content": "format_analyst_note:formatted_data",
-                                "note_format": "markdown",
-                                "note_type": "general",
-                                "title": "Final analysis"
-                            }
-                        }
-                    },
-                    "errors": {},
-                    "id": "21",
-                    "type": "utility",
-                    "userCode": "\n    \n",
-                    "warnings": {},
-                    "x": 1.4210854715202004e-14,
-                    "y": 1818
+                    "x": 340,
+                    "y": 2282
                 },
                 "22": {
                     "data": {
@@ -831,7 +761,7 @@
                     "type": "filter",
                     "warnings": {},
                     "x": 490,
-                    "y": 1178
+                    "y": 1790
                 },
                 "23": {
                     "data": {
@@ -906,7 +836,7 @@
                     "type": "playbook",
                     "warnings": {},
                     "x": 520,
-                    "y": 1358
+                    "y": 1970
                 },
                 "24": {
                     "data": {
@@ -978,7 +908,7 @@
                     "type": "utility",
                     "warnings": {},
                     "x": 430,
-                    "y": 1014
+                    "y": 1598
                 },
                 "25": {
                     "data": {
@@ -1005,123 +935,8 @@
                     "id": "25",
                     "type": "format",
                     "warnings": {},
-                    "x": 840,
-                    "y": 1660
-                },
-                "26": {
-                    "data": {
-                        "advanced": {
-                            "join": [],
-                            "note": "Add a note with all of the playbook outputs."
-                        },
-                        "functionId": 3,
-                        "functionName": "add_note_3",
-                        "id": "26",
-                        "loop": {
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "selectMore": false,
-                        "tab": "apis",
-                        "type": "utility",
-                        "utilities": {
-                            "add_note": {
-                                "description": "",
-                                "fields": [
-                                    {
-                                        "description": "",
-                                        "label": "title",
-                                        "name": "title",
-                                        "placeholder": "Enter a note title",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "description": "",
-                                        "label": "content",
-                                        "name": "content",
-                                        "placeholder": "Enter the note content",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "choices": [
-                                            "markdown",
-                                            "html"
-                                        ],
-                                        "default": "markdown",
-                                        "description": "",
-                                        "label": "note format",
-                                        "name": "note_format",
-                                        "placeholder": "Enter the note content",
-                                        "renderType": "dropdown",
-                                        "required": false
-                                    },
-                                    {
-                                        "hidden": true,
-                                        "name": "container",
-                                        "required": false
-                                    },
-                                    {
-                                        "default": "general",
-                                        "hidden": true,
-                                        "name": "note_type",
-                                        "required": false
-                                    },
-                                    {
-                                        "hidden": true,
-                                        "name": "author",
-                                        "required": false
-                                    },
-                                    {
-                                        "hidden": true,
-                                        "name": "event_id",
-                                        "required": false
-                                    },
-                                    {
-                                        "hidden": true,
-                                        "name": "task_id",
-                                        "required": false
-                                    },
-                                    {
-                                        "hidden": true,
-                                        "name": "trace",
-                                        "required": false
-                                    }
-                                ],
-                                "label": "add note",
-                                "name": "add_note"
-                            }
-                        },
-                        "utilityType": "api",
-                        "values": {
-                            "add_note": {
-                                "_internal": [
-                                    "container",
-                                    "note_type",
-                                    "author",
-                                    "event_id",
-                                    "task_id",
-                                    "trace"
-                                ],
-                                "content": "merge_playbook_reports:formatted_data",
-                                "note_format": "markdown",
-                                "note_type": "general",
-                                "title": "Analysis report"
-                            }
-                        }
-                    },
-                    "errors": {},
-                    "id": "26",
-                    "type": "utility",
-                    "warnings": {},
-                    "x": 840,
-                    "y": 1820
+                    "x": 690,
+                    "y": 2282
                 },
                 "27": {
                     "data": {
@@ -1146,8 +961,114 @@
                     "id": "27",
                     "type": "format",
                     "warnings": {},
-                    "x": 1.4210854715202004e-14,
-                    "y": 1620
+                    "x": 0,
+                    "y": 2280
+                },
+                "28": {
+                    "data": {
+                        "action": "get events",
+                        "actionType": "get",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": 191,
+                        "connectorVersion": "v1",
+                        "functionId": 1,
+                        "functionName": "get_events_1",
+                        "id": "28",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "id": "get_finding_or_investigation_1:action_result.data.*.investigation_id"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "28",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 430,
+                    "y": 612
+                },
+                "29": {
+                    "data": {
+                        "advanced": {
+                            "customName": "soar event id",
+                            "customNameId": 0,
+                            "join": []
+                        },
+                        "customFunction": {
+                            "draftMode": false,
+                            "name": "list_deduplicate",
+                            "repoName": "community"
+                        },
+                        "functionId": 4,
+                        "functionName": "soar_event_id",
+                        "id": "29",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "selectMore": false,
+                        "type": "utility",
+                        "utilities": {
+                            "list_deduplicate": {
+                                "description": "Remove non-unique items from a list.",
+                                "fields": [
+                                    {
+                                        "dataTypes": [
+                                            "*"
+                                        ],
+                                        "description": "A list of items to deduplicate",
+                                        "inputType": "list",
+                                        "label": "input_list",
+                                        "name": "input_list",
+                                        "placeholder": "",
+                                        "renderType": "datapath",
+                                        "required": false
+                                    }
+                                ],
+                                "label": "list_deduplicate",
+                                "name": "list_deduplicate"
+                            }
+                        },
+                        "utilityType": "custom_function",
+                        "values": {
+                            "list_deduplicate": {
+                                "input_list": [
+                                    "get_events_1:action_result.data.*.events.*.soar_event_id"
+                                ]
+                            }
+                        }
+                    },
+                    "errors": {},
+                    "id": "29",
+                    "type": "utility",
+                    "warnings": {},
+                    "x": 440,
+                    "y": 760
                 },
                 "3": {
                     "data": {
@@ -1224,7 +1145,7 @@
                         "utilityType": "custom_function",
                         "values": {
                             "vault_list": {
-                                "container_id": null,
+                                "container_id": "soar_event_id:custom_function_result.data.*.item",
                                 "file_name": null,
                                 "vault_id": null
                             }
@@ -1235,7 +1156,394 @@
                     "type": "utility",
                     "warnings": {},
                     "x": 430,
-                    "y": 148
+                    "y": 912
+                },
+                "30": {
+                    "data": {
+                        "action": "get phase id",
+                        "actionType": "get",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": 191,
+                        "connectorVersion": "v1",
+                        "functionId": 1,
+                        "functionName": "get_phase_id_1",
+                        "id": "30",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "id": "get_finding_or_investigation_1:action_result.data.*.investigation_id",
+                            "phase_name": "Investigation",
+                            "response_template_name": "get_finding_or_investigation_1:action_result.data.*.response_plans.*.name"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "phase_name"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "response_template_name"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "30",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 430,
+                    "y": 312
+                },
+                "31": {
+                    "data": {
+                        "action": "get finding or investigation",
+                        "actionType": "get",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": 191,
+                        "connectorVersion": "v1",
+                        "functionId": 1,
+                        "functionName": "get_finding_or_investigation_1",
+                        "id": "31",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "id": "finding:investigation_id"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "31",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 430,
+                    "y": 150
+                },
+                "32": {
+                    "data": {
+                        "action": "get task id",
+                        "actionType": "get",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": 191,
+                        "connectorVersion": "v1",
+                        "functionId": 1,
+                        "functionName": "get_task_id_1",
+                        "id": "32",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "id": "get_finding_or_investigation_1:action_result.data.*.investigation_id",
+                            "phase_name": "Investigation",
+                            "response_template_name": "get_finding_or_investigation_1:action_result.data.*.response_plans.*.name",
+                            "task_name": "Detonate_and_Analyze"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "task_name"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "phase_name"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "response_template_name"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "32",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 430,
+                    "y": 462
+                },
+                "33": {
+                    "data": {
+                        "action": "add task note",
+                        "actionType": "post",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": 191,
+                        "connectorVersion": "v1",
+                        "functionId": 1,
+                        "functionName": "add_task_note_1",
+                        "id": "33",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "content": "format_analyst_note:formatted_data",
+                            "id": "get_finding_or_investigation_1:action_result.data.*.investigation_id",
+                            "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
+                            "response_plan_id": "get_finding_or_investigation_1:action_result.data.*.response_plans.*.id",
+                            "task_id": "get_task_id_1:action_result.data.*.task_id",
+                            "title": {
+                                "functionId": 1,
+                                "parameters": [],
+                                "template": "# Final analysis\n"
+                            }
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "",
+                                "field": "title"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "",
+                                "field": "content"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "task_id"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "phase_id"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "response_plan_id"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "33",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": -460,
+                    "y": 2500
+                },
+                "34": {
+                    "data": {
+                        "action": "add task note",
+                        "actionType": "post",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": 191,
+                        "connectorVersion": "v1",
+                        "functionId": 2,
+                        "functionName": "add_task_note_2",
+                        "id": "34",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "content": {
+                                "functionId": 2,
+                                "parameters": [
+                                    "add_artifacts_0:custom_function_result.data.artifact_id",
+                                    "convert_to_artifacts:custom_function:json"
+                                ],
+                                "template": "Artifact IDs: {0}\n\nDetails: \n{1}"
+                            },
+                            "id": "get_finding_or_investigation_1:action_result.data.*.investigation_id",
+                            "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
+                            "response_plan_id": "get_finding_or_investigation_1:action_result.data.*.response_plans.*.id",
+                            "task_id": "get_task_id_1:action_result.data.*.task_id",
+                            "title": {
+                                "functionId": 2,
+                                "parameters": [],
+                                "template": "# SOAR Artifacts added\n"
+                            }
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "",
+                                "field": "title"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "",
+                                "field": "content"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "task_id"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "phase_id"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "response_plan_id"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "34",
+                    "type": "enterpriseSecurity",
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
+                    "x": 340,
+                    "y": 2640
+                },
+                "35": {
+                    "data": {
+                        "action": "add task note",
+                        "actionType": "post",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": 191,
+                        "connectorVersion": "v1",
+                        "functionId": 3,
+                        "functionName": "add_task_note_3",
+                        "id": "35",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "content": "merge_playbook_reports:formatted_data",
+                            "id": "get_finding_or_investigation_1:action_result.data.*.investigation_id",
+                            "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
+                            "response_plan_id": "get_finding_or_investigation_1:action_result.data.*.response_plans.*.id",
+                            "task_id": "get_task_id_1:action_result.data.*.task_id",
+                            "title": {
+                                "functionId": 3,
+                                "parameters": [],
+                                "template": "# Analysis report\n"
+                            }
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "",
+                                "field": "title"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "",
+                                "field": "content"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "task_id"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "phase_id"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "response_plan_id"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "35",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 1180,
+                    "y": 2500
                 },
                 "4": {
                     "data": {
@@ -1275,8 +1583,8 @@
                     "id": "4",
                     "type": "filter",
                     "warnings": {},
-                    "x": 490,
-                    "y": 326
+                    "x": 500,
+                    "y": 1080
                 },
                 "7": {
                     "data": {
@@ -1354,8 +1662,8 @@
                     "id": "7",
                     "type": "playbook",
                     "warnings": {},
-                    "x": 180,
-                    "y": 1358
+                    "x": 160,
+                    "y": 1980
                 }
             },
             "notes": "Ensure the four input playbooks are loaded onto the system. The input playbooks are designed to be swappable within the same category (e.g., Message Activity Analysis) with minimal to no changes downstream."
@@ -1363,15 +1671,15 @@
         "input_spec": null,
         "output_spec": null,
         "playbook_trigger": "artifact_created",
-        "playbook_type": "automation",
+        "playbook_type": "es",
         "python_version": "3",
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-11T10:08:53.297976+00:00",
+    "create_time": "2024-12-11T10:39:55.528736+00:00",
     "draft_mode": false,
     "labels": [
-        "email"
+        "es_soar_integration"
     ],
     "tags": [
         "D3-DA",
