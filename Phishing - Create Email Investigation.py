@@ -195,16 +195,16 @@ def get_finding_or_investigation_1(action=None, success=None, container=None, re
 def reported_email_details(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("reported_email_details() called")
 
-    template = """Email ingested from: {0}\n\nFrom: {1}\nTo: {2}\nSubject: {3}\nBody Text: {4}\nDate: {5}"""
+    template = """Reporting method: {0}\n\nFrom: {1}\nTo: {2}\nSubject: {3}\nBody Text: {4}\nDate: {5}"""
 
     # parameter list for template variable replacement
     parameters = [
-        "artifact:*.description",
-        "",
-        "",
-        "",
-        "",
-        ""
+        "filtered-data:filter_2:condition_1:artifact:*.description",
+        "filtered-data:filter_2:condition_1:artifact:*.cef.emailHeaders.From",
+        "filtered-data:filter_2:condition_1:artifact:*.cef.emailHeaders.To",
+        "filtered-data:filter_2:condition_1:artifact:*.cef.emailHeaders.Subject",
+        "filtered-data:filter_2:condition_1:artifact:*.cef.bodyText",
+        "filtered-data:filter_2:condition_1:artifact:*.cef.emailHeaders.Date"
     ]
 
     ################################################################################
@@ -259,11 +259,14 @@ def filter_2(action=None, success=None, container=None, results=None, handle=Non
 def vault_files_details(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("vault_files_details() called")
 
-    template = """{0}\n"""
+    template = """Associated file details:\n\nFile Name: {0}\nSOAR Vault ID: {1}\nFile SHA1: {2}\nFile SHA256: {3}"""
 
     # parameter list for template variable replacement
     parameters = [
-        ""
+        "filtered-data:filter_2:condition_2:artifact:*.cef.fileName",
+        "filtered-data:filter_2:condition_2:artifact:*.cef.vaultId",
+        "filtered-data:filter_2:condition_2:artifact:*.cef.fileHashSha1",
+        "filtered-data:filter_2:condition_2:artifact:*.cef.fileHashSha256"
     ]
 
     ################################################################################

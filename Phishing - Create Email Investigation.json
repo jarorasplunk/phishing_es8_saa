@@ -78,7 +78,7 @@
                     "targetPort": "12_in"
                 }
             ],
-            "hash": "1d43447930d262a206409dc9ef2728cd58638bd0",
+            "hash": "f49777590eaa44ee6cfefda0652b869c341c3cb2",
             "nodes": {
                 "0": {
                     "data": {
@@ -99,7 +99,7 @@
                     "id": "0",
                     "type": "start",
                     "warnings": {},
-                    "x": 980,
+                    "x": 960,
                     "y": 160
                 },
                 "1": {
@@ -129,14 +129,14 @@
                         "functionName": "reported_email_details",
                         "id": "10",
                         "parameters": [
-                            "artifact:*.description",
-                            "",
-                            "",
-                            "",
-                            "",
-                            ""
+                            "filtered-data:filter_2:condition_1:artifact:*.description",
+                            "filtered-data:filter_2:condition_1:artifact:*.cef.emailHeaders.From",
+                            "filtered-data:filter_2:condition_1:artifact:*.cef.emailHeaders.To",
+                            "filtered-data:filter_2:condition_1:artifact:*.cef.emailHeaders.Subject",
+                            "filtered-data:filter_2:condition_1:artifact:*.cef.bodyText",
+                            "filtered-data:filter_2:condition_1:artifact:*.cef.emailHeaders.Date"
                         ],
-                        "template": "Email ingested from: {0}\n\nFrom: {1}\nTo: {2}\nSubject: {3}\nBody Text: {4}\nDate: {5}",
+                        "template": "Reporting method: {0}\n\nFrom: {1}\nTo: {2}\nSubject: {3}\nBody Text: {4}\nDate: {5}",
                         "type": "format"
                     },
                     "errors": {},
@@ -168,6 +168,7 @@
                             {
                                 "comparisons": [
                                     {
+                                        "conditionIndex": 1,
                                         "op": "==",
                                         "param": "artifact:*.name",
                                         "value": "Vault Artifact"
@@ -188,7 +189,7 @@
                     "type": "filter",
                     "warnings": {},
                     "x": 1020,
-                    "y": 924.5
+                    "y": 920
                 },
                 "12": {
                     "data": {
@@ -201,17 +202,20 @@
                         "functionName": "vault_files_details",
                         "id": "12",
                         "parameters": [
-                            ""
+                            "filtered-data:filter_2:condition_2:artifact:*.cef.fileName",
+                            "filtered-data:filter_2:condition_2:artifact:*.cef.vaultId",
+                            "filtered-data:filter_2:condition_2:artifact:*.cef.fileHashSha1",
+                            "filtered-data:filter_2:condition_2:artifact:*.cef.fileHashSha256"
                         ],
-                        "template": "{0}\n",
+                        "template": "Associated file details:\n\nFile Name: {0}\nSOAR Vault ID: {1}\nFile SHA1: {2}\nFile SHA256: {3}",
                         "type": "format"
                     },
                     "errors": {},
                     "id": "12",
                     "type": "format",
                     "warnings": {},
-                    "x": 1190,
-                    "y": 1104.5
+                    "x": 1200,
+                    "y": 1120
                 },
                 "3": {
                     "data": {
@@ -458,7 +462,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-11T06:51:38.094813+00:00",
+    "create_time": "2024-12-11T07:03:04.829439+00:00",
     "draft_mode": false,
     "labels": [
         "email"
