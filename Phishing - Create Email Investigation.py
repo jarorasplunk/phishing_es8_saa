@@ -85,7 +85,7 @@ def add_response_plan_1(action=None, success=None, container=None, results=None,
         if start_investigations_1_result_item[0] is not None:
             parameters.append({
                 "id": start_investigations_1_result_item[0],
-                "response_template_id": "7da1e2a7-4491-4479-8fdf-68bf9ea72f23",
+                "response_template_id": "7973ff21-8800-413c-8485-ca94f46a6bfd",
                 "context": {'artifact_id': start_investigations_1_result_item[1]},
             })
 
