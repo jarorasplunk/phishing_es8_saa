@@ -207,21 +207,21 @@
                     "targetPort": "1_in"
                 },
                 {
-                    "id": "port_2_to_port_36",
-                    "sourceNode": "2",
-                    "sourcePort": "2_out",
-                    "targetNode": "36",
-                    "targetPort": "36_in"
-                },
-                {
                     "conditions": [
                         {
                             "index": 0
                         }
                     ],
-                    "id": "port_14_to_port_37",
+                    "id": "port_14_to_port_24",
                     "sourceNode": "14",
                     "sourcePort": "14_out",
+                    "targetNode": "24",
+                    "targetPort": "24_in"
+                },
+                {
+                    "id": "port_2_to_port_37",
+                    "sourceNode": "2",
+                    "sourcePort": "2_out",
                     "targetNode": "37",
                     "targetPort": "37_in"
                 },
@@ -231,14 +231,14 @@
                             "index": 0
                         }
                     ],
-                    "id": "port_37_to_port_24",
+                    "id": "port_37_to_port_36",
                     "sourceNode": "37",
                     "sourcePort": "37_out",
-                    "targetNode": "24",
-                    "targetPort": "24_in"
+                    "targetNode": "36",
+                    "targetPort": "36_in"
                 }
             ],
-            "hash": "0573474c78199d0a1928bfc0686abba0ebba6bb1",
+            "hash": "ca94a01dcf0c6bef96fd8c88cea7fd1139e0f285",
             "nodes": {
                 "0": {
                     "data": {
@@ -702,11 +702,7 @@
                     "id": "20",
                     "type": "code",
                     "userCode": "    \n    aggregate_data__json = []\n    suspect_urls = filtered_cf_result_0_data_output\n    suspect_files = filtered_cf_result_1_data_output\n    suspect_emails = [item for item in splunk_attack_analyzer_output_observable_values if item]\n    url_activity_list = [item for item in who_interacted_with_urls_output_observable_values if item]\n    file_activity_list = [item for item in who_interacted_with_files_output_observable_values if item]\n    message_activity_list = [item for item in who_received_email_output_observable_values if item]\n    \n    # Change labels here based on desired artifact labeling.\n    # By default, the label is based on the vendor technology and IoC involved.\n    email_interaction_label = \"splunk_email_interaction\"\n    file_interaction_label = \"splunk_file_interaction\"\n    url_interaction_label = \"splunk_url_interaction\"\n    suspect_url_label = \"saa_url_report\"\n    suspect_file_label = \"saa_file_report\"\n    suspect_email_label = \"saa_email_report\"\n\n    for email in suspect_emails:\n        email.pop('related_observables', None)\n        artifact = {'cef': email, 'name': f'{email[\"source\"]} reputation', 'label': suspect_email_label, 'cef_types': {'value': [email['type']]} }\n        aggregate_data__json.append(artifact)  \n    \n    for url in suspect_urls:\n        artifact = {'cef': url, 'name': f'{url[\"source\"]} reputation', 'label': suspect_url_label, 'cef_types': {'value': [url['type']]}}\n        aggregate_data__json.append(artifact)  \n    \n    for file in suspect_files:\n        artifact = {'cef': file, 'name': f'{file[\"source\"]} reputation', 'label': suspect_file_label, 'cef_types': {'value': [file['type']]} }\n        aggregate_data__json.append(artifact)  \n\n    for message_activity in message_activity_list:\n        aggregate_data__json.append({'cef': message_activity, 'label': email_interaction_label, 'name': 'Received suspect email', 'cef_types': {'value': [message_activity['type']]}})\n        \n    for url_act in url_activity_list:\n        artifact = {'label': url_interaction_label, 'name': 'Interaction with suspect url', 'cef_types': {'value': [url_act['type']]}}\n        identifier_activity = url_act.pop('identifier_activity', [])\n        url_act.pop('total_count', None)\n        artifact['cef'] = url_act\n        # future proofing in case the identifier_activity changes type to dict\n        if isinstance(identifier_activity, list):\n            for item in identifier_activity:\n                sub_artifact = artifact.copy()\n                sub_artifact['cef']['identifier_activity'] = item\n                aggregate_data__json.append(sub_artifact)  \n        else:\n            artifact['cef']['identifier_activity'] = identifier_activity\n            aggregate_data__json.append(artifact) \n    \n    for file_act in file_activity_list:\n        artifact = {'label': file_interaction_label, 'name': 'Interaction with suspect file', 'cef_types': {'value': [file_act['type']]}}\n        identifier_activity = file_act.pop('identifier_activity', [])\n        file_act.pop('total_count', None)\n        artifact['cef'] = file_act\n        # future proofing in case the identifier_activity changes type to dict\n        if isinstance(identifier_activity, list):\n            for item in identifier_activity:\n                sub_artifact = artifact.copy()\n                sub_artifact['cef']['identifier_activity'] = item\n                aggregate_data__json.append(sub_artifact)  \n        else:\n            artifact['cef']['identifier_activity'] = identifier_activity\n            aggregate_data__json.append(artifact) \n        \n    convert_to_artifacts__json = aggregate_data__json\n",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 340,
                     "y": 2282
                 },
@@ -922,7 +918,7 @@
                         "utilityType": "custom_function",
                         "values": {
                             "list_demux": {
-                                "input_list": "filtered-data:filter_2:condition_1:splunk_attack_analyzer:playbook_output:observable.related_observables"
+                                "input_list": "splunk_attack_analyzer:playbook_output:observable.related_observables"
                             }
                         }
                     },
@@ -931,7 +927,7 @@
                     "type": "utility",
                     "warnings": {},
                     "x": 200,
-                    "y": 1600
+                    "y": 1620
                 },
                 "25": {
                     "data": {
@@ -1728,7 +1724,9 @@
                                     "splunk_attack_analyzer:playbook_output:observable.related_observables"
                                 ],
                                 "input_10": null,
-                                "input_2": null,
+                                "input_2": [
+                                    "filtered-data:filter_2:condition_1:splunk_attack_analyzer:playbook_output:observable.related_observables"
+                                ],
                                 "input_3": null,
                                 "input_4": null,
                                 "input_5": null,
@@ -1743,8 +1741,8 @@
                     "id": "36",
                     "type": "utility",
                     "warnings": {},
-                    "x": 680,
-                    "y": 1420
+                    "x": -360,
+                    "y": 1560
                 },
                 "37": {
                     "data": {
@@ -1758,7 +1756,7 @@
                                         "conditionIndex": 0,
                                         "op": "!=",
                                         "param": "splunk_attack_analyzer:playbook_output:observable.related_observables",
-                                        "value": "None"
+                                        "value": ""
                                     }
                                 ],
                                 "conditionIndex": 0,
@@ -1774,8 +1772,8 @@
                     "id": "37",
                     "type": "filter",
                     "warnings": {},
-                    "x": 60,
-                    "y": 1480
+                    "x": 160,
+                    "y": 1380
                 },
                 "4": {
                     "data": {
@@ -1914,7 +1912,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-11T13:44:44.454499+00:00",
+    "create_time": "2024-12-11T13:51:08.838171+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
