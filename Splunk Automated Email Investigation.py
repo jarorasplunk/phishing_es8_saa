@@ -156,7 +156,7 @@ def high_score_indicator_decision(action=None, success=None, container=None, res
 
     # call connected blocks if condition 1 matched
     if found_match_1:
-        split_related_observables(action=action, success=success, container=container, results=results, handle=handle)
+        filter_2(action=action, success=success, container=container, results=results, handle=handle)
         return
 
     # check for 'elif' condition 2
@@ -463,14 +463,14 @@ def who_interacted_with_files(action=None, success=None, container=None, results
 def split_related_observables(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("split_related_observables() called")
 
-    splunk_attack_analyzer_output_observable = phantom.collect2(container=container, datapath=["splunk_attack_analyzer:playbook_output:observable.related_observables"])
+    filtered_output_0_splunk_attack_analyzer_output_observable = phantom.collect2(container=container, datapath=["filtered-data:filter_2:condition_1:splunk_attack_analyzer:playbook_output:observable.related_observables"])
 
     parameters = []
 
     # build parameters list for 'split_related_observables' call
-    for splunk_attack_analyzer_output_observable_item in splunk_attack_analyzer_output_observable:
+    for filtered_output_0_splunk_attack_analyzer_output_observable_item in filtered_output_0_splunk_attack_analyzer_output_observable:
         parameters.append({
-            "input_list": splunk_attack_analyzer_output_observable_item[0],
+            "input_list": filtered_output_0_splunk_attack_analyzer_output_observable_item[0],
         })
 
     ################################################################################
@@ -893,6 +893,26 @@ def debug_3(action=None, success=None, container=None, results=None, handle=None
     ################################################################################
 
     phantom.custom_function(custom_function="community/debug", parameters=parameters, name="debug_3")
+
+    return
+
+
+@phantom.playbook_block()
+def filter_2(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("filter_2() called")
+
+    # collect filtered artifact ids and results for 'if' condition 1
+    matched_artifacts_1, matched_results_1 = phantom.condition(
+        container=container,
+        conditions=[
+            ["splunk_attack_analyzer:playbook_output:observable.related_observables", "!=", None]
+        ],
+        name="filter_2:condition_1",
+        delimiter=None)
+
+    # call connected blocks if filtered artifacts or results
+    if matched_artifacts_1 or matched_results_1:
+        split_related_observables(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)
 
     return
 
