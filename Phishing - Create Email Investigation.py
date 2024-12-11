@@ -219,7 +219,7 @@ def reported_email_details(action=None, success=None, container=None, results=No
 
     phantom.format(container=container, template=template, parameters=parameters, name="reported_email_details")
 
-    join_add_task_note_1(container=container)
+    vault_files_details(container=container)
 
     return
 
@@ -252,7 +252,7 @@ def filter_2(action=None, success=None, container=None, results=None, handle=Non
 
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_2 or matched_results_2:
-        vault_files_details(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_2, filtered_results=matched_results_2)
+        reported_email_details(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_2, filtered_results=matched_results_2)
 
     return
 
@@ -283,7 +283,7 @@ def vault_files_details(action=None, success=None, container=None, results=None,
 
     phantom.format(container=container, template=template, parameters=parameters, name="vault_files_details")
 
-    join_add_task_note_1(container=container)
+    add_task_note_1(container=container)
 
     return
 
@@ -319,17 +319,6 @@ def get_phase_id_1(action=None, success=None, container=None, results=None, hand
     ################################################################################
 
     phantom.act("get phase id", parameters=parameters, name="get_phase_id_1", assets=["builtin_mc_connector"], callback=get_task_id_1)
-
-    return
-
-
-@phantom.playbook_block()
-def join_add_task_note_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("join_add_task_note_1() called")
-
-    if phantom.completed(action_names=["get_task_id_1"]):
-        # call connected block "add_task_note_1"
-        add_task_note_1(container=container, handle=handle)
 
     return
 

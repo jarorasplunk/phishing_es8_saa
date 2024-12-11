@@ -36,6 +36,9 @@
                     "conditions": [
                         {
                             "index": 0
+                        },
+                        {
+                            "index": 1
                         }
                     ],
                     "id": "port_11_to_port_10",
@@ -45,37 +48,11 @@
                     "targetPort": "10_in"
                 },
                 {
-                    "conditions": [
-                        {
-                            "index": 1
-                        }
-                    ],
-                    "id": "port_11_to_port_12",
-                    "sourceNode": "11",
-                    "sourcePort": "11_out",
-                    "targetNode": "12",
-                    "targetPort": "12_in"
-                },
-                {
                     "id": "port_9_to_port_14",
                     "sourceNode": "9",
                     "sourcePort": "9_out",
                     "targetNode": "14",
                     "targetPort": "14_in"
-                },
-                {
-                    "id": "port_10_to_port_16",
-                    "sourceNode": "10",
-                    "sourcePort": "10_out",
-                    "targetNode": "16",
-                    "targetPort": "16_in"
-                },
-                {
-                    "id": "port_12_to_port_16",
-                    "sourceNode": "12",
-                    "sourcePort": "12_out",
-                    "targetNode": "16",
-                    "targetPort": "16_in"
                 },
                 {
                     "id": "port_16_to_port_1",
@@ -123,9 +100,23 @@
                     "sourcePort": "21_out",
                     "targetNode": "11",
                     "targetPort": "11_in"
+                },
+                {
+                    "id": "port_10_to_port_12",
+                    "sourceNode": "10",
+                    "sourcePort": "10_out",
+                    "targetNode": "12",
+                    "targetPort": "12_in"
+                },
+                {
+                    "id": "port_12_to_port_16",
+                    "sourceNode": "12",
+                    "sourcePort": "12_out",
+                    "targetNode": "16",
+                    "targetPort": "16_in"
                 }
             ],
-            "hash": "d30038bd62efd1f0d98c1cf7f86ec2390c19cd3b",
+            "hash": "f19b725c3d4992030311b4496c31cc3a3b7f0da4",
             "nodes": {
                 "0": {
                     "data": {
@@ -190,7 +181,7 @@
                     "id": "10",
                     "type": "format",
                     "warnings": {},
-                    "x": 760,
+                    "x": 960,
                     "y": 1240
                 },
                 "11": {
@@ -261,8 +252,8 @@
                     "id": "12",
                     "type": "format",
                     "warnings": {},
-                    "x": 1160,
-                    "y": 1240
+                    "x": 960,
+                    "y": 1340
                 },
                 "14": {
                     "data": {
@@ -344,6 +335,7 @@
                         },
                         "parameters": {
                             "content": {
+                                "functionId": 1,
                                 "parameters": [
                                     "reported_email_details:formatted_data",
                                     "vault_files_details:formatted_data",
@@ -396,7 +388,7 @@
                         ]
                     },
                     "x": 940,
-                    "y": 1420
+                    "y": 1480
                 },
                 "17": {
                     "data": {
@@ -957,7 +949,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-11T07:37:49.884042+00:00",
+    "create_time": "2024-12-11T07:40:24.495759+00:00",
     "draft_mode": false,
     "labels": [
         "email"
