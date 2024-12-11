@@ -33,20 +33,6 @@
                     "targetPort": "3_in"
                 },
                 {
-                    "id": "port_6_to_port_8",
-                    "sourceNode": "6",
-                    "sourcePort": "6_out",
-                    "targetNode": "8",
-                    "targetPort": "8_in"
-                },
-                {
-                    "id": "port_8_to_port_9",
-                    "sourceNode": "8",
-                    "sourcePort": "8_out",
-                    "targetNode": "9",
-                    "targetPort": "9_in"
-                },
-                {
                     "conditions": [
                         {
                             "index": 0
@@ -137,9 +123,16 @@
                     "sourcePort": "18_out",
                     "targetNode": "20",
                     "targetPort": "20_in"
+                },
+                {
+                    "id": "port_6_to_port_9",
+                    "sourceNode": "6",
+                    "sourcePort": "6_out",
+                    "targetNode": "9",
+                    "targetPort": "9_in"
                 }
             ],
-            "hash": "ab4621d84871f88e0e8426d8a593aa180239433b",
+            "hash": "dfed71fa12c6fcb17f88318309d3a942ca322472",
             "nodes": {
                 "0": {
                     "data": {
@@ -902,8 +895,15 @@
                     "errors": {},
                     "id": "8",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
-                    "x": 960,
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ],
+                        "context": [
+                            "Connect block to playbook flow."
+                        ]
+                    },
+                    "x": 620,
                     "y": 620
                 },
                 "9": {
@@ -932,7 +932,7 @@
                             "pauseValue": 2
                         },
                         "parameters": {
-                            "id": "refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id"
+                            "id": "start_investigations_1:action_result.data.*.id"
                         },
                         "requiredParameters": [
                             {
@@ -960,7 +960,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-11T07:11:51.100219+00:00",
+    "create_time": "2024-12-11T07:15:27.032555+00:00",
     "draft_mode": false,
     "labels": [
         "email"

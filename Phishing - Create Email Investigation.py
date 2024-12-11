@@ -100,7 +100,7 @@ def add_response_plan_1(action=None, success=None, container=None, results=None,
     ## Custom Code End
     ################################################################################
 
-    phantom.act("add response plan", parameters=parameters, name="add_response_plan_1", assets=["builtin_mc_connector"], callback=refresh_finding_or_investigation_1)
+    phantom.act("add response plan", parameters=parameters, name="add_response_plan_1", assets=["builtin_mc_connector"], callback=get_finding_or_investigation_1)
 
     return
 
@@ -155,7 +155,7 @@ def refresh_finding_or_investigation_1(action=None, success=None, container=None
     ## Custom Code End
     ################################################################################
 
-    phantom.act("refresh finding or investigation", parameters=parameters, name="refresh_finding_or_investigation_1", assets=["builtin_mc_connector"], callback=get_finding_or_investigation_1)
+    phantom.act("refresh finding or investigation", parameters=parameters, name="refresh_finding_or_investigation_1", assets=["builtin_mc_connector"])
 
     return
 
@@ -166,16 +166,16 @@ def get_finding_or_investigation_1(action=None, success=None, container=None, re
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    refresh_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id","refresh_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
+    start_investigations_1_result_data = phantom.collect2(container=container, datapath=["start_investigations_1:action_result.data.*.id","start_investigations_1:action_result.parameter.context.artifact_id"], action_results=results)
 
     parameters = []
 
     # build parameters list for 'get_finding_or_investigation_1' call
-    for refresh_finding_or_investigation_1_result_item in refresh_finding_or_investigation_1_result_data:
-        if refresh_finding_or_investigation_1_result_item[0] is not None:
+    for start_investigations_1_result_item in start_investigations_1_result_data:
+        if start_investigations_1_result_item[0] is not None:
             parameters.append({
-                "id": refresh_finding_or_investigation_1_result_item[0],
-                "context": {'artifact_id': refresh_finding_or_investigation_1_result_item[1]},
+                "id": start_investigations_1_result_item[0],
+                "context": {'artifact_id': start_investigations_1_result_item[1]},
             })
 
     ################################################################################
