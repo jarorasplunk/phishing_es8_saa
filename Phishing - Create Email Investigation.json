@@ -132,7 +132,7 @@
                     "targetPort": "9_in"
                 }
             ],
-            "hash": "31fd1787f8b556112a6cc8bbd5c52f71078110e3",
+            "hash": "fa23aff0d20eb0361ddcc72490646597f32166e2",
             "nodes": {
                 "0": {
                     "data": {
@@ -511,7 +511,7 @@
                                         "conditionIndex": 0,
                                         "op": "==",
                                         "param": "get_response_plans_1:action_result.data.*.items.*.name",
-                                        "value": "cd1bb27b-05d2-4899-be69-a519b77372f5"
+                                        "value": "Phishing Email Investigation"
                                     }
                                 ],
                                 "conditionIndex": 0,
@@ -527,8 +527,8 @@
                     "id": "18",
                     "type": "filter",
                     "warnings": {},
-                    "x": 1370,
-                    "y": 484.5
+                    "x": 1360,
+                    "y": 480
                 },
                 "20": {
                     "data": {
@@ -705,8 +705,8 @@
                     "id": "20",
                     "type": "utility",
                     "warnings": {},
-                    "x": 1330,
-                    "y": 664.5
+                    "x": 1340,
+                    "y": 660
                 },
                 "3": {
                     "data": {
@@ -960,7 +960,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-11T07:24:07.778475+00:00",
+    "create_time": "2024-12-11T07:28:11.131961+00:00",
     "draft_mode": false,
     "labels": [
         "email"

@@ -457,7 +457,7 @@ def filter_3(action=None, success=None, container=None, results=None, handle=Non
     matched_artifacts_1, matched_results_1 = phantom.condition(
         container=container,
         conditions=[
-            ["get_response_plans_1:action_result.data.*.items.*.name", "==", "cd1bb27b-05d2-4899-be69-a519b77372f5"]
+            ["get_response_plans_1:action_result.data.*.items.*.name", "==", "Phishing Email Investigation"]
         ],
         name="filter_3:condition_1",
         delimiter=None)
