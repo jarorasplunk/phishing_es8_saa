@@ -55,13 +55,6 @@
                     "targetPort": "14_in"
                 },
                 {
-                    "id": "port_16_to_port_1",
-                    "sourceNode": "16",
-                    "sourcePort": "16_out",
-                    "targetNode": "1",
-                    "targetPort": "1_in"
-                },
-                {
                     "id": "port_17_to_port_18",
                     "sourceNode": "17",
                     "sourcePort": "17_out",
@@ -107,8 +100,23 @@
                     "sourcePort": "10_out",
                     "targetNode": "16",
                     "targetPort": "16_in"
+                },
+                {
+                    "id": "port_16_to_port_22",
+                    "sourceNode": "16",
+                    "sourcePort": "16_out",
+                    "targetNode": "22",
+                    "targetPort": "22_in"
+                },
+                {
+                    "id": "port_22_to_port_1",
+                    "sourceNode": "22",
+                    "sourcePort": "22_out",
+                    "targetNode": "1",
+                    "targetPort": "1_in"
                 }
             ],
+            "hash": "9a59d2dbe6f51a422c50b3c316ad5eba0529155a",
             "nodes": {
                 "0": {
                     "data": {
@@ -669,6 +677,59 @@
                     "x": 960,
                     "y": 940
                 },
+                "22": {
+                    "data": {
+                        "action": "create event",
+                        "actionType": "post",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": 191,
+                        "connectorVersion": "v1",
+                        "functionId": 1,
+                        "functionName": "create_event_1",
+                        "id": "22",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "id": "get_finding_or_investigation_1:action_result.data.*.investigation_id",
+                            "pairs": [
+                                {
+                                    "name": "soar_event_id",
+                                    "value": "container:id"
+                                }
+                            ]
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            },
+                            {
+                                "data_type": "array",
+                                "field": "pairs"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "22",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 1150,
+                    "y": 1524.5
+                },
                 "3": {
                     "data": {
                         "action": "start investigations",
@@ -921,7 +982,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-11T10:04:59.364210+00:00",
+    "create_time": "2024-12-11T10:13:35.529690+00:00",
     "draft_mode": false,
     "labels": [
         "email"
