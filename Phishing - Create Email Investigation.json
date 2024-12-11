@@ -116,7 +116,6 @@
                     "targetPort": "1_in"
                 }
             ],
-            "hash": "9a59d2dbe6f51a422c50b3c316ad5eba0529155a",
             "nodes": {
                 "0": {
                     "data": {
@@ -727,8 +726,8 @@
                     "id": "22",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 1150,
-                    "y": 1524.5
+                    "x": 960,
+                    "y": 1480
                 },
                 "3": {
                     "data": {
