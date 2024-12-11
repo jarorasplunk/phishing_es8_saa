@@ -340,7 +340,7 @@ def get_task_id_1(action=None, success=None, container=None, results=None, handl
         if get_finding_or_investigation_1_result_item[0] is not None and get_finding_or_investigation_1_result_item[1] is not None:
             parameters.append({
                 "id": get_finding_or_investigation_1_result_item[0],
-                "task_name": "Review details",
+                "task_name": "Review%20details",
                 "phase_name": "Ingestion",
                 "response_template_name": get_finding_or_investigation_1_result_item[1],
                 "context": {'artifact_id': get_finding_or_investigation_1_result_item[2]},
