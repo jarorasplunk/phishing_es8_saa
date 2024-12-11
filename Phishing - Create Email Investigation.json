@@ -97,7 +97,7 @@
                     "targetPort": "1_in"
                 }
             ],
-            "hash": "f375c1ab7a545eccf56f4392a81dbf55cdafb991",
+            "hash": "7b8c1c3732e45f86c1b838f6f66d457c73156f8d",
             "nodes": {
                 "0": {
                     "data": {
@@ -582,9 +582,9 @@
                                 "comparisons": [
                                     {
                                         "conditionIndex": 0,
-                                        "op": "!=",
-                                        "param": "artifact:*.cef.emailHeaders.Subject",
-                                        "value": ""
+                                        "op": "==",
+                                        "param": "artifact:*.name",
+                                        "value": "Email Artifact"
                                     }
                                 ],
                                 "conditionIndex": 0,
@@ -601,7 +601,7 @@
                     "id": "7",
                     "type": "filter",
                     "warnings": {},
-                    "x": 1000,
+                    "x": 980,
                     "y": 280
                 },
                 "9": {
@@ -658,7 +658,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-11T11:15:54.922708+00:00",
+    "create_time": "2024-12-11T11:17:47.948355+00:00",
     "draft_mode": false,
     "labels": [
         "email"
