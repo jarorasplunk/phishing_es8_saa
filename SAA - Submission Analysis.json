@@ -48,14 +48,21 @@
                     "targetPort": "10_in"
                 },
                 {
-                    "id": "port_10_to_port_14",
+                    "id": "port_10_to_port_15",
                     "sourceNode": "10",
                     "sourcePort": "10_out",
+                    "targetNode": "15",
+                    "targetPort": "15_in"
+                },
+                {
+                    "id": "port_15_to_port_14",
+                    "sourceNode": "15",
+                    "sourcePort": "15_out",
                     "targetNode": "14",
                     "targetPort": "14_in"
                 }
             ],
-            "hash": "6d2517fd0e5b395cdf279136e680b8e8644d5892",
+            "hash": "f2445df6b8f57feb65a7686098214b08266124d0",
             "nodes": {
                 "0": {
                     "data": {
@@ -314,8 +321,8 @@
                             "Connect block to playbook flow."
                         ]
                     },
-                    "x": 980,
-                    "y": 1340
+                    "x": 1220,
+                    "y": 1360
                 },
                 "14": {
                     "data": {
@@ -328,14 +335,15 @@
                         "functionName": "format_summary_report",
                         "id": "14",
                         "parameters": [
-                            "get_job_summary_1:action_result.data.*.ResourceTree.Type",
-                            "get_job_summary_1:action_result.data.*.ResourceTree.Name",
-                            "",
-                            "",
-                            "",
+                            "get_job_summary_1:action_result.data.*.ResourcesType",
+                            "get_job_summary_1:action_result.data.*.Resources.Name",
+                            "get_job_summary_1:action_result.data.*.Resources.Score",
+                            "get_job_summary_1:action_result.data.*.Resources.DisplayScore",
+                            "get_job_summary_1:action_result.data.*.Verdict",
+                            "get_job_summary_1:action_result.summary.AppURL",
                             ""
                         ],
-                        "template": "Splunk Attack Analyzer - Job Summary:\n\n| Submission | Normalized Score | Score Id  | Classifications | Report Link | Source |\n| --- | --- | --- | --- | --- | --- |\n%%\n| {0}:`{1}` | {2} | {3} | {4} | {5} | Splunk Attack Analyzer (SAA) |\n%%\n\nScreenshots associated with the detonation are shown below (if available):\n\n{6}",
+                        "template": "Splunk Attack Analyzer - Job Summary:\n\n| Submission | Normalized Score | Score Id  | Classifications | Report Link | Source |\n| --- | --- | --- | --- | --- | --- |\n%%\n| {0}:`{1}` | {2} | {3} | {4} | {5} | Splunk Attack Analyzer (SAA) |\n%%\n\nScreenshots associated with the detonation are shown below (if available):\n\n{6{6}}",
                         "type": "format"
                     },
                     "errors": {},
@@ -343,7 +351,37 @@
                     "type": "format",
                     "warnings": {},
                     "x": 980,
-                    "y": 1200
+                    "y": 1320
+                },
+                "15": {
+                    "data": {
+                        "advanced": {
+                            "customName": "file screenshot formatting",
+                            "customNameId": 0,
+                            "join": []
+                        },
+                        "functionId": 1,
+                        "functionName": "file_screenshot_formatting",
+                        "id": "15",
+                        "inputParameters": [
+                            "get_job_summary_1:action_result.data.*.Parameters.*.Value",
+                            "get_job_summary_1:action_result.parameter.job_id",
+                            "get_job_screenshots_1:action_result.parameter.job_id",
+                            "get_job_screenshots_1:action_result.data.*.file_name",
+                            "get_job_screenshots_1:action_result.data.*.id"
+                        ],
+                        "outputVariables": [
+                            "report"
+                        ],
+                        "type": "code"
+                    },
+                    "errors": {},
+                    "id": "15",
+                    "type": "code",
+                    "userCode": "\n    # Write your custom code here...\n    filtered_result_0_data_detonation_status_filter = phantom.collect2(container=container, datapath=[\"filtered-data:detonation_status_filter:condition_1:file_detonation:action_result.parameter.file\",\"filtered-data:detonation_status_filter:condition_1:file_detonation:action_result.data.*.JobID\"])\n    get_file_job_screenshots_result_data = phantom.collect2(container=container, datapath=[\"get_file_job_screenshots:action_result.parameter.job_id\",\"get_file_job_screenshots:action_result.data.*.file_name\",\"get_file_job_screenshots:action_result.data.*.id\"], action_results=results)\n\n    filtered_result_0_parameter_file = [item[0] for item in filtered_result_0_data_detonation_status_filter]\n    filtered_result_0_data___jobid = [item[1] for item in filtered_result_0_data_detonation_status_filter]\n    get_file_job_screenshots_parameter_job_id = [item[0] for item in get_file_job_screenshots_result_data]\n    get_file_job_screenshots_result_item_1 = [item[1] for item in get_file_job_screenshots_result_data]\n    get_file_job_screenshots_result_item_2 = [item[2] for item in get_file_job_screenshots_result_data]\n\n    file_screenshot_formatting__report = None\n\n",
+                    "warnings": {},
+                    "x": 980,
+                    "y": 1180
                 },
                 "2": {
                     "data": {
@@ -519,7 +557,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-11T12:56:40.426440+00:00",
+    "create_time": "2025-06-11T13:04:44.393337+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

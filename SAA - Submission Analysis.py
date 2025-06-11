@@ -163,7 +163,7 @@ def get_job_screenshots_1(action=None, success=None, container=None, results=Non
     ## Custom Code End
     ################################################################################
 
-    phantom.act("get job screenshots", parameters=parameters, name="get_job_screenshots_1", assets=["splunk_attack_analyzer"], callback=format_summary_report)
+    phantom.act("get job screenshots", parameters=parameters, name="get_job_screenshots_1", assets=["splunk_attack_analyzer"], callback=file_screenshot_formatting)
 
     return
 
@@ -210,15 +210,16 @@ def debug_2(action=None, success=None, container=None, results=None, handle=None
 def format_summary_report(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("format_summary_report() called")
 
-    template = """Splunk Attack Analyzer - Job Summary:\n\n| Submission | Normalized Score | Score Id  | Classifications | Report Link | Source |\n| --- | --- | --- | --- | --- | --- |\n%%\n| {0}:`{1}` | {2} | {3} | {4} | {5} | Splunk Attack Analyzer (SAA) |\n%%\n\nScreenshots associated with the detonation are shown below (if available):\n\n{6}"""
+    template = """Splunk Attack Analyzer - Job Summary:\n\n| Submission | Normalized Score | Score Id  | Classifications | Report Link | Source |\n| --- | --- | --- | --- | --- | --- |\n%%\n| {0}:`{1}` | {2} | {3} | {4} | {5} | Splunk Attack Analyzer (SAA) |\n%%\n\nScreenshots associated with the detonation are shown below (if available):\n\n{6{6}}"""
 
     # parameter list for template variable replacement
     parameters = [
-        "get_job_summary_1:action_result.data.*.ResourceTree.Type",
-        "get_job_summary_1:action_result.data.*.ResourceTree.Name",
-        "",
-        "",
-        "",
+        "get_job_summary_1:action_result.data.*.ResourcesType",
+        "get_job_summary_1:action_result.data.*.Resources.Name",
+        "get_job_summary_1:action_result.data.*.Resources.Score",
+        "get_job_summary_1:action_result.data.*.Resources.DisplayScore",
+        "get_job_summary_1:action_result.data.*.Verdict",
+        "get_job_summary_1:action_result.summary.AppURL",
         ""
     ]
 
@@ -233,6 +234,54 @@ def format_summary_report(action=None, success=None, container=None, results=Non
     ################################################################################
 
     phantom.format(container=container, template=template, parameters=parameters, name="format_summary_report")
+
+    return
+
+
+@phantom.playbook_block()
+def file_screenshot_formatting(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("file_screenshot_formatting() called")
+
+    get_job_summary_1_result_data = phantom.collect2(container=container, datapath=["get_job_summary_1:action_result.data.*.Parameters.*.Value","get_job_summary_1:action_result.parameter.job_id"], action_results=results)
+    get_job_screenshots_1_result_data = phantom.collect2(container=container, datapath=["get_job_screenshots_1:action_result.parameter.job_id","get_job_screenshots_1:action_result.data.*.file_name","get_job_screenshots_1:action_result.data.*.id"], action_results=results)
+
+    get_job_summary_1_result_item_0 = [item[0] for item in get_job_summary_1_result_data]
+    get_job_summary_1_parameter_job_id = [item[1] for item in get_job_summary_1_result_data]
+    get_job_screenshots_1_parameter_job_id = [item[0] for item in get_job_screenshots_1_result_data]
+    get_job_screenshots_1_result_item_1 = [item[1] for item in get_job_screenshots_1_result_data]
+    get_job_screenshots_1_result_item_2 = [item[2] for item in get_job_screenshots_1_result_data]
+
+    file_screenshot_formatting__report = None
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+    filtered_result_0_data_detonation_status_filter = phantom.collect2(container=container, datapath=["filtered-data:detonation_status_filter:condition_1:file_detonation:action_result.parameter.file","filtered-data:detonation_status_filter:condition_1:file_detonation:action_result.data.*.JobID"])
+    get_file_job_screenshots_result_data = phantom.collect2(container=container, datapath=["get_file_job_screenshots:action_result.parameter.job_id","get_file_job_screenshots:action_result.data.*.file_name","get_file_job_screenshots:action_result.data.*.id"], action_results=results)
+
+    filtered_result_0_parameter_file = [item[0] for item in filtered_result_0_data_detonation_status_filter]
+    filtered_result_0_data___jobid = [item[1] for item in filtered_result_0_data_detonation_status_filter]
+    get_file_job_screenshots_parameter_job_id = [item[0] for item in get_file_job_screenshots_result_data]
+    get_file_job_screenshots_result_item_1 = [item[1] for item in get_file_job_screenshots_result_data]
+    get_file_job_screenshots_result_item_2 = [item[2] for item in get_file_job_screenshots_result_data]
+
+    file_screenshot_formatting__report = None
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.save_block_result(key="file_screenshot_formatting__inputs:0:get_job_summary_1:action_result.data.*.Parameters.*.Value", value=json.dumps(get_job_summary_1_result_item_0))
+    phantom.save_block_result(key="file_screenshot_formatting__inputs:1:get_job_summary_1:action_result.parameter.job_id", value=json.dumps(get_job_summary_1_parameter_job_id))
+    phantom.save_block_result(key="file_screenshot_formatting__inputs:2:get_job_screenshots_1:action_result.parameter.job_id", value=json.dumps(get_job_screenshots_1_parameter_job_id))
+    phantom.save_block_result(key="file_screenshot_formatting__inputs:3:get_job_screenshots_1:action_result.data.*.file_name", value=json.dumps(get_job_screenshots_1_result_item_1))
+    phantom.save_block_result(key="file_screenshot_formatting__inputs:4:get_job_screenshots_1:action_result.data.*.id", value=json.dumps(get_job_screenshots_1_result_item_2))
+
+    phantom.save_block_result(key="file_screenshot_formatting:report", value=json.dumps(file_screenshot_formatting__report))
+
+    format_summary_report(container=container)
 
     return
 
