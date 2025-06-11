@@ -235,6 +235,8 @@ def format_summary_report(action=None, success=None, container=None, results=Non
 
     phantom.format(container=container, template=template, parameters=parameters, name="format_summary_report")
 
+    add_finding_or_investigation_note_4(container=container)
+
     return
 
 
@@ -279,6 +281,41 @@ def file_screenshot_formatting(action=None, success=None, container=None, result
     phantom.save_block_result(key="file_screenshot_formatting:report", value=json.dumps(file_screenshot_formatting__report))
 
     format_summary_report(container=container)
+
+    return
+
+
+@phantom.playbook_block()
+def add_finding_or_investigation_note_4(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("add_finding_or_investigation_note_4() called")
+
+    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
+
+    get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.finding_id","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
+    format_summary_report = phantom.get_format_data(name="format_summary_report")
+
+    parameters = []
+
+    # build parameters list for 'add_finding_or_investigation_note_4' call
+    for get_finding_or_investigation_1_result_item in get_finding_or_investigation_1_result_data:
+        if get_finding_or_investigation_1_result_item[0] is not None and format_summary_report is not None:
+            parameters.append({
+                "id": get_finding_or_investigation_1_result_item[0],
+                "title": "Splunk Attack Analyzer Report",
+                "content": format_summary_report,
+            })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.act("add finding or investigation note", parameters=parameters, name="add_finding_or_investigation_note_4", assets=["builtin_mc_connector"])
 
     return
 

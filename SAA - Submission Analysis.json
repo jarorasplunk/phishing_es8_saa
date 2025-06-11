@@ -60,9 +60,23 @@
                     "sourcePort": "15_out",
                     "targetNode": "14",
                     "targetPort": "14_in"
+                },
+                {
+                    "id": "port_14_to_port_16",
+                    "sourceNode": "14",
+                    "sourcePort": "14_out",
+                    "targetNode": "16",
+                    "targetPort": "16_in"
+                },
+                {
+                    "id": "port_16_to_port_1",
+                    "sourceNode": "16",
+                    "sourcePort": "16_out",
+                    "targetNode": "1",
+                    "targetPort": "1_in"
                 }
             ],
-            "hash": "93435d308033fde4804bbb54f040d84caa7e31df",
+            "hash": "72022520d8f22599aaffb734a4fac1bdaf4d83f0",
             "nodes": {
                 "0": {
                     "data": {
@@ -94,7 +108,7 @@
                     "type": "end",
                     "warnings": {},
                     "x": 1000,
-                    "y": 1480
+                    "y": 1620
                 },
                 "10": {
                     "data": {
@@ -383,6 +397,61 @@
                     "x": 980,
                     "y": 1180
                 },
+                "16": {
+                    "data": {
+                        "action": "add finding or investigation note",
+                        "actionType": "post",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": "7e971d03-6ae7-4429-b4e1-cf461003e75b",
+                        "connectorVersion": "v1",
+                        "functionId": 4,
+                        "functionName": "add_finding_or_investigation_note_4",
+                        "id": "16",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "content": "format_summary_report:formatted_data",
+                            "id": "get_finding_or_investigation_1:action_result.data.*.finding_id",
+                            "title": "Splunk Attack Analyzer Report"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "",
+                                "field": "title"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "",
+                                "field": "content"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "16",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 980,
+                    "y": 1484.5
+                },
                 "2": {
                     "data": {
                         "action": "get finding or investigation",
@@ -557,7 +626,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-11T13:08:22.048179+00:00",
+    "create_time": "2025-06-11T13:09:07.995084+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
