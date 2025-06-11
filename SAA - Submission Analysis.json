@@ -62,7 +62,7 @@
                     "targetPort": "14_in"
                 }
             ],
-            "hash": "450a274c0cb5168d18e3e2725f23af32f6c59efa",
+            "hash": "93435d308033fde4804bbb54f040d84caa7e31df",
             "nodes": {
                 "0": {
                     "data": {
@@ -341,7 +341,7 @@
                             "get_job_summary_1:action_result.data.*.Resources.DisplayScore",
                             "get_job_summary_1:action_result.data.*.Verdict",
                             "get_job_summary_1:action_result.summary.AppURL",
-                            ""
+                            "file_screenshot_formatting:custom_function:report"
                         ],
                         "template": "Splunk Attack Analyzer - Job Summary:\n\n| Submission | Normalized Score | Score Id  | Classifications | Report Link | Source |\n| --- | --- | --- | --- | --- | --- |\n%%\n| {0}:`{1}` | {2} | {3} | {4} | {5} | Splunk Attack Analyzer (SAA) |\n%%\n\nScreenshots associated with the detonation are shown below (if available):\n\n{6{6}}",
                         "type": "format"
@@ -557,7 +557,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-11T13:07:50.908115+00:00",
+    "create_time": "2025-06-11T13:08:22.048179+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

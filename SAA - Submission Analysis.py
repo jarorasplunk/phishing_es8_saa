@@ -220,7 +220,7 @@ def format_summary_report(action=None, success=None, container=None, results=Non
         "get_job_summary_1:action_result.data.*.Resources.DisplayScore",
         "get_job_summary_1:action_result.data.*.Verdict",
         "get_job_summary_1:action_result.summary.AppURL",
-        ""
+        "file_screenshot_formatting:custom_function:report"
     ]
 
     ################################################################################
