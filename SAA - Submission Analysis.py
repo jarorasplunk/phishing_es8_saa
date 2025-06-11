@@ -163,7 +163,45 @@ def get_job_screenshots_1(action=None, success=None, container=None, results=Non
     ## Custom Code End
     ################################################################################
 
-    phantom.act("get job screenshots", parameters=parameters, name="get_job_screenshots_1", assets=["splunk_attack_analyzer"])
+    phantom.act("get job screenshots", parameters=parameters, name="get_job_screenshots_1", assets=["splunk_attack_analyzer"], callback=debug_2)
+
+    return
+
+
+@phantom.playbook_block()
+def debug_2(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("debug_2() called")
+
+    get_job_summary_1_result_data = phantom.collect2(container=container, datapath=["get_job_summary_1:action_result.data.*.ResourceTree.Children.*.Children.*.Children.*.Type","get_job_summary_1:action_result.parameter.context.artifact_id"], action_results=results)
+
+    get_job_summary_1_result_item_0 = [item[0] for item in get_job_summary_1_result_data]
+
+    parameters = []
+
+    parameters.append({
+        "input_1": get_job_summary_1_result_item_0,
+        "input_2": None,
+        "input_3": None,
+        "input_4": None,
+        "input_5": None,
+        "input_6": None,
+        "input_7": None,
+        "input_8": None,
+        "input_9": None,
+        "input_10": None,
+    })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.custom_function(custom_function="community/debug", parameters=parameters, name="debug_2")
 
     return
 
