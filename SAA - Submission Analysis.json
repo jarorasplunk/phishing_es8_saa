@@ -27,13 +27,28 @@
                             "index": 0
                         }
                     ],
-                    "id": "port_5_to_port_6",
+                    "id": "port_5_to_port_8",
                     "sourceNode": "5",
                     "sourcePort": "5_out",
-                    "targetNode": "6",
-                    "targetPort": "6_in"
+                    "targetNode": "8",
+                    "targetPort": "8_in"
+                },
+                {
+                    "id": "port_8_to_port_9",
+                    "sourceNode": "8",
+                    "sourcePort": "8_out",
+                    "targetNode": "9",
+                    "targetPort": "9_in"
+                },
+                {
+                    "id": "port_9_to_port_10",
+                    "sourceNode": "9",
+                    "sourcePort": "9_out",
+                    "targetNode": "10",
+                    "targetPort": "10_in"
                 }
             ],
+            "hash": "ca8607177e9e9327380ecfe08b73345198d1e62f",
             "nodes": {
                 "0": {
                     "data": {
@@ -65,7 +80,50 @@
                     "type": "end",
                     "warnings": {},
                     "x": 1000,
-                    "y": 1000
+                    "y": 1180
+                },
+                "10": {
+                    "data": {
+                        "action": "get job screenshots",
+                        "actionType": "investigate",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Splunk Attack Analyzer Connector for Splunk SOAR",
+                        "connectorConfigs": [
+                            "splunk_attack_analyzer"
+                        ],
+                        "connectorId": "de681fee-c552-45bf-9212-827b1c7529f8",
+                        "connectorVersion": "v1",
+                        "functionId": 1,
+                        "functionName": "get_job_screenshots_1",
+                        "id": "10",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "job_id": "filtered-data:filter_saa_jobid:condition_1:get_finding_or_investigation_1:action_result.data.*.consolidated_findings.SAA_JOB_ID"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "job_id"
+                            }
+                        ],
+                        "type": "action"
+                    },
+                    "errors": {},
+                    "id": "10",
+                    "type": "action",
+                    "warnings": {},
+                    "x": 980,
+                    "y": 1104.5
                 },
                 "2": {
                     "data": {
@@ -113,6 +171,8 @@
                 "5": {
                     "data": {
                         "advanced": {
+                            "customName": "filter saa jobid",
+                            "customNameId": 0,
                             "join": []
                         },
                         "conditions": [
@@ -131,7 +191,7 @@
                             }
                         ],
                         "functionId": 2,
-                        "functionName": "filter_2",
+                        "functionName": "filter_saa_jobid",
                         "id": "5",
                         "type": "filter"
                     },
@@ -142,19 +202,22 @@
                     "x": 1040,
                     "y": 684.5
                 },
-                "6": {
+                "8": {
                     "data": {
+                        "action": "get job summary",
+                        "actionType": "investigate",
                         "advanced": {
                             "join": []
                         },
-                        "customFunction": {
-                            "draftMode": false,
-                            "name": "debug",
-                            "repoName": "community"
-                        },
+                        "connector": "Splunk Attack Analyzer Connector for Splunk SOAR",
+                        "connectorConfigs": [
+                            "splunk_attack_analyzer"
+                        ],
+                        "connectorId": "de681fee-c552-45bf-9212-827b1c7529f8",
+                        "connectorVersion": "v1",
                         "functionId": 1,
-                        "functionName": "debug_1",
-                        "id": "6",
+                        "functionName": "get_job_summary_1",
+                        "id": "8",
                         "loop": {
                             "enabled": false,
                             "exitAfterUnit": "m",
@@ -164,161 +227,66 @@
                             "pauseUnit": "m",
                             "pauseValue": 2
                         },
-                        "selectMore": false,
-                        "type": "utility",
-                        "utilities": {
-                            "debug": {
-                                "description": "Print debug messages with the type and value of 0-10 different inputs. This is useful for checking the values of input data or the outputs of other playbook blocks.",
-                                "fields": [
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_1",
-                                        "name": "input_1",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_2",
-                                        "name": "input_2",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_3",
-                                        "name": "input_3",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_4",
-                                        "name": "input_4",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_5",
-                                        "name": "input_5",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_6",
-                                        "name": "input_6",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_7",
-                                        "name": "input_7",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_8",
-                                        "name": "input_8",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_9",
-                                        "name": "input_9",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_10",
-                                        "name": "input_10",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    }
-                                ],
-                                "label": "debug",
-                                "name": "debug"
-                            }
+                        "parameters": {
+                            "job_id": "filtered-data:filter_saa_jobid:condition_1:get_finding_or_investigation_1:action_result.data.*.consolidated_findings.SAA_JOB_ID"
                         },
-                        "utilityType": "custom_function",
-                        "values": {
-                            "debug": {
-                                "input_1": [
-                                    "filtered-data:filter_2:condition_1:get_finding_or_investigation_1:action_result.data.*.consolidated_findings.SAA_JOB_ID"
-                                ],
-                                "input_10": null,
-                                "input_2": null,
-                                "input_3": null,
-                                "input_4": null,
-                                "input_5": null,
-                                "input_6": null,
-                                "input_7": null,
-                                "input_8": null,
-                                "input_9": null
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "job_id"
                             }
-                        }
+                        ],
+                        "type": "action"
                     },
                     "errors": {},
-                    "id": "6",
-                    "type": "utility",
+                    "id": "8",
+                    "type": "action",
                     "warnings": {},
-                    "x": 990,
-                    "y": 844.5
+                    "x": 980,
+                    "y": 860
+                },
+                "9": {
+                    "data": {
+                        "action": "get job forensics",
+                        "actionType": "investigate",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Splunk Attack Analyzer Connector for Splunk SOAR",
+                        "connectorConfigs": [
+                            "splunk_attack_analyzer"
+                        ],
+                        "connectorId": "de681fee-c552-45bf-9212-827b1c7529f8",
+                        "connectorVersion": "v1",
+                        "functionId": 1,
+                        "functionName": "get_job_forensics_1",
+                        "id": "9",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "job_id": "filtered-data:filter_saa_jobid:condition_1:get_finding_or_investigation_1:action_result.data.*.consolidated_findings.SAA_JOB_ID"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "job_id"
+                            }
+                        ],
+                        "type": "action"
+                    },
+                    "errors": {},
+                    "id": "9",
+                    "type": "action",
+                    "warnings": {},
+                    "x": 980,
+                    "y": 984.5
                 }
             },
             "notes": ""
@@ -331,7 +299,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-11T07:53:15.455358+00:00",
+    "create_time": "2025-06-11T07:56:55.881580+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

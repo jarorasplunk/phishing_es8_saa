@@ -44,14 +44,14 @@ def get_finding_or_investigation_1(action=None, success=None, container=None, re
     ## Custom Code End
     ################################################################################
 
-    phantom.act("get finding or investigation", parameters=parameters, name="get_finding_or_investigation_1", assets=["builtin_mc_connector"], callback=filter_2)
+    phantom.act("get finding or investigation", parameters=parameters, name="get_finding_or_investigation_1", assets=["builtin_mc_connector"], callback=filter_saa_jobid)
 
     return
 
 
 @phantom.playbook_block()
-def filter_2(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("filter_2() called")
+def filter_saa_jobid(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("filter_saa_jobid() called")
 
     # collect filtered artifact ids and results for 'if' condition 1
     matched_artifacts_1, matched_results_1 = phantom.condition(
@@ -62,38 +62,32 @@ def filter_2(action=None, success=None, container=None, results=None, handle=Non
         conditions_dps=[
             ["get_finding_or_investigation_1:action_result.data.*.consolidated_findings.SAA_JOB_ID", "!=", ""]
         ],
-        name="filter_2:condition_1",
+        name="filter_saa_jobid:condition_1",
         delimiter=None)
 
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_1 or matched_results_1:
-        debug_1(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)
+        get_job_summary_1(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)
 
     return
 
 
 @phantom.playbook_block()
-def debug_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("debug_1() called")
+def get_job_summary_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("get_job_summary_1() called")
 
-    filtered_result_0_data_filter_2 = phantom.collect2(container=container, datapath=["filtered-data:filter_2:condition_1:get_finding_or_investigation_1:action_result.data.*.consolidated_findings.SAA_JOB_ID"])
+    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    filtered_result_0_data___consolidated_findings_saa_job_id = [item[0] for item in filtered_result_0_data_filter_2]
+    filtered_result_0_data_filter_saa_jobid = phantom.collect2(container=container, datapath=["filtered-data:filter_saa_jobid:condition_1:get_finding_or_investigation_1:action_result.data.*.consolidated_findings.SAA_JOB_ID"])
 
     parameters = []
 
-    parameters.append({
-        "input_1": filtered_result_0_data___consolidated_findings_saa_job_id,
-        "input_2": None,
-        "input_3": None,
-        "input_4": None,
-        "input_5": None,
-        "input_6": None,
-        "input_7": None,
-        "input_8": None,
-        "input_9": None,
-        "input_10": None,
-    })
+    # build parameters list for 'get_job_summary_1' call
+    for filtered_result_0_item_filter_saa_jobid in filtered_result_0_data_filter_saa_jobid:
+        if filtered_result_0_item_filter_saa_jobid[0] is not None:
+            parameters.append({
+                "job_id": filtered_result_0_item_filter_saa_jobid[0],
+            })
 
     ################################################################################
     ## Custom Code Start
@@ -105,7 +99,71 @@ def debug_1(action=None, success=None, container=None, results=None, handle=None
     ## Custom Code End
     ################################################################################
 
-    phantom.custom_function(custom_function="community/debug", parameters=parameters, name="debug_1")
+    phantom.act("get job summary", parameters=parameters, name="get_job_summary_1", assets=["splunk_attack_analyzer"], callback=get_job_forensics_1)
+
+    return
+
+
+@phantom.playbook_block()
+def get_job_forensics_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("get_job_forensics_1() called")
+
+    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
+
+    filtered_result_0_data_filter_saa_jobid = phantom.collect2(container=container, datapath=["filtered-data:filter_saa_jobid:condition_1:get_finding_or_investigation_1:action_result.data.*.consolidated_findings.SAA_JOB_ID"])
+
+    parameters = []
+
+    # build parameters list for 'get_job_forensics_1' call
+    for filtered_result_0_item_filter_saa_jobid in filtered_result_0_data_filter_saa_jobid:
+        if filtered_result_0_item_filter_saa_jobid[0] is not None:
+            parameters.append({
+                "job_id": filtered_result_0_item_filter_saa_jobid[0],
+            })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.act("get job forensics", parameters=parameters, name="get_job_forensics_1", assets=["splunk_attack_analyzer"], callback=get_job_screenshots_1)
+
+    return
+
+
+@phantom.playbook_block()
+def get_job_screenshots_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("get_job_screenshots_1() called")
+
+    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
+
+    filtered_result_0_data_filter_saa_jobid = phantom.collect2(container=container, datapath=["filtered-data:filter_saa_jobid:condition_1:get_finding_or_investigation_1:action_result.data.*.consolidated_findings.SAA_JOB_ID"])
+
+    parameters = []
+
+    # build parameters list for 'get_job_screenshots_1' call
+    for filtered_result_0_item_filter_saa_jobid in filtered_result_0_data_filter_saa_jobid:
+        if filtered_result_0_item_filter_saa_jobid[0] is not None:
+            parameters.append({
+                "job_id": filtered_result_0_item_filter_saa_jobid[0],
+            })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.act("get job screenshots", parameters=parameters, name="get_job_screenshots_1", assets=["splunk_attack_analyzer"])
 
     return
 
