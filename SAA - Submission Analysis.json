@@ -48,13 +48,14 @@
                     "targetPort": "10_in"
                 },
                 {
-                    "id": "port_10_to_port_11",
+                    "id": "port_10_to_port_14",
                     "sourceNode": "10",
                     "sourcePort": "10_out",
-                    "targetNode": "11",
-                    "targetPort": "11_in"
+                    "targetNode": "14",
+                    "targetPort": "14_in"
                 }
             ],
+            "hash": "6d2517fd0e5b395cdf279136e680b8e8644d5892",
             "nodes": {
                 "0": {
                     "data": {
@@ -305,9 +306,44 @@
                     "errors": {},
                     "id": "11",
                     "type": "utility",
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ],
+                        "context": [
+                            "Connect block to playbook flow."
+                        ]
+                    },
+                    "x": 980,
+                    "y": 1340
+                },
+                "14": {
+                    "data": {
+                        "advanced": {
+                            "customName": "format summary report",
+                            "customNameId": 0,
+                            "join": []
+                        },
+                        "functionId": 1,
+                        "functionName": "format_summary_report",
+                        "id": "14",
+                        "parameters": [
+                            "get_job_summary_1:action_result.data.*.ResourceTree.Type",
+                            "get_job_summary_1:action_result.data.*.ResourceTree.Name",
+                            "",
+                            "",
+                            "",
+                            ""
+                        ],
+                        "template": "Splunk Attack Analyzer - Job Summary:\n\n| Submission | Normalized Score | Score Id  | Classifications | Report Link | Source |\n| --- | --- | --- | --- | --- | --- |\n%%\n| {0}:`{1}` | {2} | {3} | {4} | {5} | Splunk Attack Analyzer (SAA) |\n%%\n\nScreenshots associated with the detonation are shown below (if available):\n\n{6}",
+                        "type": "format"
+                    },
+                    "errors": {},
+                    "id": "14",
+                    "type": "format",
                     "warnings": {},
                     "x": 980,
-                    "y": 1204.5
+                    "y": 1200
                 },
                 "2": {
                     "data": {
@@ -483,7 +519,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-11T08:34:48.029446+00:00",
+    "create_time": "2025-06-11T12:56:40.426440+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
