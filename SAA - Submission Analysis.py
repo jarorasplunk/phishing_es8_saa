@@ -110,16 +110,11 @@ def get_job_forensics_1(action=None, success=None, container=None, results=None,
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    filtered_result_0_data_filter_saa_jobid = phantom.collect2(container=container, datapath=["filtered-data:filter_saa_jobid:condition_1:get_finding_or_investigation_1:action_result.data.*.consolidated_findings.SAA_JOB_ID"])
-
     parameters = []
 
-    # build parameters list for 'get_job_forensics_1' call
-    for filtered_result_0_item_filter_saa_jobid in filtered_result_0_data_filter_saa_jobid:
-        if filtered_result_0_item_filter_saa_jobid[0] is not None:
-            parameters.append({
-                "job_id": filtered_result_0_item_filter_saa_jobid[0],
-            })
+    parameters.append({
+        "job_id": "c7ea2dd6-a577-4bf2-a94a-b6b1eb8e5f91",
+    })
 
     ################################################################################
     ## Custom Code Start
@@ -142,16 +137,11 @@ def get_job_screenshots_1(action=None, success=None, container=None, results=Non
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    filtered_result_0_data_filter_saa_jobid = phantom.collect2(container=container, datapath=["filtered-data:filter_saa_jobid:condition_1:get_finding_or_investigation_1:action_result.data.*.consolidated_findings.SAA_JOB_ID"])
-
     parameters = []
 
-    # build parameters list for 'get_job_screenshots_1' call
-    for filtered_result_0_item_filter_saa_jobid in filtered_result_0_data_filter_saa_jobid:
-        if filtered_result_0_item_filter_saa_jobid[0] is not None:
-            parameters.append({
-                "job_id": filtered_result_0_item_filter_saa_jobid[0],
-            })
+    parameters.append({
+        "job_id": "c7ea2dd6-a577-4bf2-a94a-b6b1eb8e5f91",
+    })
 
     ################################################################################
     ## Custom Code Start

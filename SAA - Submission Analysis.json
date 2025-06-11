@@ -76,6 +76,7 @@
                     "targetPort": "1_in"
                 }
             ],
+            "hash": "87f67bab29d5d85f8cda776147e639377d9fc056",
             "nodes": {
                 "0": {
                     "data": {
@@ -135,7 +136,7 @@
                             "pauseValue": 2
                         },
                         "parameters": {
-                            "job_id": "filtered-data:filter_saa_jobid:condition_1:get_finding_or_investigation_1:action_result.data.*.consolidated_findings.SAA_JOB_ID"
+                            "job_id": "c7ea2dd6-a577-4bf2-a94a-b6b1eb8e5f91"
                         },
                         "requiredParameters": [
                             {
@@ -597,7 +598,7 @@
                             "pauseValue": 2
                         },
                         "parameters": {
-                            "job_id": "filtered-data:filter_saa_jobid:condition_1:get_finding_or_investigation_1:action_result.data.*.consolidated_findings.SAA_JOB_ID"
+                            "job_id": "c7ea2dd6-a577-4bf2-a94a-b6b1eb8e5f91"
                         },
                         "requiredParameters": [
                             {
@@ -625,7 +626,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-11T13:09:07.995084+00:00",
+    "create_time": "2025-06-11T13:11:55.867763+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
