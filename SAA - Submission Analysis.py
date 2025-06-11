@@ -258,16 +258,13 @@ def file_screenshot_formatting(action=None, success=None, container=None, result
     ################################################################################
 
     # Write your custom code here...
-    filtered_result_0_data_detonation_status_filter = phantom.collect2(container=container, datapath=["filtered-data:detonation_status_filter:condition_1:file_detonation:action_result.parameter.file","filtered-data:detonation_status_filter:condition_1:file_detonation:action_result.data.*.JobID"])
-    get_file_job_screenshots_result_data = phantom.collect2(container=container, datapath=["get_file_job_screenshots:action_result.parameter.job_id","get_file_job_screenshots:action_result.data.*.file_name","get_file_job_screenshots:action_result.data.*.id"], action_results=results)
-
-    filtered_result_0_parameter_file = [item[0] for item in filtered_result_0_data_detonation_status_filter]
-    filtered_result_0_data___jobid = [item[1] for item in filtered_result_0_data_detonation_status_filter]
-    get_file_job_screenshots_parameter_job_id = [item[0] for item in get_file_job_screenshots_result_data]
-    get_file_job_screenshots_result_item_1 = [item[1] for item in get_file_job_screenshots_result_data]
-    get_file_job_screenshots_result_item_2 = [item[2] for item in get_file_job_screenshots_result_data]
-
-    file_screenshot_formatting__report = None
+    file_screenshot_formatting__report = ""
+    
+    for file, job_id in zip(get_job_summary_1_result_item_0, get_job_summary_1_parameter_job_id):
+        file_screenshot_formatting__report += f"#### {file}\n"
+        for screenshot_job, screenshot_name, screenshot_id in zip(get_job_screenshots_1_parameter_job_id, get_job_screenshots_1_result_item_1, get_job_screenshots_1_result_item_2):
+            if job_id == screenshot_job:
+                file_screenshot_formatting__report += f"![{screenshot_name}](/view?id={screenshot_id})\n"
 
     ################################################################################
     ## Custom Code End

@@ -62,7 +62,7 @@
                     "targetPort": "14_in"
                 }
             ],
-            "hash": "f2445df6b8f57feb65a7686098214b08266124d0",
+            "hash": "450a274c0cb5168d18e3e2725f23af32f6c59efa",
             "nodes": {
                 "0": {
                     "data": {
@@ -378,7 +378,7 @@
                     "errors": {},
                     "id": "15",
                     "type": "code",
-                    "userCode": "\n    # Write your custom code here...\n    filtered_result_0_data_detonation_status_filter = phantom.collect2(container=container, datapath=[\"filtered-data:detonation_status_filter:condition_1:file_detonation:action_result.parameter.file\",\"filtered-data:detonation_status_filter:condition_1:file_detonation:action_result.data.*.JobID\"])\n    get_file_job_screenshots_result_data = phantom.collect2(container=container, datapath=[\"get_file_job_screenshots:action_result.parameter.job_id\",\"get_file_job_screenshots:action_result.data.*.file_name\",\"get_file_job_screenshots:action_result.data.*.id\"], action_results=results)\n\n    filtered_result_0_parameter_file = [item[0] for item in filtered_result_0_data_detonation_status_filter]\n    filtered_result_0_data___jobid = [item[1] for item in filtered_result_0_data_detonation_status_filter]\n    get_file_job_screenshots_parameter_job_id = [item[0] for item in get_file_job_screenshots_result_data]\n    get_file_job_screenshots_result_item_1 = [item[1] for item in get_file_job_screenshots_result_data]\n    get_file_job_screenshots_result_item_2 = [item[2] for item in get_file_job_screenshots_result_data]\n\n    file_screenshot_formatting__report = None\n\n",
+                    "userCode": "\n    # Write your custom code here...\n    file_screenshot_formatting__report = \"\"\n    \n    for file, job_id in zip(get_job_summary_1_result_item_0, get_job_summary_1_parameter_job_id):\n        file_screenshot_formatting__report += f\"#### {file}\\n\"\n        for screenshot_job, screenshot_name, screenshot_id in zip(get_job_screenshots_1_parameter_job_id, get_job_screenshots_1_result_item_1, get_job_screenshots_1_result_item_2):\n            if job_id == screenshot_job:\n                file_screenshot_formatting__report += f\"![{screenshot_name}](/view?id={screenshot_id})\\n\"\n\n",
                     "warnings": {},
                     "x": 980,
                     "y": 1180
@@ -557,7 +557,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-11T13:04:44.393337+00:00",
+    "create_time": "2025-06-11T13:07:50.908115+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
