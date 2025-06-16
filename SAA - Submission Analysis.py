@@ -72,7 +72,7 @@ def job_type(action=None, success=None, container=None, results=None, handle=Non
 
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_1 or matched_results_1:
-        pass
+        playbook_get_container_id_and_vault_list_1(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)
 
     # collect filtered artifact ids and results for 'if' condition 2
     matched_artifacts_2, matched_results_2 = phantom.condition(
@@ -91,7 +91,7 @@ def job_type(action=None, success=None, container=None, results=None, handle=Non
 
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_2 or matched_results_2:
-        file_screenshot_formatting(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_2, filtered_results=matched_results_2)
+        pass
 
     return
 
@@ -296,18 +296,17 @@ def add_finding_or_investigation_note_4(action=None, success=None, container=Non
 
     get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.finding_id","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
     get_job_screenshots_1_result_data = phantom.collect2(container=container, datapath=["get_job_screenshots_1:action_result.data.*.id","get_job_screenshots_1:action_result.parameter.context.artifact_id"], action_results=results)
-    file_screenshot_formatting__report = json.loads(_ if (_ := phantom.get_run_data(key="file_screenshot_formatting:report")) != "" else "null")  # pylint: disable=used-before-assignment
 
     parameters = []
 
     # build parameters list for 'add_finding_or_investigation_note_4' call
     for get_finding_or_investigation_1_result_item in get_finding_or_investigation_1_result_data:
         for get_job_screenshots_1_result_item in get_job_screenshots_1_result_data:
-            if get_finding_or_investigation_1_result_item[0] is not None and file_screenshot_formatting__report is not None:
+            if get_finding_or_investigation_1_result_item[0] is not None:
                 parameters.append({
                     "id": get_finding_or_investigation_1_result_item[0],
                     "title": "Splunk Attack Analyzer Report",
-                    "content": file_screenshot_formatting__report,
+                    "content": "test",
                     "files": [
                         get_job_screenshots_1_result_item[0],
                     ],
@@ -419,6 +418,101 @@ def find_related_containers_3(action=None, success=None, container=None, results
     ################################################################################
 
     phantom.custom_function(custom_function="local/find_related_containers", parameters=parameters, name="find_related_containers_3")
+
+    return
+
+
+@phantom.playbook_block()
+def list_file_attachments_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("list_file_attachments_1() called")
+
+    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
+
+    parameters = []
+
+    parameters.append({
+        "id": "",
+    })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.act("list file attachments", parameters=parameters, name="list_file_attachments_1", assets=["builtin_mc_connector"])
+
+    return
+
+
+@phantom.playbook_block()
+def playbook_get_container_id_and_vault_list_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("playbook_get_container_id_and_vault_list_1() called")
+
+    get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.finding_id"], action_results=results)
+
+    get_finding_or_investigation_1_result_item_0 = [item[0] for item in get_finding_or_investigation_1_result_data]
+
+    inputs = {
+        "finding_id": get_finding_or_investigation_1_result_item_0,
+    }
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    # call playbook "local/get container id and vault list", returns the playbook_run_id
+    playbook_run_id = phantom.playbook("local/get container id and vault list", container=container, name="playbook_get_container_id_and_vault_list_1", callback=debug_4, inputs=inputs)
+
+    return
+
+
+@phantom.playbook_block()
+def debug_4(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("debug_4() called")
+
+    playbook_get_container_id_and_vault_list_1_output_soar_container_id = phantom.collect2(container=container, datapath=["playbook_get_container_id_and_vault_list_1:playbook_output:soar_container_id"])
+    playbook_get_container_id_and_vault_list_1_output_vault_list = phantom.collect2(container=container, datapath=["playbook_get_container_id_and_vault_list_1:playbook_output:vault_list"])
+
+    playbook_get_container_id_and_vault_list_1_output_soar_container_id_values = [item[0] for item in playbook_get_container_id_and_vault_list_1_output_soar_container_id]
+    playbook_get_container_id_and_vault_list_1_output_vault_list_values = [item[0] for item in playbook_get_container_id_and_vault_list_1_output_vault_list]
+
+    parameters = []
+
+    parameters.append({
+        "input_1": playbook_get_container_id_and_vault_list_1_output_soar_container_id_values,
+        "input_2": playbook_get_container_id_and_vault_list_1_output_vault_list_values,
+        "input_3": None,
+        "input_4": None,
+        "input_5": None,
+        "input_6": None,
+        "input_7": None,
+        "input_8": None,
+        "input_9": None,
+        "input_10": None,
+    })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.custom_function(custom_function="community/debug", parameters=parameters, name="debug_4")
 
     return
 
