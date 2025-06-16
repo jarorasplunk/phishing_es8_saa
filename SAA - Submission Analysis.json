@@ -35,19 +35,6 @@
                     "targetPort": "19_in"
                 },
                 {
-                    "conditions": [
-                        {
-                            "conditionKey": "condition_key_0",
-                            "index": 0
-                        }
-                    ],
-                    "id": "port_19_to_port_8",
-                    "sourceNode": "19",
-                    "sourcePort": "19_out",
-                    "targetNode": "8",
-                    "targetPort": "8_in"
-                },
-                {
                     "id": "port_8_to_port_9",
                     "sourceNode": "8",
                     "sourcePort": "8_out",
@@ -76,27 +63,27 @@
                     "targetPort": "16_in"
                 },
                 {
+                    "id": "port_23_to_port_24",
+                    "sourceNode": "23",
+                    "sourcePort": "23_out",
+                    "targetNode": "24",
+                    "targetPort": "24_in"
+                },
+                {
                     "conditions": [
                         {
                             "conditionKey": "condition_key_0",
                             "index": 0
                         }
                     ],
-                    "id": "port_5_to_port_23",
-                    "sourceNode": "5",
-                    "sourcePort": "5_out",
+                    "id": "port_19_to_port_23",
+                    "sourceNode": "19",
+                    "sourcePort": "19_out",
                     "targetNode": "23",
                     "targetPort": "23_in"
-                },
-                {
-                    "id": "port_23_to_port_24",
-                    "sourceNode": "23",
-                    "sourcePort": "23_out",
-                    "targetNode": "24",
-                    "targetPort": "24_in"
                 }
             ],
-            "hash": "9022ad6890aab974ec0ed556a7e41a6d03299729",
+            "hash": "104bfb6a1125f7526d33f999923bcb0b063984db",
             "nodes": {
                 "0": {
                     "data": {
@@ -1239,8 +1226,8 @@
                     "id": "5",
                     "type": "filter",
                     "warnings": {},
-                    "x": 1040,
-                    "y": 920
+                    "x": 1260,
+                    "y": 900
                 },
                 "8": {
                     "data": {
@@ -1281,9 +1268,13 @@
                     "errors": {},
                     "id": "8",
                     "type": "action",
-                    "warnings": {},
-                    "x": 980,
-                    "y": 600
+                    "warnings": {
+                        "context": [
+                            "Connect block to playbook flow."
+                        ]
+                    },
+                    "x": 1200,
+                    "y": 660
                 },
                 "9": {
                     "data": {
@@ -1339,7 +1330,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-16T05:47:33.671902+00:00",
+    "create_time": "2025-06-16T05:49:52.953738+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

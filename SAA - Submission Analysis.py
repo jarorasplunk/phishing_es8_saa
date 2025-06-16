@@ -72,7 +72,7 @@ def job_type(action=None, success=None, container=None, results=None, handle=Non
 
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_1 or matched_results_1:
-        playbook_get_container_id_and_vault_list_1(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)
+        pass
 
     # collect filtered artifact ids and results for 'if' condition 2
     matched_artifacts_2, matched_results_2 = phantom.condition(
@@ -383,7 +383,7 @@ def check_job_id(action=None, success=None, container=None, results=None, handle
 
     # call connected blocks if condition 1 matched
     if found_match_1:
-        get_job_summary_1(action=action, success=success, container=container, results=results, handle=handle)
+        playbook_get_container_id_and_vault_list_1(action=action, success=success, container=container, results=results, handle=handle)
         return
 
     return
