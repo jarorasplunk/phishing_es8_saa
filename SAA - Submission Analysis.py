@@ -244,8 +244,6 @@ def format_summary_report(action=None, success=None, container=None, results=Non
 
     phantom.format(container=container, template=template, parameters=parameters, name="format_summary_report")
 
-    add_finding_or_investigation_note_4(container=container)
-
     return
 
 
@@ -289,7 +287,7 @@ def file_screenshot_formatting(action=None, success=None, container=None, result
 
     phantom.save_block_result(key="file_screenshot_formatting:report", value=json.dumps(file_screenshot_formatting__report))
 
-    format_summary_report(container=container)
+    add_finding_or_investigation_note_4(container=container)
 
     return
 
