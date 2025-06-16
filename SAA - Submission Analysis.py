@@ -472,7 +472,19 @@ def playbook_get_container_id_and_vault_list_1(action=None, success=None, contai
     ################################################################################
 
     # call playbook "local/get container id and vault list", returns the playbook_run_id
-    playbook_run_id = phantom.playbook("local/get container id and vault list", container=container, name="playbook_get_container_id_and_vault_list_1", callback=debug_4, inputs=inputs)
+    playbook_run_id = phantom.playbook("local/get container id and vault list", container=container, name="playbook_get_container_id_and_vault_list_1", callback=playbook_get_container_id_and_vault_list_1_callback, inputs=inputs)
+
+    return
+
+
+@phantom.playbook_block()
+def playbook_get_container_id_and_vault_list_1_callback(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("playbook_get_container_id_and_vault_list_1_callback() called")
+
+    
+    debug_4(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=filtered_artifacts, filtered_results=filtered_results)
+    image_base64(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=filtered_artifacts, filtered_results=filtered_results)
+
 
     return
 
@@ -513,6 +525,50 @@ def debug_4(action=None, success=None, container=None, results=None, handle=None
     ################################################################################
 
     phantom.custom_function(custom_function="community/debug", parameters=parameters, name="debug_4")
+
+    return
+
+
+@phantom.playbook_block()
+def image_base64(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("image_base64() called")
+
+    playbook_get_container_id_and_vault_list_1_output_vault_list = phantom.collect2(container=container, datapath=["playbook_get_container_id_and_vault_list_1:playbook_output:vault_list"])
+
+    playbook_get_container_id_and_vault_list_1_output_vault_list_values = [item[0] for item in playbook_get_container_id_and_vault_list_1_output_vault_list]
+
+    image_base64__image_base64 = None
+    image_base64__status = None
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+    import base64
+    phantom.debug(type(playbook_get_container_id_and_vault_list_1_output_vault_list_values))
+    phantom.debug(playbook_get_container_id_and_vault_list_1_output_vault_list_values)
+    '''try:            
+        image_path = get_screenshot_1_summary_vault_file_path[0]
+        phantom.debug(image_path)            
+        with open(image_path, "rb") as image_file:        
+            encoded_string = base64.b64encode(image_file.read()).decode('utf-8')                
+        image_base64__image_base64 = encoded_string
+        image_base64__status = "success"
+        phantom.debug(image_base64__image_base64)            
+        phantom.debug(image_base64__status)
+    except:
+        image_base64__status = "failed"
+        phantom.debug(image_base64__status)
+    '''
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.save_block_result(key="image_base64__inputs:0:playbook_get_container_id_and_vault_list_1:playbook_output:vault_list", value=json.dumps(playbook_get_container_id_and_vault_list_1_output_vault_list_values))
+
+    phantom.save_block_result(key="image_base64:image_base64", value=json.dumps(image_base64__image_base64))
+    phantom.save_block_result(key="image_base64:status", value=json.dumps(image_base64__status))
 
     return
 
