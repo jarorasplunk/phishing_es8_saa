@@ -545,7 +545,7 @@ def format_screenshots(action=None, success=None, container=None, results=None, 
 
     phantom.format(container=container, template=template, parameters=parameters, name="format_screenshots")
 
-    add_finding_or_investigation_note_3(container=container)
+    normalized_file_summary_output(container=container)
 
     return
 
@@ -583,6 +583,213 @@ def add_finding_or_investigation_note_3(action=None, success=None, container=Non
     ################################################################################
 
     phantom.act("add finding or investigation note", parameters=parameters, name="add_finding_or_investigation_note_3", assets=["builtin_mc_connector"])
+
+    return
+
+
+@phantom.playbook_block()
+def normalized_file_summary_output(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("normalized_file_summary_output() called")
+
+    filtered_result_0_data_job_type = phantom.collect2(container=container, datapath=["filtered-data:job_type:condition_1:get_job_summary_1:action_result.data.*.Submission.Name","filtered-data:job_type:condition_1:get_job_summary_1:action_result.data.*.ID","filtered-data:job_type:condition_1:get_job_summary_1:action_result.parameter.job_id","filtered-data:job_type:condition_1:get_job_summary_1:action_result.summary.Score","filtered-data:job_type:condition_1:get_job_summary_1:action_result.data.*.Resources","filtered-data:job_type:condition_1:get_job_summary_1:action_result.data.*.Verdict","filtered-data:job_type:condition_1:get_job_summary_1:action_result.data.*.Tasks"])
+
+    filtered_result_0_data___submission_name = [item[0] for item in filtered_result_0_data_job_type]
+    filtered_result_0_data___id = [item[1] for item in filtered_result_0_data_job_type]
+    filtered_result_0_parameter_job_id = [item[2] for item in filtered_result_0_data_job_type]
+    filtered_result_0_summary_score = [item[3] for item in filtered_result_0_data_job_type]
+    filtered_result_0_data___resources = [item[4] for item in filtered_result_0_data_job_type]
+    filtered_result_0_data___verdict = [item[5] for item in filtered_result_0_data_job_type]
+    filtered_result_0_data___tasks = [item[6] for item in filtered_result_0_data_job_type]
+
+    normalized_file_summary_output__file_score_object = None
+    normalized_file_summary_output__scores = None
+    normalized_file_summary_output__categories = None
+    normalized_file_summary_output__score_id = None
+    normalized_file_summary_output__file = None
+    normalized_file_summary_output__job_id = None
+    normalized_file_summary_output__classifications = None
+    normalized_file_summary_output__file_name = None
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+    score_table = {
+        "0":"Unknown",
+        "1":"Very_Safe",
+        "2":"Safe",
+        "3":"Probably_Safe",
+        "4":"Leans_Safe",
+        "5":"May_not_be_Safe",
+        "6":"Exercise_Caution",
+        "7":"Suspicious_or_Risky",
+        "8":"Possibly_Malicious",
+        "9":"Probably_Malicious",
+        "10":"Malicious"
+    }
+
+    classification_ids = {
+        "Unknown": 0,
+        "Adware": 1,
+        "Backdoor": 2,
+        "Bot": 3,
+        "Bootkit": 4,
+        "DDOS": 5,
+        "Downloader": 6,
+        "Dropper": 7,
+        "Exploit-Kit": 8,
+        "Keylogger": 9,
+        "Ransomware": 10,
+        "Remote-Access-Trojan": 11,
+        "Resource-Exploitation": 13,
+        "Rogue-Security-Software": 14,
+        "Rootkit": 15,
+        "Screen-Capture": 16,
+        "Spyware": 17,
+        "Trojan": 18,
+        "Virus": 19,
+        "Webshell": 20,
+        "Wiper": 21,
+        "Worm": 22,
+        "Other": 99
+    }
+
+    normalized_file_summary_output__file_score_object = []
+    normalized_file_summary_output__scores = []
+    normalized_file_summary_output__categories = []
+    normalized_file_summary_output__score_id = []
+    normalized_file_summary_output__file = []
+    normalized_file_summary_output__job_id = []
+    normalized_file_summary_output__classifications = []
+    normalized_file_summary_output__file_name = []
+    
+    
+    def find_sha1_details(target_id, task_list):
+        '''
+        Attempt to find the detail object with a sha1
+        '''
+        for task in task_list:
+            if (target_id == task.get('ResourceID')
+                and task.get('Results',{}).get('Details', {}).get('sha1')):
+                task_result_details = task['Results']['Details']
+                task_result_details.pop('RootTaskID', None)
+                return task_result_details
+        return None
+
+        
+    ## pair forensic job results with url detonated
+    job_file_dict = {}
+    for orig_file, orig_job, filtered_job in zip(filtered_result_0_data___submission_name, filtered_result_0_data___id, filtered_result_0_parameter_job_id):
+        if orig_job == filtered_job:
+            job_file_dict[filtered_job] = orig_file
+    
+    for job, file_name, score_num, resources, verdict, tasks in zip(
+        filtered_result_0_parameter_job_id, 
+        filtered_result_0_data___submission_name, 
+        filtered_result_0_summary_score, 
+        filtered_result_0_data___resources, 
+        filtered_result_0_data___verdict,
+        filtered_result_0_data___tasks
+    ):
+        
+        ## translate scores
+        score_id = int(score_num/10) if score_num > 0 else 0
+        score = score_table[str(score_id)]
+        file = job_file_dict[job]
+        attributes = {}
+        
+        ## build.a sub dictionary of high priority related observables
+        related_observables = []
+        for sub_observ in resources:
+            if sub_observ['Name'] != file_name:
+                        
+                details = find_sha1_details(sub_observ['ID'], tasks)
+                second_num = sub_observ['DisplayScore']
+                second_num_id = int(second_num/10) if second_num > 0 else 0
+                sub_observ_dict = {
+                    'value': sub_observ['Name'],
+                    'type': sub_observ['Type'].lower(),
+                    'reputation': {
+                        'score': score_table[str(second_num_id)],
+                        'orig_score': second_num,
+                        'score_id': second_num_id
+                    },
+                    'source': 'Splunk Attack Analyzer'
+                }
+                if details:
+                    details['name'] = sub_observ['Name']
+                    details.pop('exiftool', None)
+                    sub_observ_dict['attributes'] = details
+                # check if observ is already in related_observables
+                skip_observ = False
+                for idx, item in enumerate(related_observables):
+                    if (sub_observ.get('FileMetadata', {}).get('SHA256', 'null_one') 
+                        == item.get('attributes', {}).get('sha256', 'null_two')
+                        and sub_observ['DisplayScore'] > item['reputation']['orig_score']):
+                        related_observables[idx] = sub_observ_dict
+                        skip_observ = True
+                    elif sub_observ['Name'] == item['value']:
+                        skip_observ = True
+                if not skip_observ:
+                    related_observables.append(sub_observ_dict)
+            elif sub_observ['Name'] == file_name:
+                details = find_sha1_details(sub_observ['ID'], tasks)
+                if details:
+                    details.pop('exiftool', None)
+                    details['name'] = file_name
+                    attributes = details
+                else:
+                    file_metadata = sub_observ.get('FileMetadata', {})
+                    attributes = {
+                        'name': file_name,
+                        'sha256': file_metadata.get('SHA256'),
+                        'md5': file_metadata.get('MD5'),
+                        'size': file_metadata.get('Size')
+                    }
+                    if file_metadata.get('MimeType'):
+                        attributes['mime_type'] = file_metadata['MimeType']
+        
+        normalized_file_summary_output__file_score_object.append({
+            'value': file, 
+            'orig_score': score_num, 
+            'score': score, 
+            'score_id': score_id, 
+            'classifications': [verdict if verdict else "Unknown"],
+            'classification_ids': [classification_ids.get(verdict, 99) if verdict else 0],
+            'related_observables': related_observables,
+            'attributes': attributes
+                
+        })
+        normalized_file_summary_output__scores.append(score)
+        normalized_file_summary_output__score_id.append(score_id)
+        normalized_file_summary_output__file.append(file)
+        normalized_file_summary_output__file_name.append(file_name)
+        normalized_file_summary_output__job_id.append(job)
+        normalized_file_summary_output__classifications.append([verdict if verdict else "Unknown"])
+
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.save_block_result(key="normalized_file_summary_output__inputs:0:filtered-data:job_type:condition_1:get_job_summary_1:action_result.data.*.Submission.Name", value=json.dumps(filtered_result_0_data___submission_name))
+    phantom.save_block_result(key="normalized_file_summary_output__inputs:1:filtered-data:job_type:condition_1:get_job_summary_1:action_result.data.*.ID", value=json.dumps(filtered_result_0_data___id))
+    phantom.save_block_result(key="normalized_file_summary_output__inputs:2:filtered-data:job_type:condition_1:get_job_summary_1:action_result.parameter.job_id", value=json.dumps(filtered_result_0_parameter_job_id))
+    phantom.save_block_result(key="normalized_file_summary_output__inputs:3:filtered-data:job_type:condition_1:get_job_summary_1:action_result.data.*.Submission.Name", value=json.dumps(filtered_result_0_data___submission_name))
+    phantom.save_block_result(key="normalized_file_summary_output__inputs:4:filtered-data:job_type:condition_1:get_job_summary_1:action_result.summary.Score", value=json.dumps(filtered_result_0_summary_score))
+    phantom.save_block_result(key="normalized_file_summary_output__inputs:5:filtered-data:job_type:condition_1:get_job_summary_1:action_result.data.*.Resources", value=json.dumps(filtered_result_0_data___resources))
+    phantom.save_block_result(key="normalized_file_summary_output__inputs:6:filtered-data:job_type:condition_1:get_job_summary_1:action_result.data.*.Verdict", value=json.dumps(filtered_result_0_data___verdict))
+    phantom.save_block_result(key="normalized_file_summary_output__inputs:7:filtered-data:job_type:condition_1:get_job_summary_1:action_result.data.*.Tasks", value=json.dumps(filtered_result_0_data___tasks))
+
+    phantom.save_block_result(key="normalized_file_summary_output:file_score_object", value=json.dumps(normalized_file_summary_output__file_score_object))
+    phantom.save_block_result(key="normalized_file_summary_output:scores", value=json.dumps(normalized_file_summary_output__scores))
+    phantom.save_block_result(key="normalized_file_summary_output:categories", value=json.dumps(normalized_file_summary_output__categories))
+    phantom.save_block_result(key="normalized_file_summary_output:score_id", value=json.dumps(normalized_file_summary_output__score_id))
+    phantom.save_block_result(key="normalized_file_summary_output:file", value=json.dumps(normalized_file_summary_output__file))
+    phantom.save_block_result(key="normalized_file_summary_output:job_id", value=json.dumps(normalized_file_summary_output__job_id))
+    phantom.save_block_result(key="normalized_file_summary_output:classifications", value=json.dumps(normalized_file_summary_output__classifications))
+    phantom.save_block_result(key="normalized_file_summary_output:file_name", value=json.dumps(normalized_file_summary_output__file_name))
 
     return
 
