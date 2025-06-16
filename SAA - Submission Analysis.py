@@ -557,17 +557,17 @@ def add_finding_or_investigation_note_3(action=None, success=None, container=Non
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
     get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.investigation_id","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
-    format_screenshots = phantom.get_format_data(name="format_screenshots")
+    format_file_report = phantom.get_format_data(name="format_file_report")
 
     parameters = []
 
     # build parameters list for 'add_finding_or_investigation_note_3' call
     for get_finding_or_investigation_1_result_item in get_finding_or_investigation_1_result_data:
-        if get_finding_or_investigation_1_result_item[0] is not None and format_screenshots is not None:
+        if get_finding_or_investigation_1_result_item[0] is not None and format_file_report is not None:
             parameters.append({
                 "id": get_finding_or_investigation_1_result_item[0],
-                "title": "Splunk Attack Analyzer Screenshots",
-                "content": format_screenshots,
+                "title": "Splunk Attack Analyzer Report",
+                "content": format_file_report,
                 "files": [
                 ],
             })
@@ -790,6 +790,41 @@ def normalized_file_summary_output(action=None, success=None, container=None, re
     phantom.save_block_result(key="normalized_file_summary_output:job_id", value=json.dumps(normalized_file_summary_output__job_id))
     phantom.save_block_result(key="normalized_file_summary_output:classifications", value=json.dumps(normalized_file_summary_output__classifications))
     phantom.save_block_result(key="normalized_file_summary_output:file_name", value=json.dumps(normalized_file_summary_output__file_name))
+
+    format_file_report(container=container)
+
+    return
+
+
+@phantom.playbook_block()
+def format_file_report(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("format_file_report() called")
+
+    template = """SOAR analyzed File(s) using Splunk Attack Analyzer.  The table below shows a summary of the information gathered.\n\n| File Name | Normalized Score | Score Id  | Classifications | Report Link | Source |\n| --- | --- | --- | --- | --- | --- |\n%%\n| `{0}` | {1} | {2} | {3} |  | Splunk Attack Analyzer (SAA) {5} |\n%%\n\nScreenshots associated with the detonated Files are attached in the \"Files\" section below.\n"""
+
+    # parameter list for template variable replacement
+    parameters = [
+        "normalized_file_summary_output:custom_function:file_name",
+        "normalized_file_summary_output:custom_function:scores",
+        "normalized_file_summary_output:custom_function:score_id",
+        "normalized_file_summary_output:custom_function:classifications",
+        "normalized_file_summary_output:custom_function:job_id",
+        "filtered-data:job_type:condition_1:get_job_summary_1:action_result.summary.AppURL"
+    ]
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.format(container=container, template=template, parameters=parameters, name="format_file_report")
+
+    add_finding_or_investigation_note_3(container=container)
 
     return
 
