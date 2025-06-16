@@ -111,7 +111,7 @@
                     "targetPort": "29_in"
                 }
             ],
-            "hash": "885f61b08d40395b5af1fa7fb5aa5a2fbc35be5c",
+            "hash": "474657cb1c8c191ff57b57dc78fc8a4182642ea1",
             "nodes": {
                 "0": {
                     "data": {
@@ -127,7 +127,7 @@
                     "type": "start",
                     "warnings": {},
                     "x": 1000,
-                    "y": 220
+                    "y": 219.99999999999994
                 },
                 "1": {
                     "data": {
@@ -1007,7 +1007,7 @@
                     "errors": {},
                     "id": "25",
                     "type": "code",
-                    "userCode": "\n    # Write your custom code here...\n    image_base64__image_base64 = []\n    image_base64__status = []\n    import base64\n    phantom.debug(type(playbook_get_container_id_and_vault_list_1_output_vault_list_values))\n    phantom.debug(playbook_get_container_id_and_vault_list_1_output_vault_list_values)\n    for i in range(len(playbook_get_container_id_and_vault_list_1_output_vault_list_values)):\n        try:            \n            image_path = playbook_get_container_id_and_vault_list_1_output_vault_list_values[i]\n            phantom.debug(image_path)            \n            with open(image_path, \"rb\") as image_file:        \n                encoded_string = base64.b64encode(image_file.read()).decode('utf-8')                \n            image_base64__image_base64.append(encoded_string)\n            image_base64__status.append(\"success\")\n            phantom.debug(image_base64__image_base64)            \n            phantom.debug(image_base64__status)\n        except:\n            image_base64__image_base64.append(\"NA\")\n            image_base64__status.append(\"failed\")\n            phantom.debug(image_base64__status)\n    \n",
+                    "userCode": "\n    # Write your custom code here...\n    image_base64__image_base64 = []\n    image_base64__status = []\n    import base64\n    phantom.debug(type(playbook_get_container_id_and_vault_list_1_output_vault_list_values))\n    phantom.debug(playbook_get_container_id_and_vault_list_1_output_vault_list_values)\n    for i in range(len(playbook_get_container_id_and_vault_list_1_output_vault_list_values)):            \n        image_path = playbook_get_container_id_and_vault_list_1_output_vault_list_values[i]\n        phantom.debug(image_path)            \n        with open(image_path, \"rb\") as image_file:        \n            encoded_string = base64.b64encode(image_file.read()).decode('utf-8')                \n        image_base64__image_base64.append(encoded_string)\n        image_base64__status.append(\"success\")\n        phantom.debug(image_base64__image_base64)            \n        phantom.debug(image_base64__status)\n",
                     "warnings": {},
                     "x": 980,
                     "y": 1220
@@ -1069,7 +1069,11 @@
                     "errors": {},
                     "id": "27",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 980,
                     "y": 1344.5
                 },
@@ -1093,7 +1097,11 @@
                     "errors": {},
                     "id": "28",
                     "type": "format",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 980,
                     "y": 1484.5
                 },
@@ -1148,7 +1156,11 @@
                     "errors": {},
                     "id": "29",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 980,
                     "y": 1644.5
                 },
@@ -1320,7 +1332,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-16T06:05:25.627496+00:00",
+    "create_time": "2025-06-16T09:10:30.259707+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
