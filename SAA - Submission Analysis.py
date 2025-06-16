@@ -181,14 +181,10 @@ def get_job_screenshots_1(action=None, success=None, container=None, results=Non
 def debug_2(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("debug_2() called")
 
-    get_job_summary_1_result_data = phantom.collect2(container=container, datapath=["get_job_summary_1:action_result.data.*.ResourceTree.Children.*.Children.*.Children.*.Type","get_job_summary_1:action_result.parameter.context.artifact_id"], action_results=results)
-
-    get_job_summary_1_result_item_0 = [item[0] for item in get_job_summary_1_result_data]
-
     parameters = []
 
     parameters.append({
-        "input_1": get_job_summary_1_result_item_0,
+        "input_1": ["container:id"],
         "input_2": None,
         "input_3": None,
         "input_4": None,
@@ -287,7 +283,7 @@ def file_screenshot_formatting(action=None, success=None, container=None, result
 
     phantom.save_block_result(key="file_screenshot_formatting:report", value=json.dumps(file_screenshot_formatting__report))
 
-    add_finding_or_investigation_note_4(container=container)
+    debug_2(container=container)
 
     return
 
@@ -385,6 +381,39 @@ def check_job_id(action=None, success=None, container=None, results=None, handle
     if found_match_1:
         get_job_summary_1(action=action, success=success, container=container, results=results, handle=handle)
         return
+
+    return
+
+
+@phantom.playbook_block()
+def find_related_containers_3(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("find_related_containers_3() called")
+
+    parameters = []
+
+    parameters.append({
+        "field_list": None,
+        "value_list": None,
+        "minimum_match_count": None,
+        "container": None,
+        "earliest_time": None,
+        "filter_status": None,
+        "filter_label": None,
+        "filter_severity": None,
+        "filter_in_case": None,
+    })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.custom_function(custom_function="local/find_related_containers", parameters=parameters, name="find_related_containers_3")
 
     return
 
