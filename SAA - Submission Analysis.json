@@ -88,9 +88,16 @@
                     "sourcePort": "23_out",
                     "targetNode": "25",
                     "targetPort": "25_in"
+                },
+                {
+                    "id": "port_25_to_port_27",
+                    "sourceNode": "25",
+                    "sourcePort": "25_out",
+                    "targetNode": "27",
+                    "targetPort": "27_in"
                 }
             ],
-            "hash": "7bba19c52adee6a175e9c8014207e2107ed18167",
+            "hash": "ac6b7806905fed71002ff6a9d7ed5f551314b050",
             "nodes": {
                 "0": {
                     "data": {
@@ -1196,6 +1203,67 @@
                     "x": 980,
                     "y": 1220
                 },
+                "27": {
+                    "data": {
+                        "action": "add investigation file",
+                        "actionType": "post",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": "7e971d03-6ae7-4429-b4e1-cf461003e75b",
+                        "connectorVersion": "v1",
+                        "functionId": 2,
+                        "functionName": "add_investigation_file_2",
+                        "id": "27",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "data": "image_base64:custom_function:image_base64",
+                            "file_name": "Screenshot",
+                            "id": "get_finding_or_investigation_1:action_result.data.*.finding_id",
+                            "source_type": "Note"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "",
+                                "field": "data"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "",
+                                "field": "file_name"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "",
+                                "field": "source_type"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "27",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 980,
+                    "y": 1344.5
+                },
                 "5": {
                     "data": {
                         "advanced": {
@@ -1364,7 +1432,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-16T05:59:01.976954+00:00",
+    "create_time": "2025-06-16T06:02:24.806834+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

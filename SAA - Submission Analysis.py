@@ -574,6 +574,44 @@ def image_base64(action=None, success=None, container=None, results=None, handle
     phantom.save_block_result(key="image_base64:image_base64", value=json.dumps(image_base64__image_base64))
     phantom.save_block_result(key="image_base64:status", value=json.dumps(image_base64__status))
 
+    add_investigation_file_2(container=container)
+
+    return
+
+
+@phantom.playbook_block()
+def add_investigation_file_2(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("add_investigation_file_2() called")
+
+    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
+
+    get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.finding_id","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
+    image_base64__image_base64 = json.loads(_ if (_ := phantom.get_run_data(key="image_base64:image_base64")) != "" else "null")  # pylint: disable=used-before-assignment
+
+    parameters = []
+
+    # build parameters list for 'add_investigation_file_2' call
+    for get_finding_or_investigation_1_result_item in get_finding_or_investigation_1_result_data:
+        if get_finding_or_investigation_1_result_item[0] is not None and image_base64__image_base64 is not None:
+            parameters.append({
+                "id": get_finding_or_investigation_1_result_item[0],
+                "data": image_base64__image_base64,
+                "file_name": "Screenshot",
+                "source_type": "Note",
+            })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.act("add investigation file", parameters=parameters, name="add_investigation_file_2", assets=["builtin_mc_connector"])
+
     return
 
 
