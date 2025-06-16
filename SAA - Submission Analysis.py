@@ -545,21 +545,25 @@ def image_base64(action=None, success=None, container=None, results=None, handle
     ################################################################################
 
     # Write your custom code here...
+    image_base64__image_base64 = []
+    image_base64__status = []
     import base64
     phantom.debug(type(playbook_get_container_id_and_vault_list_1_output_vault_list_values))
     phantom.debug(playbook_get_container_id_and_vault_list_1_output_vault_list_values)
-    try:            
-        image_path = playbook_get_container_id_and_vault_list_1_output_vault_list_values
-        phantom.debug(image_path)            
-        with open(image_path, "rb") as image_file:        
-            encoded_string = base64.b64encode(image_file.read()).decode('utf-8')                
-        image_base64__image_base64 = encoded_string
-        image_base64__status = "success"
-        phantom.debug(image_base64__image_base64)            
-        phantom.debug(image_base64__status)
-    except:
-        image_base64__status = "failed"
-        phantom.debug(image_base64__status)
+    for i in range(len(playbook_get_container_id_and_vault_list_1_output_vault_list_values)):
+        try:            
+            image_path = playbook_get_container_id_and_vault_list_1_output_vault_list_values[i]
+            phantom.debug(image_path)            
+            with open(image_path, "rb") as image_file:        
+                encoded_string = base64.b64encode(image_file.read()).decode('utf-8')                
+            image_base64__image_base64.append(encoded_string)
+            image_base64__status.append("success")
+            phantom.debug(image_base64__image_base64)            
+            phantom.debug(image_base64__status)
+        except:
+            image_base64__image_base64.append("NA")
+            image_base64__status.append("failed")
+            phantom.debug(image_base64__status)
     
     ################################################################################
     ## Custom Code End
