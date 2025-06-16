@@ -316,17 +316,17 @@ def add_finding_or_investigation_note_4(action=None, success=None, container=Non
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
     get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.finding_id","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
-    format_summary_report = phantom.get_format_data(name="format_summary_report")
+    file_screenshot_formatting__report = json.loads(_ if (_ := phantom.get_run_data(key="file_screenshot_formatting:report")) != "" else "null")  # pylint: disable=used-before-assignment
 
     parameters = []
 
     # build parameters list for 'add_finding_or_investigation_note_4' call
     for get_finding_or_investigation_1_result_item in get_finding_or_investigation_1_result_data:
-        if get_finding_or_investigation_1_result_item[0] is not None and format_summary_report is not None:
+        if get_finding_or_investigation_1_result_item[0] is not None and file_screenshot_formatting__report is not None:
             parameters.append({
                 "id": get_finding_or_investigation_1_result_item[0],
                 "title": "Splunk Attack Analyzer Report",
-                "content": format_summary_report,
+                "content": file_screenshot_formatting__report,
             })
 
     ################################################################################

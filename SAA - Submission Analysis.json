@@ -89,7 +89,7 @@
                     "targetPort": "15_in"
                 }
             ],
-            "hash": "cf27e6d8bf94af143d68622d2c62d2d4ed91c6f0",
+            "hash": "2ded53baeab6a726c92bb108929b341967a49759",
             "nodes": {
                 "0": {
                     "data": {
@@ -436,7 +436,7 @@
                             "pauseValue": 2
                         },
                         "parameters": {
-                            "content": "format_summary_report:formatted_data",
+                            "content": "file_screenshot_formatting:custom_function:report",
                             "id": "get_finding_or_investigation_1:action_result.data.*.finding_id",
                             "title": "Splunk Attack Analyzer Report"
                         },
@@ -894,7 +894,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-16T03:08:36.521253+00:00",
+    "create_time": "2025-06-16T03:09:10.411782+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
