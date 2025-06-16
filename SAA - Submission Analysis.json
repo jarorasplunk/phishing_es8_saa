@@ -124,7 +124,7 @@
                     "targetPort": "29_in"
                 }
             ],
-            "hash": "8a1c1d8d5f3bc827964da74ffb3e1ba6c9d7909c",
+            "hash": "2f30d6ed52cde7db2e4e561aa631e3a075f61c9d",
             "nodes": {
                 "0": {
                     "data": {
@@ -139,8 +139,8 @@
                     "id": "0",
                     "type": "start",
                     "warnings": {},
-                    "x": 1000,
-                    "y": 219.99999999999994
+                    "x": 680,
+                    "y": 7
                 },
                 "1": {
                     "data": {
@@ -155,8 +155,8 @@
                     "id": "1",
                     "type": "end",
                     "warnings": {},
-                    "x": 1320,
-                    "y": 2620
+                    "x": 20,
+                    "y": 504
                 },
                 "10": {
                     "data": {
@@ -198,8 +198,8 @@
                     "id": "10",
                     "type": "action",
                     "warnings": {},
-                    "x": 980,
-                    "y": 820
+                    "x": 660,
+                    "y": 800
                 },
                 "11": {
                     "data": {
@@ -376,8 +376,8 @@
                     "id": "11",
                     "type": "utility",
                     "warnings": {},
-                    "x": 780,
-                    "y": 1880
+                    "x": 0,
+                    "y": 169
                 },
                 "14": {
                     "data": {
@@ -412,8 +412,8 @@
                             "Connect block to playbook flow."
                         ]
                     },
-                    "x": 1420,
-                    "y": 1700
+                    "x": 340,
+                    "y": 7
                 },
                 "15": {
                     "data": {
@@ -449,8 +449,8 @@
                             "Connect block to playbook flow."
                         ]
                     },
-                    "x": 660,
-                    "y": 1760
+                    "x": 0,
+                    "y": 0
                 },
                 "16": {
                     "data": {
@@ -511,8 +511,8 @@
                             "Reconfigure invalid datapath."
                         ]
                     },
-                    "x": 840,
-                    "y": 1980
+                    "x": 0,
+                    "y": 325
                 },
                 "17": {
                     "data": {
@@ -696,8 +696,8 @@
                             "Connect block to playbook flow."
                         ]
                     },
-                    "x": 1420,
-                    "y": 1820
+                    "x": 980,
+                    "y": 7
                 },
                 "19": {
                     "data": {
@@ -733,8 +733,8 @@
                     "id": "19",
                     "type": "decision",
                     "warnings": {},
-                    "x": 1060,
-                    "y": 440
+                    "x": 740,
+                    "y": 324
                 },
                 "2": {
                     "data": {
@@ -762,7 +762,7 @@
                             "pauseValue": 2
                         },
                         "parameters": {
-                            "id": "finding:id"
+                            "id": "finding:investigation_id"
                         },
                         "requiredParameters": [
                             {
@@ -776,8 +776,8 @@
                     "id": "2",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 980,
-                    "y": 320
+                    "x": 660,
+                    "y": 162
                 },
                 "23": {
                     "data": {
@@ -790,7 +790,7 @@
                         "inputs": {
                             "finding_id": {
                                 "datapaths": [
-                                    "get_finding_or_investigation_1:action_result.data.*.finding_id"
+                                    "get_finding_or_investigation_1:action_result.data.*.investigation_id"
                                 ],
                                 "deduplicate": false
                             }
@@ -815,8 +815,8 @@
                     "id": "23",
                     "type": "playbook",
                     "warnings": {},
-                    "x": 980,
-                    "y": 1064.5
+                    "x": 660,
+                    "y": 1128
                 },
                 "24": {
                     "data": {
@@ -995,8 +995,8 @@
                     "id": "24",
                     "type": "utility",
                     "warnings": {},
-                    "x": 640,
-                    "y": 1200
+                    "x": 490,
+                    "y": 1290
                 },
                 "25": {
                     "data": {
@@ -1022,8 +1022,8 @@
                     "type": "code",
                     "userCode": "\n    # Write your custom code here...\n    image_base64__image_base64 = []\n    image_base64__status = []\n    import base64\n    phantom.debug(type(playbook_get_container_id_and_vault_list_1_output_vault_list_values))\n    phantom.debug(playbook_get_container_id_and_vault_list_1_output_vault_list_values)\n    for i in range(len(playbook_get_container_id_and_vault_list_1_output_vault_list_values)):            \n        image_path = playbook_get_container_id_and_vault_list_1_output_vault_list_values[i]\n        phantom.debug(image_path)            \n        with open(image_path, \"rb\") as image_file:        \n            encoded_string = base64.b64encode(image_file.read()).decode('utf-8')                \n        image_base64__image_base64.append(encoded_string)\n        image_base64__status.append(\"success\")\n        phantom.debug(image_base64__image_base64)            \n        phantom.debug(image_base64__status)\n",
                     "warnings": {},
-                    "x": 980,
-                    "y": 1220
+                    "x": 830,
+                    "y": 1290
                 },
                 "27": {
                     "data": {
@@ -1053,7 +1053,7 @@
                         "parameters": {
                             "data": "image_base64:custom_function:image_base64",
                             "file_name": "Screenshot",
-                            "id": "get_finding_or_investigation_1:action_result.data.*.finding_id",
+                            "id": "finding:investigation_id",
                             "source_type": "Note"
                         },
                         "requiredParameters": [
@@ -1083,8 +1083,8 @@
                     "id": "27",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 980,
-                    "y": 1344.5
+                    "x": 830,
+                    "y": 1438
                 },
                 "28": {
                     "data": {
@@ -1097,7 +1097,7 @@
                         "functionName": "format_screenshots",
                         "id": "28",
                         "parameters": [
-                            "get_finding_or_investigation_1:action_result.data.*.finding_id",
+                            "get_finding_or_investigation_1:action_result.data.*.investigation_id",
                             "add_investigation_file_2:action_result.data.*.id"
                         ],
                         "template": "%%\n![](/en-GB/splunkd/__raw/servicesNS/nobody/missioncontrol/v1/incidents/{0}/files/{1}/download)\n%%",
@@ -1107,8 +1107,8 @@
                     "id": "28",
                     "type": "format",
                     "warnings": {},
-                    "x": 800,
-                    "y": 1480
+                    "x": 830,
+                    "y": 1586
                 },
                 "29": {
                     "data": {
@@ -1138,7 +1138,7 @@
                         "parameters": {
                             "content": "format_screenshots:formatted_data",
                             "files": [],
-                            "id": "get_finding_or_investigation_1:action_result.data.*.finding_id",
+                            "id": "get_finding_or_investigation_1:action_result.data.*.investigation_id",
                             "title": "Screenshots from SAA job"
                         },
                         "requiredParameters": [
@@ -1163,8 +1163,8 @@
                     "id": "29",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 980,
-                    "y": 1644.5
+                    "x": 830,
+                    "y": 1734
                 },
                 "5": {
                     "data": {
@@ -1230,8 +1230,8 @@
                     "id": "5",
                     "type": "filter",
                     "warnings": {},
-                    "x": 1260,
-                    "y": 900
+                    "x": 720,
+                    "y": 948
                 },
                 "8": {
                     "data": {
@@ -1273,8 +1273,8 @@
                     "id": "8",
                     "type": "action",
                     "warnings": {},
-                    "x": 1180,
-                    "y": 540
+                    "x": 660,
+                    "y": 504
                 },
                 "9": {
                     "data": {
@@ -1316,8 +1316,8 @@
                     "id": "9",
                     "type": "action",
                     "warnings": {},
-                    "x": 1120,
-                    "y": 720
+                    "x": 660,
+                    "y": 652
                 }
             },
             "notes": ""
@@ -1330,7 +1330,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-16T09:56:14.803549+00:00",
+    "create_time": "2025-06-16T10:42:46.887181+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

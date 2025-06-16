@@ -23,7 +23,7 @@ def get_finding_or_investigation_1(action=None, success=None, container=None, re
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    finding_data = phantom.collect2(container=container, datapath=["finding:id"])
+    finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id"])
 
     parameters = []
 
@@ -408,7 +408,7 @@ def check_job_id(action=None, success=None, container=None, results=None, handle
 def playbook_get_container_id_and_vault_list_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("playbook_get_container_id_and_vault_list_1() called")
 
-    get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.finding_id"], action_results=results)
+    get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.investigation_id"], action_results=results)
 
     get_finding_or_investigation_1_result_item_0 = [item[0] for item in get_finding_or_investigation_1_result_data]
 
@@ -534,16 +534,16 @@ def add_investigation_file_2(action=None, success=None, container=None, results=
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.finding_id","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
+    finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id"])
     image_base64__image_base64 = json.loads(_ if (_ := phantom.get_run_data(key="image_base64:image_base64")) != "" else "null")  # pylint: disable=used-before-assignment
 
     parameters = []
 
     # build parameters list for 'add_investigation_file_2' call
-    for get_finding_or_investigation_1_result_item in get_finding_or_investigation_1_result_data:
-        if get_finding_or_investigation_1_result_item[0] is not None and image_base64__image_base64 is not None:
+    for finding_data_item in finding_data:
+        if finding_data_item[0] is not None and image_base64__image_base64 is not None:
             parameters.append({
-                "id": get_finding_or_investigation_1_result_item[0],
+                "id": finding_data_item[0],
                 "data": image_base64__image_base64,
                 "file_name": "Screenshot",
                 "source_type": "Note",
@@ -572,7 +572,7 @@ def format_screenshots(action=None, success=None, container=None, results=None, 
 
     # parameter list for template variable replacement
     parameters = [
-        "get_finding_or_investigation_1:action_result.data.*.finding_id",
+        "get_finding_or_investigation_1:action_result.data.*.investigation_id",
         "add_investigation_file_2:action_result.data.*.id"
     ]
 
@@ -599,7 +599,7 @@ def add_finding_or_investigation_note_3(action=None, success=None, container=Non
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.finding_id","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
+    get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.investigation_id","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
     format_screenshots = phantom.get_format_data(name="format_screenshots")
 
     parameters = []
