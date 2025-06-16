@@ -148,7 +148,19 @@ def get_job_screenshots_1(action=None, success=None, container=None, results=Non
     ## Custom Code End
     ################################################################################
 
-    phantom.act("get job screenshots", parameters=parameters, name="get_job_screenshots_1", assets=["splunk_attack_analyzer"], callback=file_screenshot_formatting)
+    phantom.act("get job screenshots", parameters=parameters, name="get_job_screenshots_1", assets=["splunk_attack_analyzer"], callback=get_job_screenshots_1_callback)
+
+    return
+
+
+@phantom.playbook_block()
+def get_job_screenshots_1_callback(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("get_job_screenshots_1_callback() called")
+
+    
+    file_screenshot_formatting(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=filtered_artifacts, filtered_results=filtered_results)
+    debug_1(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=filtered_artifacts, filtered_results=filtered_results)
+
 
     return
 
@@ -301,6 +313,44 @@ def add_finding_or_investigation_note_4(action=None, success=None, container=Non
     ################################################################################
 
     phantom.act("add finding or investigation note", parameters=parameters, name="add_finding_or_investigation_note_4", assets=["builtin_mc_connector"])
+
+    return
+
+
+@phantom.playbook_block()
+def debug_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("debug_1() called")
+
+    get_job_screenshots_1_result_data = phantom.collect2(container=container, datapath=["get_job_screenshots_1:action_result.data.*.file_name","get_job_screenshots_1:action_result.parameter.context.artifact_id"], action_results=results)
+
+    get_job_screenshots_1_result_item_0 = [item[0] for item in get_job_screenshots_1_result_data]
+
+    parameters = []
+
+    parameters.append({
+        "input_1": get_job_screenshots_1_result_item_0,
+        "input_2": None,
+        "input_3": None,
+        "input_4": None,
+        "input_5": None,
+        "input_6": None,
+        "input_7": None,
+        "input_8": None,
+        "input_9": None,
+        "input_10": None,
+    })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.custom_function(custom_function="community/debug", parameters=parameters, name="debug_1")
 
     return
 
