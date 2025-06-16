@@ -62,7 +62,7 @@
                     "targetPort": "4_in"
                 }
             ],
-            "hash": "28aeb316acb6467ae2f4e98b309db47950b857c2",
+            "hash": "d00cbc4c1e0638bc6f245102324260afa4effa0b",
             "nodes": {
                 "0": {
                     "data": {
@@ -77,8 +77,8 @@
                     "id": "0",
                     "type": "start",
                     "warnings": {},
-                    "x": 20,
-                    "y": -7.815970093361102e-14
+                    "x": 19.999999999999986,
+                    "y": -1.4210854715202004e-13
                 },
                 "1": {
                     "data": {
@@ -93,7 +93,7 @@
                     "id": "1",
                     "type": "end",
                     "warnings": {},
-                    "x": 20,
+                    "x": 19.999999999999986,
                     "y": 1092
                 },
                 "2": {
@@ -105,7 +105,7 @@
                         },
                         "connector": "Screenshot Machine",
                         "connectorConfigs": [
-                            "hani_screenshot"
+                            "screenshotmachine"
                         ],
                         "connectorId": "776ab995-313e-48e7-bccd-e8c9650c239a",
                         "connectorVersion": "v1",
@@ -358,9 +358,9 @@
         "playbook_type": "es",
         "python_version": "3.9",
         "schema": "5.0.17",
-        "version": "6.4.0.85"
+        "version": "6.4.1.342"
     },
-    "create_time": "2025-06-16T05:38:14.172201+00:00",
+    "create_time": "2025-06-16T05:38:49.485500+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

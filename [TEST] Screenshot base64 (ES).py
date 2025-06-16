@@ -47,7 +47,7 @@ def get_screenshot_1(action=None, success=None, container=None, results=None, ha
     ## Custom Code End
     ################################################################################
 
-    phantom.act("get screenshot", parameters=parameters, name="get_screenshot_1", assets=["hani_screenshot"], callback=image_base64)
+    phantom.act("get screenshot", parameters=parameters, name="get_screenshot_1", assets=["screenshotmachine"], callback=image_base64)
 
     return
 
@@ -207,6 +207,10 @@ def decision_1(action=None, success=None, container=None, results=None, handle=N
         conditions=[
             ["image_base64:custom_function:status", "==", "success"]
         ],
+        conditions_dps=[
+            ["image_base64:custom_function:status", "==", "success"]
+        ],
+        name="decision_1:condition_1",
         delimiter=None)
 
     # call connected blocks if condition 1 matched
