@@ -528,13 +528,10 @@ def add_investigation_file_2(action=None, success=None, container=None, results=
 def format_screenshots(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("format_screenshots() called")
 
-    template = """%%\n![](/en-GB/splunkd/__raw/servicesNS/nobody/missioncontrol/v1/incidents/{0}/files/{1}/download)\n%%"""
+    template = """Screenshots from the SAA detonation job has been added to to the \"Files\" section below."""
 
     # parameter list for template variable replacement
-    parameters = [
-        "get_finding_or_investigation_1:action_result.data.*.investigation_id",
-        "add_investigation_file_2:action_result.data.*.id"
-    ]
+    parameters = []
 
     ################################################################################
     ## Custom Code Start
@@ -569,7 +566,7 @@ def add_finding_or_investigation_note_3(action=None, success=None, container=Non
         if get_finding_or_investigation_1_result_item[0] is not None and format_screenshots is not None:
             parameters.append({
                 "id": get_finding_or_investigation_1_result_item[0],
-                "title": "Screenshots from SAA job",
+                "title": "Splunk Attack Analyzer Screenshots",
                 "content": format_screenshots,
                 "files": [
                 ],

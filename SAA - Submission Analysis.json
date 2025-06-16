@@ -110,7 +110,7 @@
                     "targetPort": "1_in"
                 }
             ],
-            "hash": "599699692d67ba0a85eda8392acc9d2a10a61100",
+            "hash": "3a285a1e4207dda4e6fe2d9091acc512c3b7de04",
             "nodes": {
                 "0": {
                     "data": {
@@ -913,11 +913,8 @@
                         "functionId": 2,
                         "functionName": "format_screenshots",
                         "id": "28",
-                        "parameters": [
-                            "get_finding_or_investigation_1:action_result.data.*.investigation_id",
-                            "add_investigation_file_2:action_result.data.*.id"
-                        ],
-                        "template": "%%\n![](/en-GB/splunkd/__raw/servicesNS/nobody/missioncontrol/v1/incidents/{0}/files/{1}/download)\n%%",
+                        "parameters": [],
+                        "template": "Screenshots from the SAA detonation job has been added to to the \"Files\" section below.",
                         "type": "format"
                     },
                     "errors": {},
@@ -956,7 +953,7 @@
                             "content": "format_screenshots:formatted_data",
                             "files": [],
                             "id": "get_finding_or_investigation_1:action_result.data.*.investigation_id",
-                            "title": "Screenshots from SAA job"
+                            "title": "Splunk Attack Analyzer Screenshots"
                         },
                         "requiredParameters": [
                             {
@@ -1147,7 +1144,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-16T10:48:54.887210+00:00",
+    "create_time": "2025-06-16T10:50:35.830208+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
