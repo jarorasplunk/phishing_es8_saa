@@ -89,7 +89,7 @@
                     "targetPort": "15_in"
                 }
             ],
-            "hash": "2ded53baeab6a726c92bb108929b341967a49759",
+            "hash": "90dd93fee3185f395ab34c71e9cc9bd24073ac63",
             "nodes": {
                 "0": {
                     "data": {
@@ -149,7 +149,7 @@
                             "pauseValue": 2
                         },
                         "parameters": {
-                            "job_id": "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.SAA_JOB_ID"
+                            "job_id": "2c4d083f-d575-4495-a504-50d7e48e5a00"
                         },
                         "requiredParameters": [
                             {
@@ -622,7 +622,7 @@
                         "values": {
                             "debug": {
                                 "input_1": [
-                                    "get_job_screenshots_1:action_result.data.*.file_name"
+                                    "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.SAA_JOB_ID"
                                 ],
                                 "input_10": null,
                                 "input_2": null,
@@ -823,7 +823,7 @@
                             "pauseValue": 2
                         },
                         "parameters": {
-                            "job_id": "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.SAA_JOB_ID"
+                            "job_id": "2c4d083f-d575-4495-a504-50d7e48e5a00"
                         },
                         "requiredParameters": [
                             {
@@ -866,7 +866,7 @@
                             "pauseValue": 2
                         },
                         "parameters": {
-                            "job_id": "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.SAA_JOB_ID"
+                            "job_id": "2c4d083f-d575-4495-a504-50d7e48e5a00"
                         },
                         "requiredParameters": [
                             {
@@ -894,7 +894,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-16T03:09:10.411782+00:00",
+    "create_time": "2025-06-16T03:11:10.857231+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

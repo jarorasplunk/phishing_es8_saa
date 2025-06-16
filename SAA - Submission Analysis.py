@@ -102,16 +102,11 @@ def get_job_summary_1(action=None, success=None, container=None, results=None, h
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.consolidated_findings.SAA_JOB_ID","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
-
     parameters = []
 
-    # build parameters list for 'get_job_summary_1' call
-    for get_finding_or_investigation_1_result_item in get_finding_or_investigation_1_result_data:
-        if get_finding_or_investigation_1_result_item[0] is not None:
-            parameters.append({
-                "job_id": get_finding_or_investigation_1_result_item[0],
-            })
+    parameters.append({
+        "job_id": "2c4d083f-d575-4495-a504-50d7e48e5a00",
+    })
 
     ################################################################################
     ## Custom Code Start
@@ -134,16 +129,11 @@ def get_job_forensics_1(action=None, success=None, container=None, results=None,
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.consolidated_findings.SAA_JOB_ID","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
-
     parameters = []
 
-    # build parameters list for 'get_job_forensics_1' call
-    for get_finding_or_investigation_1_result_item in get_finding_or_investigation_1_result_data:
-        if get_finding_or_investigation_1_result_item[0] is not None:
-            parameters.append({
-                "job_id": get_finding_or_investigation_1_result_item[0],
-            })
+    parameters.append({
+        "job_id": "2c4d083f-d575-4495-a504-50d7e48e5a00",
+    })
 
     ################################################################################
     ## Custom Code Start
@@ -166,16 +156,11 @@ def get_job_screenshots_1(action=None, success=None, container=None, results=Non
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.consolidated_findings.SAA_JOB_ID","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
-
     parameters = []
 
-    # build parameters list for 'get_job_screenshots_1' call
-    for get_finding_or_investigation_1_result_item in get_finding_or_investigation_1_result_data:
-        if get_finding_or_investigation_1_result_item[0] is not None:
-            parameters.append({
-                "job_id": get_finding_or_investigation_1_result_item[0],
-            })
+    parameters.append({
+        "job_id": "2c4d083f-d575-4495-a504-50d7e48e5a00",
+    })
 
     ################################################################################
     ## Custom Code Start
@@ -348,14 +333,14 @@ def add_finding_or_investigation_note_4(action=None, success=None, container=Non
 def debug_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("debug_1() called")
 
-    get_job_screenshots_1_result_data = phantom.collect2(container=container, datapath=["get_job_screenshots_1:action_result.data.*.file_name","get_job_screenshots_1:action_result.parameter.context.artifact_id"], action_results=results)
+    get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.consolidated_findings.SAA_JOB_ID","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
 
-    get_job_screenshots_1_result_item_0 = [item[0] for item in get_job_screenshots_1_result_data]
+    get_finding_or_investigation_1_result_item_0 = [item[0] for item in get_finding_or_investigation_1_result_data]
 
     parameters = []
 
     parameters.append({
-        "input_1": get_job_screenshots_1_result_item_0,
+        "input_1": get_finding_or_investigation_1_result_item_0,
         "input_2": None,
         "input_3": None,
         "input_4": None,
