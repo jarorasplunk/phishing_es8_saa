@@ -42,7 +42,7 @@
                     "targetPort": "3_in"
                 }
             ],
-            "hash": "6dbafc7e3403ebf45bff43a53d975f0fa1baa794",
+            "hash": "7c44b4fdc06574d87a114763f522fd84de3b3fb5",
             "nodes": {
                 "0": {
                     "data": {
@@ -259,10 +259,10 @@
             },
             "notes": "",
             "origin": {
-                "playbook_id": 287,
-                "playbook_name": "Create Investigation - Jit",
-                "playbook_repo_id": 4,
-                "playbook_repo_name": "phishing_es8_saa"
+                "playbook_id": 312,
+                "playbook_name": "Create Investigation",
+                "playbook_repo_id": 2,
+                "playbook_repo_name": "local"
             }
         },
         "input_spec": null,
