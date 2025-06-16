@@ -1,0 +1,369 @@
+{
+    "blockly": false,
+    "blockly_xml": "<xml></xml>",
+    "category": "Uncategorized",
+    "coa": {
+        "data": {
+            "description": "",
+            "edges": [
+                {
+                    "id": "port_0_to_port_2",
+                    "sourceNode": "0",
+                    "sourcePort": "0_out",
+                    "targetNode": "2",
+                    "targetPort": "2_in"
+                },
+                {
+                    "id": "port_2_to_port_3",
+                    "sourceNode": "2",
+                    "sourcePort": "2_out",
+                    "targetNode": "3",
+                    "targetPort": "3_in"
+                },
+                {
+                    "id": "port_5_to_port_1",
+                    "sourceNode": "5",
+                    "sourcePort": "5_out",
+                    "targetNode": "1",
+                    "targetPort": "1_in"
+                },
+                {
+                    "id": "port_6_to_port_5",
+                    "sourceNode": "6",
+                    "sourcePort": "6_out",
+                    "targetNode": "5",
+                    "targetPort": "5_in"
+                },
+                {
+                    "id": "port_4_to_port_6",
+                    "sourceNode": "4",
+                    "sourcePort": "4_out",
+                    "targetNode": "6",
+                    "targetPort": "6_in"
+                },
+                {
+                    "id": "port_3_to_port_7",
+                    "sourceNode": "3",
+                    "sourcePort": "3_out",
+                    "targetNode": "7",
+                    "targetPort": "7_in"
+                },
+                {
+                    "conditions": [
+                        {
+                            "conditionKey": "condition_key_0",
+                            "index": 0
+                        }
+                    ],
+                    "id": "port_7_to_port_4",
+                    "sourceNode": "7",
+                    "sourcePort": "7_out",
+                    "targetNode": "4",
+                    "targetPort": "4_in"
+                }
+            ],
+            "hash": "28aeb316acb6467ae2f4e98b309db47950b857c2",
+            "nodes": {
+                "0": {
+                    "data": {
+                        "advanced": {
+                            "join": []
+                        },
+                        "functionName": "on_start",
+                        "id": "0",
+                        "type": "start"
+                    },
+                    "errors": {},
+                    "id": "0",
+                    "type": "start",
+                    "warnings": {},
+                    "x": 20,
+                    "y": -7.815970093361102e-14
+                },
+                "1": {
+                    "data": {
+                        "advanced": {
+                            "join": []
+                        },
+                        "functionName": "on_finish",
+                        "id": "1",
+                        "type": "end"
+                    },
+                    "errors": {},
+                    "id": "1",
+                    "type": "end",
+                    "warnings": {},
+                    "x": 20,
+                    "y": 1092
+                },
+                "2": {
+                    "data": {
+                        "action": "get screenshot",
+                        "actionType": "investigate",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Screenshot Machine",
+                        "connectorConfigs": [
+                            "hani_screenshot"
+                        ],
+                        "connectorId": "776ab995-313e-48e7-bccd-e8c9650c239a",
+                        "connectorVersion": "v1",
+                        "functionId": 1,
+                        "functionName": "get_screenshot_1",
+                        "id": "2",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "delay": "200",
+                            "dimension": "1024xfull",
+                            "filename": "screenshot",
+                            "url": "finding:consolidated_findings.url"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "url"
+                            }
+                        ],
+                        "type": "action"
+                    },
+                    "errors": {},
+                    "id": "2",
+                    "type": "action",
+                    "warnings": {},
+                    "x": 0,
+                    "y": 149.99999999999994
+                },
+                "3": {
+                    "data": {
+                        "advanced": {
+                            "customName": "image_base64",
+                            "customNameId": 0,
+                            "join": []
+                        },
+                        "functionId": 1,
+                        "functionName": "image_base64",
+                        "id": "3",
+                        "inputParameters": [
+                            "get_screenshot_1:action_result.summary.vault_file_path"
+                        ],
+                        "outputVariables": [
+                            "image_base64",
+                            "status"
+                        ],
+                        "type": "code"
+                    },
+                    "errors": {},
+                    "id": "3",
+                    "type": "code",
+                    "userCode": "\n    import base64\n    \n    try:            \n        image_path = get_screenshot_1_summary_vault_file_path[0]\n        phantom.debug(image_path)            \n        with open(image_path, \"rb\") as image_file:        \n            encoded_string = base64.b64encode(image_file.read()).decode('utf-8')                \n        image_base64__image_base64 = encoded_string\n        image_base64__status = \"success\"\n        phantom.debug(image_base64__image_base64)            \n        phantom.debug(image_base64__status)\n    except:\n        image_base64__status = \"failed\"\n        phantom.debug(image_base64__status)                \n",
+                    "warnings": {},
+                    "x": 0,
+                    "y": 300
+                },
+                "4": {
+                    "data": {
+                        "action": "add investigation file",
+                        "actionType": "post",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": "7e971d03-6ae7-4429-b4e1-cf461003e75b",
+                        "connectorVersion": "v1",
+                        "functionId": 1,
+                        "functionName": "add_investigation_file_1",
+                        "id": "4",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "data": "image_base64:custom_function:image_base64",
+                            "file_name": "screenshot",
+                            "id": "finding:id",
+                            "source_type": "Note"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "",
+                                "field": "data"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "",
+                                "field": "file_name"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "",
+                                "field": "source_type"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "4",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 0,
+                    "y": 630
+                },
+                "5": {
+                    "data": {
+                        "action": "add finding or investigation note",
+                        "actionType": "post",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": "7e971d03-6ae7-4429-b4e1-cf461003e75b",
+                        "connectorVersion": "v1",
+                        "functionId": 2,
+                        "functionName": "add_finding_or_investigation_note_2",
+                        "id": "5",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "content": "format_file:formatted_data",
+                            "files": [],
+                            "id": "finding:id",
+                            "title": "Notes go here ..."
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "",
+                                "field": "title"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "",
+                                "field": "content"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "5",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 0,
+                    "y": 930
+                },
+                "6": {
+                    "data": {
+                        "advanced": {
+                            "customName": "format_file",
+                            "customNameId": 0,
+                            "join": []
+                        },
+                        "functionId": 1,
+                        "functionName": "format_file",
+                        "id": "6",
+                        "parameters": [
+                            "finding:id",
+                            "add_investigation_file_1:action_result.data.*.id"
+                        ],
+                        "template": "![python.org.jpg](/en-US/splunkd/__raw/servicesNS/nobody/missioncontrol/v1/incidents/{0}/files/{1}/download)",
+                        "type": "format"
+                    },
+                    "errors": {},
+                    "id": "6",
+                    "type": "format",
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
+                    "x": 0,
+                    "y": 780
+                },
+                "7": {
+                    "data": {
+                        "advanced": {
+                            "join": []
+                        },
+                        "conditions": [
+                            {
+                                "comparisons": [
+                                    {
+                                        "conditionIndex": 0,
+                                        "op": "==",
+                                        "param": "image_base64:custom_function:status",
+                                        "value": "success"
+                                    }
+                                ],
+                                "conditionIndex": 0,
+                                "conditionKey": "condition_key_0",
+                                "customName": "success",
+                                "display": "If",
+                                "logic": "and",
+                                "type": "if"
+                            }
+                        ],
+                        "functionId": 1,
+                        "functionName": "decision_1",
+                        "id": "7",
+                        "type": "decision"
+                    },
+                    "errors": {},
+                    "id": "7",
+                    "type": "decision",
+                    "warnings": {},
+                    "x": 80,
+                    "y": 450
+                }
+            },
+            "notes": ""
+        },
+        "input_spec": null,
+        "output_spec": null,
+        "playbook_trigger": "artifact_created",
+        "playbook_type": "es",
+        "python_version": "3.9",
+        "schema": "5.0.17",
+        "version": "6.4.0.85"
+    },
+    "create_time": "2025-06-16T05:38:14.172201+00:00",
+    "draft_mode": false,
+    "labels": [
+        "es_soar_integration"
+    ],
+    "tags": []
+}
