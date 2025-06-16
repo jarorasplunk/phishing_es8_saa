@@ -48,13 +48,6 @@
                     "targetPort": "10_in"
                 },
                 {
-                    "id": "port_10_to_port_15",
-                    "sourceNode": "10",
-                    "sourcePort": "10_out",
-                    "targetNode": "15",
-                    "targetPort": "15_in"
-                },
-                {
                     "id": "port_15_to_port_14",
                     "sourceNode": "15",
                     "sourcePort": "15_out",
@@ -83,7 +76,7 @@
                     "targetPort": "17_in"
                 }
             ],
-            "hash": "70ef0473eddba007b4a2132c6df452ce5cfd1ef7",
+            "hash": "95991a3d284f6725c37087df05502ab9cf581b1e",
             "nodes": {
                 "0": {
                     "data": {
@@ -370,7 +363,11 @@
                     "errors": {},
                     "id": "14",
                     "type": "format",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 980,
                     "y": 1320
                 },
@@ -400,7 +397,14 @@
                     "id": "15",
                     "type": "code",
                     "userCode": "\n    # Write your custom code here...\n    file_screenshot_formatting__report = \"\"\n    \n    for file, job_id in zip(get_job_summary_1_result_item_0, get_job_summary_1_parameter_job_id):\n        file_screenshot_formatting__report += f\"#### {file}\\n\"\n        for screenshot_job, screenshot_name, screenshot_id in zip(get_job_screenshots_1_parameter_job_id, get_job_screenshots_1_result_item_1, get_job_screenshots_1_result_item_2):\n            if job_id == screenshot_job:\n                file_screenshot_formatting__report += f\"![{screenshot_name}](/view?id={screenshot_id})\\n\"\n\n",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ],
+                        "context": [
+                            "Connect block to playbook flow."
+                        ]
+                    },
                     "x": 980,
                     "y": 1180
                 },
@@ -455,7 +459,11 @@
                     "errors": {},
                     "id": "16",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 980,
                     "y": 1484.5
                 },
@@ -811,7 +819,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-16T02:25:28.580341+00:00",
+    "create_time": "2025-06-16T02:25:39.972002+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
