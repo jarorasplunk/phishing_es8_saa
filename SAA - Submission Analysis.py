@@ -72,7 +72,7 @@ def job_type(action=None, success=None, container=None, results=None, handle=Non
 
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_1 or matched_results_1:
-        pass
+        image_base64(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)
 
     # collect filtered artifact ids and results for 'if' condition 2
     matched_artifacts_2, matched_results_2 = phantom.condition(
@@ -91,7 +91,7 @@ def job_type(action=None, success=None, container=None, results=None, handle=Non
 
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_2 or matched_results_2:
-        playbook_get_container_id_and_vault_list_1(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_2, filtered_results=matched_results_2)
+        pass
 
     return
 
@@ -437,49 +437,9 @@ def playbook_get_container_id_and_vault_list_1_callback(action=None, success=Non
     phantom.debug("playbook_get_container_id_and_vault_list_1_callback() called")
 
     
-    debug_4(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=filtered_artifacts, filtered_results=filtered_results)
-    image_base64(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=filtered_artifacts, filtered_results=filtered_results)
+    # Downstream End block cannot be called directly, since execution will call on_finish automatically.
+    # Using placeholder callback function so child playbook is run synchronously.
 
-
-    return
-
-
-@phantom.playbook_block()
-def debug_4(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("debug_4() called")
-
-    playbook_get_container_id_and_vault_list_1_output_soar_container_id = phantom.collect2(container=container, datapath=["playbook_get_container_id_and_vault_list_1:playbook_output:soar_container_id"])
-    playbook_get_container_id_and_vault_list_1_output_vault_list = phantom.collect2(container=container, datapath=["playbook_get_container_id_and_vault_list_1:playbook_output:vault_list"])
-
-    playbook_get_container_id_and_vault_list_1_output_soar_container_id_values = [item[0] for item in playbook_get_container_id_and_vault_list_1_output_soar_container_id]
-    playbook_get_container_id_and_vault_list_1_output_vault_list_values = [item[0] for item in playbook_get_container_id_and_vault_list_1_output_vault_list]
-
-    parameters = []
-
-    parameters.append({
-        "input_1": playbook_get_container_id_and_vault_list_1_output_soar_container_id_values,
-        "input_2": playbook_get_container_id_and_vault_list_1_output_vault_list_values,
-        "input_3": None,
-        "input_4": None,
-        "input_5": None,
-        "input_6": None,
-        "input_7": None,
-        "input_8": None,
-        "input_9": None,
-        "input_10": None,
-    })
-
-    ################################################################################
-    ## Custom Code Start
-    ################################################################################
-
-    # Write your custom code here...
-
-    ################################################################################
-    ## Custom Code End
-    ################################################################################
-
-    phantom.custom_function(custom_function="community/debug", parameters=parameters, name="debug_4")
 
     return
 
