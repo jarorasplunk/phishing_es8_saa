@@ -23,7 +23,7 @@ def get_finding_or_investigation_1(action=None, success=None, container=None, re
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    finding_data = phantom.collect2(container=container, datapath=["finding:finding_id"])
+    finding_data = phantom.collect2(container=container, datapath=["finding:id"])
 
     parameters = []
 
@@ -91,7 +91,7 @@ def job_type(action=None, success=None, container=None, results=None, handle=Non
 
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_2 or matched_results_2:
-        pass
+        playbook_get_container_id_and_vault_list_1(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_2, filtered_results=matched_results_2)
 
     return
 
@@ -102,11 +102,16 @@ def get_job_summary_1(action=None, success=None, container=None, results=None, h
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
+    get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.consolidated_findings.SAA_JOB_ID","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
+
     parameters = []
 
-    parameters.append({
-        "job_id": "2c4d083f-d575-4495-a504-50d7e48e5a00",
-    })
+    # build parameters list for 'get_job_summary_1' call
+    for get_finding_or_investigation_1_result_item in get_finding_or_investigation_1_result_data:
+        if get_finding_or_investigation_1_result_item[0] is not None:
+            parameters.append({
+                "job_id": get_finding_or_investigation_1_result_item[0],
+            })
 
     ################################################################################
     ## Custom Code Start
@@ -129,11 +134,16 @@ def get_job_forensics_1(action=None, success=None, container=None, results=None,
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
+    get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.consolidated_findings.SAA_JOB_ID","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
+
     parameters = []
 
-    parameters.append({
-        "job_id": "2c4d083f-d575-4495-a504-50d7e48e5a00",
-    })
+    # build parameters list for 'get_job_forensics_1' call
+    for get_finding_or_investigation_1_result_item in get_finding_or_investigation_1_result_data:
+        if get_finding_or_investigation_1_result_item[0] is not None:
+            parameters.append({
+                "job_id": get_finding_or_investigation_1_result_item[0],
+            })
 
     ################################################################################
     ## Custom Code Start
@@ -156,11 +166,16 @@ def get_job_screenshots_1(action=None, success=None, container=None, results=Non
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
+    get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.consolidated_findings.SAA_JOB_ID","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
+
     parameters = []
 
-    parameters.append({
-        "job_id": "2c4d083f-d575-4495-a504-50d7e48e5a00",
-    })
+    # build parameters list for 'get_job_screenshots_1' call
+    for get_finding_or_investigation_1_result_item in get_finding_or_investigation_1_result_data:
+        if get_finding_or_investigation_1_result_item[0] is not None:
+            parameters.append({
+                "job_id": get_finding_or_investigation_1_result_item[0],
+            })
 
     ################################################################################
     ## Custom Code Start
@@ -383,7 +398,7 @@ def check_job_id(action=None, success=None, container=None, results=None, handle
 
     # call connected blocks if condition 1 matched
     if found_match_1:
-        playbook_get_container_id_and_vault_list_1(action=action, success=success, container=container, results=results, handle=handle)
+        get_job_summary_1(action=action, success=success, container=container, results=results, handle=handle)
         return
 
     return
