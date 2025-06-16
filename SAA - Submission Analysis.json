@@ -76,7 +76,7 @@
                     "targetPort": "17_in"
                 }
             ],
-            "hash": "885f61b08d40395b5af1fa7fb5aa5a2fbc35be5c",
+            "hash": "710d21f73fde654b8c7f369669abb6267180266c",
             "nodes": {
                 "0": {
                     "data": {
@@ -724,19 +724,17 @@
                 },
                 "8": {
                     "data": {
-                        "action": "get job summary",
-                        "actionType": "investigate",
+                        "action": null,
+                        "actionType": null,
                         "advanced": {
                             "join": []
                         },
-                        "connector": "Splunk Attack Analyzer Connector for Splunk SOAR",
-                        "connectorConfigs": [
-                            "splunk_attack_analyzer"
-                        ],
-                        "connectorId": "de681fee-c552-45bf-9212-827b1c7529f8",
-                        "connectorVersion": "v1",
+                        "connector": null,
+                        "connectorConfigs": [],
+                        "connectorId": null,
+                        "connectorVersion": null,
                         "functionId": 1,
-                        "functionName": "get_job_summary_1",
+                        "functionName": "action_1",
                         "id": "8",
                         "loop": {
                             "enabled": false,
@@ -747,9 +745,7 @@
                             "pauseUnit": "m",
                             "pauseValue": 2
                         },
-                        "parameters": {
-                            "job_id": "2c4d083f-d575-4495-a504-50d7e48e5a00"
-                        },
+                        "parameters": {},
                         "requiredParameters": [
                             {
                                 "data_type": "string",
@@ -819,7 +815,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-16T02:30:23.136401+00:00",
+    "create_time": "2025-06-16T02:35:29.229113+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

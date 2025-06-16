@@ -67,21 +67,21 @@ def filter_saa_jobid(action=None, success=None, container=None, results=None, ha
 
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_1 or matched_results_1:
-        get_job_summary_1(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)
+        action_1(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)
 
     return
 
 
 @phantom.playbook_block()
-def get_job_summary_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("get_job_summary_1() called")
+def action_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("action_1() called")
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
     parameters = []
 
     parameters.append({
-        "job_id": "2c4d083f-d575-4495-a504-50d7e48e5a00",
+        "job_id": "",
     })
 
     ################################################################################
@@ -94,7 +94,7 @@ def get_job_summary_1(action=None, success=None, container=None, results=None, h
     ## Custom Code End
     ################################################################################
 
-    phantom.act("get job summary", parameters=parameters, name="get_job_summary_1", assets=["splunk_attack_analyzer"], callback=get_job_forensics_1)
+    phantom.act("null", parameters=parameters, name="action_1", callback=get_job_forensics_1)
 
     return
 
