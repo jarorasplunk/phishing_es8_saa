@@ -568,7 +568,7 @@ def add_investigation_file_2(action=None, success=None, container=None, results=
 def format_screenshots(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("format_screenshots() called")
 
-    template = """![](/en-US/splunkd/__raw/servicesNS/nobody/missioncontrol/v1/incidents/{0}/files/{1}/download)\n"""
+    template = """%%\n![](/en-GB/splunkd/__raw/servicesNS/nobody/missioncontrol/v1/incidents/{0}/files/{1}/download)\n%%"""
 
     # parameter list for template variable replacement
     parameters = [
@@ -611,6 +611,8 @@ def add_finding_or_investigation_note_3(action=None, success=None, container=Non
                 "id": get_finding_or_investigation_1_result_item[0],
                 "title": "Screenshots from SAA job",
                 "content": format_screenshots,
+                "files": [
+                ],
             })
 
     ################################################################################

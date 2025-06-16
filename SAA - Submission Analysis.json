@@ -84,20 +84,6 @@
                     "targetPort": "27_in"
                 },
                 {
-                    "id": "port_27_to_port_28",
-                    "sourceNode": "27",
-                    "sourcePort": "27_out",
-                    "targetNode": "28",
-                    "targetPort": "28_in"
-                },
-                {
-                    "id": "port_28_to_port_29",
-                    "sourceNode": "28",
-                    "sourcePort": "28_out",
-                    "targetNode": "29",
-                    "targetPort": "29_in"
-                },
-                {
                     "conditions": [
                         {
                             "conditionKey": "condition_key_0",
@@ -122,9 +108,23 @@
                     "sourcePort": "5_out",
                     "targetNode": "23",
                     "targetPort": "23_in"
+                },
+                {
+                    "id": "port_27_to_port_28",
+                    "sourceNode": "27",
+                    "sourcePort": "27_out",
+                    "targetNode": "28",
+                    "targetPort": "28_in"
+                },
+                {
+                    "id": "port_28_to_port_29",
+                    "sourceNode": "28",
+                    "sourcePort": "28_out",
+                    "targetNode": "29",
+                    "targetPort": "29_in"
                 }
             ],
-            "hash": "18ba52663e7622e2cd575ab586dc986acb8b9550",
+            "hash": "8a1c1d8d5f3bc827964da74ffb3e1ba6c9d7909c",
             "nodes": {
                 "0": {
                     "data": {
@@ -1100,15 +1100,15 @@
                             "get_finding_or_investigation_1:action_result.data.*.finding_id",
                             "add_investigation_file_2:action_result.data.*.id"
                         ],
-                        "template": "![](/en-US/splunkd/__raw/servicesNS/nobody/missioncontrol/v1/incidents/{0}/files/{1}/download)\n",
+                        "template": "%%\n![](/en-GB/splunkd/__raw/servicesNS/nobody/missioncontrol/v1/incidents/{0}/files/{1}/download)\n%%",
                         "type": "format"
                     },
                     "errors": {},
                     "id": "28",
                     "type": "format",
                     "warnings": {},
-                    "x": 980,
-                    "y": 1484.5
+                    "x": 800,
+                    "y": 1480
                 },
                 "29": {
                     "data": {
@@ -1137,6 +1137,7 @@
                         },
                         "parameters": {
                             "content": "format_screenshots:formatted_data",
+                            "files": [],
                             "id": "get_finding_or_investigation_1:action_result.data.*.finding_id",
                             "title": "Screenshots from SAA job"
                         },
@@ -1329,7 +1330,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-16T09:23:16.215519+00:00",
+    "create_time": "2025-06-16T09:56:14.803549+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
