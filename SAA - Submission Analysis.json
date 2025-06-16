@@ -95,9 +95,23 @@
                     "sourcePort": "25_out",
                     "targetNode": "27",
                     "targetPort": "27_in"
+                },
+                {
+                    "id": "port_27_to_port_28",
+                    "sourceNode": "27",
+                    "sourcePort": "27_out",
+                    "targetNode": "28",
+                    "targetPort": "28_in"
+                },
+                {
+                    "id": "port_28_to_port_29",
+                    "sourceNode": "28",
+                    "sourcePort": "28_out",
+                    "targetNode": "29",
+                    "targetPort": "29_in"
                 }
             ],
-            "hash": "ac6b7806905fed71002ff6a9d7ed5f551314b050",
+            "hash": "e562b0d09d619249c2a81656d54c98338435ea48",
             "nodes": {
                 "0": {
                     "data": {
@@ -128,8 +142,8 @@
                     "id": "1",
                     "type": "end",
                     "warnings": {},
-                    "x": 1000,
-                    "y": 1620
+                    "x": 1320,
+                    "y": 2620
                 },
                 "10": {
                     "data": {
@@ -349,8 +363,8 @@
                     "id": "11",
                     "type": "utility",
                     "warnings": {},
-                    "x": 980,
-                    "y": 1700
+                    "x": 780,
+                    "y": 1880
                 },
                 "14": {
                     "data": {
@@ -385,8 +399,8 @@
                             "Connect block to playbook flow."
                         ]
                     },
-                    "x": 1280,
-                    "y": 1400
+                    "x": 1420,
+                    "y": 1700
                 },
                 "15": {
                     "data": {
@@ -422,8 +436,8 @@
                             "Connect block to playbook flow."
                         ]
                     },
-                    "x": 980,
-                    "y": 1600
+                    "x": 660,
+                    "y": 1760
                 },
                 "16": {
                     "data": {
@@ -484,8 +498,8 @@
                             "Reconfigure invalid datapath."
                         ]
                     },
-                    "x": 980,
-                    "y": 1800
+                    "x": 840,
+                    "y": 1980
                 },
                 "17": {
                     "data": {
@@ -670,7 +684,7 @@
                         ]
                     },
                     "x": 1420,
-                    "y": 1580
+                    "y": 1820
                 },
                 "19": {
                     "data": {
@@ -751,211 +765,6 @@
                     "warnings": {},
                     "x": 980,
                     "y": 320
-                },
-                "20": {
-                    "data": {
-                        "advanced": {
-                            "join": []
-                        },
-                        "customFunction": {
-                            "draftMode": false,
-                            "name": "find_related_containers",
-                            "repoName": "local"
-                        },
-                        "functionId": 3,
-                        "functionName": "find_related_containers_3",
-                        "id": "20",
-                        "loop": {
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "selectMore": false,
-                        "tab": "customFunctions",
-                        "type": "utility",
-                        "utilities": {
-                            "find_related_containers": {
-                                "description": "Takes a list of indicator values or field names that may appear in other containers on the system. If any related containers are found, it will produce a list of the related container details.",
-                                "fields": [
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "A field  to search on, such as destinationAddress or risk_object. Not compatible with value_list. Only containers that share the exact value in the exact fields will be considered related.",
-                                        "inputType": "list",
-                                        "label": "field_list",
-                                        "name": "field_list",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "An indicator value to search on, such as a file hash or IP address. To search on all indicator values in the container, use \"*\". Not compatible with field_list.",
-                                        "inputType": "list",
-                                        "label": "value_list",
-                                        "name": "value_list",
-                                        "placeholder": "*",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [],
-                                        "description": "The minimum number of values from the value_list parameter or the fields from the field_list that must match with related containers. Supports an integer or the string 'all'. Adding 'all' will set the minimum_match_count to the length of the number of unique values in the value_list or the number of unique fields in the field_list. If no match count provided, this will default to 1.",
-                                        "inputType": "item",
-                                        "label": "minimum_match_count",
-                                        "name": "minimum_match_count",
-                                        "placeholder": "1-100",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "phantom container id"
-                                        ],
-                                        "description": "The container to run indicator analysis against. Supports container object or container_id. This container will also be excluded from the results for related_containers.",
-                                        "inputType": "item",
-                                        "label": "container",
-                                        "name": "container",
-                                        "placeholder": "container:id",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [],
-                                        "description": "Optional modifier to only consider related containers within a time window. Default is -30d.  Supports year (y), month (m), day (d), hour (h), or minute (m)  Custom function will always set the earliest container window based on the input container \"create_time\".",
-                                        "inputType": "item",
-                                        "label": "earliest_time",
-                                        "name": "earliest_time",
-                                        "placeholder": "-30d",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            ""
-                                        ],
-                                        "description": "Optional comma-separated list of statuses to filter on. Only containers that have statuses matching an item in this list will be included.",
-                                        "inputType": "list",
-                                        "label": "filter_status",
-                                        "name": "filter_status",
-                                        "placeholder": "open",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "phantom container label"
-                                        ],
-                                        "description": "Optional comma-separated list of labels to filter on. Only containers that have labels matching an item in this list will be included.",
-                                        "inputType": "list",
-                                        "label": "filter_label",
-                                        "name": "filter_label",
-                                        "placeholder": "events",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [],
-                                        "description": "Optional comma-separated list of severities to filter on. Only containers that have severities matching an item in this list will be included.",
-                                        "inputType": "list",
-                                        "label": "filter_severity",
-                                        "name": "filter_severity",
-                                        "placeholder": "medium",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [],
-                                        "description": "Optional parameter to filter containers that are in a case or not.",
-                                        "inputType": "item",
-                                        "label": "filter_in_case",
-                                        "name": "filter_in_case",
-                                        "placeholder": "True or False",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    }
-                                ],
-                                "label": "find_related_containers",
-                                "name": "find_related_containers"
-                            }
-                        },
-                        "utilityType": "custom_function",
-                        "values": {
-                            "find_related_containers": {
-                                "container": null,
-                                "earliest_time": null,
-                                "field_list": null,
-                                "filter_in_case": null,
-                                "filter_label": null,
-                                "filter_severity": null,
-                                "filter_status": null,
-                                "minimum_match_count": null,
-                                "value_list": null
-                            }
-                        }
-                    },
-                    "errors": {},
-                    "id": "20",
-                    "type": "utility",
-                    "warnings": {
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
-                    "x": 720,
-                    "y": 1520
-                },
-                "21": {
-                    "data": {
-                        "action": "list file attachments",
-                        "actionType": "get",
-                        "advanced": {
-                            "join": []
-                        },
-                        "connector": "Enterprise Security",
-                        "connectorConfigs": [
-                            "builtin_mc_connector"
-                        ],
-                        "connectorId": "7e971d03-6ae7-4429-b4e1-cf461003e75b",
-                        "connectorVersion": "v1",
-                        "functionId": 1,
-                        "functionName": "list_file_attachments_1",
-                        "id": "21",
-                        "loop": {
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "parameters": {},
-                        "requiredParameters": [
-                            {
-                                "data_type": "string",
-                                "field": "id"
-                            }
-                        ],
-                        "type": "enterpriseSecurity"
-                    },
-                    "errors": {},
-                    "id": "21",
-                    "type": "enterpriseSecurity",
-                    "warnings": {
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
-                    "x": 980,
-                    "y": 1480
                 },
                 "23": {
                     "data": {
@@ -1264,6 +1073,85 @@
                     "x": 980,
                     "y": 1344.5
                 },
+                "28": {
+                    "data": {
+                        "advanced": {
+                            "customName": "format screenshots",
+                            "customNameId": 0,
+                            "join": []
+                        },
+                        "functionId": 2,
+                        "functionName": "format_screenshots",
+                        "id": "28",
+                        "parameters": [
+                            "get_finding_or_investigation_1:action_result.data.*.finding_id",
+                            "add_investigation_file_2:action_result.data.*.id"
+                        ],
+                        "template": "![](/en-US/splunkd/__raw/servicesNS/nobody/missioncontrol/v1/incidents/{0}/files/{1}/download)\n",
+                        "type": "format"
+                    },
+                    "errors": {},
+                    "id": "28",
+                    "type": "format",
+                    "warnings": {},
+                    "x": 980,
+                    "y": 1484.5
+                },
+                "29": {
+                    "data": {
+                        "action": "add finding or investigation note",
+                        "actionType": "post",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": "7e971d03-6ae7-4429-b4e1-cf461003e75b",
+                        "connectorVersion": "v1",
+                        "functionId": 3,
+                        "functionName": "add_finding_or_investigation_note_3",
+                        "id": "29",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "content": "format_screenshots:formatted_data",
+                            "id": "get_finding_or_investigation_1:action_result.data.*.finding_id",
+                            "title": "Screenshots from SAA job"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "",
+                                "field": "title"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "",
+                                "field": "content"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "29",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 980,
+                    "y": 1644.5
+                },
                 "5": {
                     "data": {
                         "advanced": {
@@ -1432,7 +1320,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-16T06:02:24.806834+00:00",
+    "create_time": "2025-06-16T06:05:25.627496+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

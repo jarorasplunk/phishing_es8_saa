@@ -390,66 +390,6 @@ def check_job_id(action=None, success=None, container=None, results=None, handle
 
 
 @phantom.playbook_block()
-def find_related_containers_3(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("find_related_containers_3() called")
-
-    parameters = []
-
-    parameters.append({
-        "field_list": None,
-        "value_list": None,
-        "minimum_match_count": None,
-        "container": None,
-        "earliest_time": None,
-        "filter_status": None,
-        "filter_label": None,
-        "filter_severity": None,
-        "filter_in_case": None,
-    })
-
-    ################################################################################
-    ## Custom Code Start
-    ################################################################################
-
-    # Write your custom code here...
-
-    ################################################################################
-    ## Custom Code End
-    ################################################################################
-
-    phantom.custom_function(custom_function="local/find_related_containers", parameters=parameters, name="find_related_containers_3")
-
-    return
-
-
-@phantom.playbook_block()
-def list_file_attachments_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("list_file_attachments_1() called")
-
-    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
-
-    parameters = []
-
-    parameters.append({
-        "id": "",
-    })
-
-    ################################################################################
-    ## Custom Code Start
-    ################################################################################
-
-    # Write your custom code here...
-
-    ################################################################################
-    ## Custom Code End
-    ################################################################################
-
-    phantom.act("list file attachments", parameters=parameters, name="list_file_attachments_1", assets=["builtin_mc_connector"])
-
-    return
-
-
-@phantom.playbook_block()
 def playbook_get_container_id_and_vault_list_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("playbook_get_container_id_and_vault_list_1() called")
 
@@ -610,7 +550,71 @@ def add_investigation_file_2(action=None, success=None, container=None, results=
     ## Custom Code End
     ################################################################################
 
-    phantom.act("add investigation file", parameters=parameters, name="add_investigation_file_2", assets=["builtin_mc_connector"])
+    phantom.act("add investigation file", parameters=parameters, name="add_investigation_file_2", assets=["builtin_mc_connector"], callback=format_screenshots)
+
+    return
+
+
+@phantom.playbook_block()
+def format_screenshots(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("format_screenshots() called")
+
+    template = """![](/en-US/splunkd/__raw/servicesNS/nobody/missioncontrol/v1/incidents/{0}/files/{1}/download)\n"""
+
+    # parameter list for template variable replacement
+    parameters = [
+        "get_finding_or_investigation_1:action_result.data.*.finding_id",
+        "add_investigation_file_2:action_result.data.*.id"
+    ]
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.format(container=container, template=template, parameters=parameters, name="format_screenshots")
+
+    add_finding_or_investigation_note_3(container=container)
+
+    return
+
+
+@phantom.playbook_block()
+def add_finding_or_investigation_note_3(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("add_finding_or_investigation_note_3() called")
+
+    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
+
+    get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.finding_id","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
+    format_screenshots = phantom.get_format_data(name="format_screenshots")
+
+    parameters = []
+
+    # build parameters list for 'add_finding_or_investigation_note_3' call
+    for get_finding_or_investigation_1_result_item in get_finding_or_investigation_1_result_data:
+        if get_finding_or_investigation_1_result_item[0] is not None and format_screenshots is not None:
+            parameters.append({
+                "id": get_finding_or_investigation_1_result_item[0],
+                "title": "Screenshots from SAA job",
+                "content": format_screenshots,
+            })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.act("add finding or investigation note", parameters=parameters, name="add_finding_or_investigation_note_3", assets=["builtin_mc_connector"])
 
     return
 
