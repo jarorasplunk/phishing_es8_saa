@@ -548,8 +548,8 @@ def image_base64(action=None, success=None, container=None, results=None, handle
     import base64
     phantom.debug(type(playbook_get_container_id_and_vault_list_1_output_vault_list_values))
     phantom.debug(playbook_get_container_id_and_vault_list_1_output_vault_list_values)
-    '''try:            
-        image_path = get_screenshot_1_summary_vault_file_path[0]
+    try:            
+        image_path = playbook_get_container_id_and_vault_list_1_output_vault_list_values
         phantom.debug(image_path)            
         with open(image_path, "rb") as image_file:        
             encoded_string = base64.b64encode(image_file.read()).decode('utf-8')                
@@ -560,7 +560,7 @@ def image_base64(action=None, success=None, container=None, results=None, handle
     except:
         image_base64__status = "failed"
         phantom.debug(image_base64__status)
-    '''
+    
     ################################################################################
     ## Custom Code End
     ################################################################################
