@@ -130,13 +130,13 @@ def get_playbook_name(action=None, success=None, container=None, results=None, h
 def playbook_dispatch_playbooks_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("playbook_dispatch_playbooks_1() called")
 
-    get_playbook_name__playbook_repo = json.loads(_ if (_ := phantom.get_run_data(key="get_playbook_name:playbook_repo")) != "" else "null")  # pylint: disable=used-before-assignment
     get_playbook_name__playbook_name = json.loads(_ if (_ := phantom.get_run_data(key="get_playbook_name:playbook_name")) != "" else "null")  # pylint: disable=used-before-assignment
+    get_playbook_name__playbook_repo = json.loads(_ if (_ := phantom.get_run_data(key="get_playbook_name:playbook_repo")) != "" else "null")  # pylint: disable=used-before-assignment
 
     inputs = {
-        "playbook_tags": ["enrichment"],
-        "playbook_repo": get_playbook_name__playbook_repo,
         "playbook_name": get_playbook_name__playbook_name,
+        "playbook_repo": get_playbook_name__playbook_repo,
+        "playbook_tags": ["enrichment"],
     }
 
     ################################################################################
