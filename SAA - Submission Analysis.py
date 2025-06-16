@@ -44,45 +44,74 @@ def get_finding_or_investigation_1(action=None, success=None, container=None, re
     ## Custom Code End
     ################################################################################
 
-    phantom.act("get finding or investigation", parameters=parameters, name="get_finding_or_investigation_1", assets=["builtin_mc_connector"], callback=filter_saa_jobid)
+    phantom.act("get finding or investigation", parameters=parameters, name="get_finding_or_investigation_1", assets=["builtin_mc_connector"], callback=check_job_id)
 
     return
 
 
 @phantom.playbook_block()
-def filter_saa_jobid(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("filter_saa_jobid() called")
+def job_type(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("job_type() called")
 
     # collect filtered artifact ids and results for 'if' condition 1
     matched_artifacts_1, matched_results_1 = phantom.condition(
         container=container,
+        logical_operator="and",
         conditions=[
-            ["get_finding_or_investigation_1:action_result.data.*.consolidated_findings.SAA_JOB_ID", "!=", ""]
+            ["get_job_summary_1:action_result.data.*.Submission.MD5", "==", ""],
+            ["get_job_summary_1:action_result.data.*.Submission.SHA256", "==", ""],
+            ["http", "in", "get_job_summary_1:action_result.data.*.Submission.Name"]
         ],
         conditions_dps=[
-            ["get_finding_or_investigation_1:action_result.data.*.consolidated_findings.SAA_JOB_ID", "!=", ""]
+            ["get_job_summary_1:action_result.data.*.Submission.MD5", "==", ""],
+            ["get_job_summary_1:action_result.data.*.Submission.SHA256", "==", ""],
+            ["http", "in", "get_job_summary_1:action_result.data.*.Submission.Name"]
         ],
-        name="filter_saa_jobid:condition_1",
+        name="job_type:condition_1",
         delimiter=None)
 
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_1 or matched_results_1:
-        action_1(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)
+        pass
+
+    # collect filtered artifact ids and results for 'if' condition 2
+    matched_artifacts_2, matched_results_2 = phantom.condition(
+        container=container,
+        logical_operator="and",
+        conditions=[
+            ["get_job_summary_1:action_result.data.*.Submission.MD5", "!=", ""],
+            ["get_job_summary_1:action_result.data.*.Submission.SHA256", "!=", ""]
+        ],
+        conditions_dps=[
+            ["get_job_summary_1:action_result.data.*.Submission.MD5", "!=", ""],
+            ["get_job_summary_1:action_result.data.*.Submission.SHA256", "!=", ""]
+        ],
+        name="job_type:condition_2",
+        delimiter=None)
+
+    # call connected blocks if filtered artifacts or results
+    if matched_artifacts_2 or matched_results_2:
+        file_screenshot_formatting(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_2, filtered_results=matched_results_2)
 
     return
 
 
 @phantom.playbook_block()
-def action_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("action_1() called")
+def get_job_summary_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("get_job_summary_1() called")
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
+    get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.consolidated_findings.SAA_JOB_ID","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
+
     parameters = []
 
-    parameters.append({
-        "job_id": "",
-    })
+    # build parameters list for 'get_job_summary_1' call
+    for get_finding_or_investigation_1_result_item in get_finding_or_investigation_1_result_data:
+        if get_finding_or_investigation_1_result_item[0] is not None:
+            parameters.append({
+                "job_id": get_finding_or_investigation_1_result_item[0],
+            })
 
     ################################################################################
     ## Custom Code Start
@@ -94,7 +123,7 @@ def action_1(action=None, success=None, container=None, results=None, handle=Non
     ## Custom Code End
     ################################################################################
 
-    phantom.act("null", parameters=parameters, name="action_1", callback=get_job_forensics_1)
+    phantom.act("get job summary", parameters=parameters, name="get_job_summary_1", assets=["splunk_attack_analyzer"], callback=get_job_forensics_1)
 
     return
 
@@ -105,11 +134,16 @@ def get_job_forensics_1(action=None, success=None, container=None, results=None,
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
+    get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.consolidated_findings.SAA_JOB_ID","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
+
     parameters = []
 
-    parameters.append({
-        "job_id": "2c4d083f-d575-4495-a504-50d7e48e5a00",
-    })
+    # build parameters list for 'get_job_forensics_1' call
+    for get_finding_or_investigation_1_result_item in get_finding_or_investigation_1_result_data:
+        if get_finding_or_investigation_1_result_item[0] is not None:
+            parameters.append({
+                "job_id": get_finding_or_investigation_1_result_item[0],
+            })
 
     ################################################################################
     ## Custom Code Start
@@ -132,11 +166,16 @@ def get_job_screenshots_1(action=None, success=None, container=None, results=Non
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
+    get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.consolidated_findings.SAA_JOB_ID","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
+
     parameters = []
 
-    parameters.append({
-        "job_id": "2c4d083f-d575-4495-a504-50d7e48e5a00",
-    })
+    # build parameters list for 'get_job_screenshots_1' call
+    for get_finding_or_investigation_1_result_item in get_finding_or_investigation_1_result_data:
+        if get_finding_or_investigation_1_result_item[0] is not None:
+            parameters.append({
+                "job_id": get_finding_or_investigation_1_result_item[0],
+            })
 
     ################################################################################
     ## Custom Code Start
@@ -148,7 +187,7 @@ def get_job_screenshots_1(action=None, success=None, container=None, results=Non
     ## Custom Code End
     ################################################################################
 
-    phantom.act("get job screenshots", parameters=parameters, name="get_job_screenshots_1", assets=["splunk_attack_analyzer"], callback=debug_1)
+    phantom.act("get job screenshots", parameters=parameters, name="get_job_screenshots_1", assets=["splunk_attack_analyzer"], callback=job_type)
 
     return
 
@@ -229,11 +268,11 @@ def format_summary_report(action=None, success=None, container=None, results=Non
 def file_screenshot_formatting(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("file_screenshot_formatting() called")
 
-    get_job_summary_1_result_data = phantom.collect2(container=container, datapath=["get_job_summary_1:action_result.data.*.Parameters.*.Value","get_job_summary_1:action_result.parameter.job_id"], action_results=results)
+    filtered_result_0_data_job_type = phantom.collect2(container=container, datapath=["filtered-data:job_type:condition_2:get_job_summary_1:action_result.data.*.Submission.Name","filtered-data:job_type:condition_2:get_job_summary_1:action_result.summary.Job ID"])
     get_job_screenshots_1_result_data = phantom.collect2(container=container, datapath=["get_job_screenshots_1:action_result.parameter.job_id","get_job_screenshots_1:action_result.data.*.file_name","get_job_screenshots_1:action_result.data.*.id"], action_results=results)
 
-    get_job_summary_1_result_item_0 = [item[0] for item in get_job_summary_1_result_data]
-    get_job_summary_1_parameter_job_id = [item[1] for item in get_job_summary_1_result_data]
+    filtered_result_0_data___submission_name = [item[0] for item in filtered_result_0_data_job_type]
+    filtered_result_0_summary_job_id = [item[1] for item in filtered_result_0_data_job_type]
     get_job_screenshots_1_parameter_job_id = [item[0] for item in get_job_screenshots_1_result_data]
     get_job_screenshots_1_result_item_1 = [item[1] for item in get_job_screenshots_1_result_data]
     get_job_screenshots_1_result_item_2 = [item[2] for item in get_job_screenshots_1_result_data]
@@ -247,7 +286,7 @@ def file_screenshot_formatting(action=None, success=None, container=None, result
     # Write your custom code here...
     file_screenshot_formatting__report = ""
     
-    for file, job_id in zip(get_job_summary_1_result_item_0, get_job_summary_1_parameter_job_id):
+    for file, job_id in zip(filtered_result_0_data___submission_name, filtered_result_0_summary_job_id):
         file_screenshot_formatting__report += f"#### {file}\n"
         for screenshot_job, screenshot_name, screenshot_id in zip(get_job_screenshots_1_parameter_job_id, get_job_screenshots_1_result_item_1, get_job_screenshots_1_result_item_2):
             if job_id == screenshot_job:
@@ -257,8 +296,8 @@ def file_screenshot_formatting(action=None, success=None, container=None, result
     ## Custom Code End
     ################################################################################
 
-    phantom.save_block_result(key="file_screenshot_formatting__inputs:0:get_job_summary_1:action_result.data.*.Parameters.*.Value", value=json.dumps(get_job_summary_1_result_item_0))
-    phantom.save_block_result(key="file_screenshot_formatting__inputs:1:get_job_summary_1:action_result.parameter.job_id", value=json.dumps(get_job_summary_1_parameter_job_id))
+    phantom.save_block_result(key="file_screenshot_formatting__inputs:0:filtered-data:job_type:condition_2:get_job_summary_1:action_result.data.*.Submission.Name", value=json.dumps(filtered_result_0_data___submission_name))
+    phantom.save_block_result(key="file_screenshot_formatting__inputs:1:filtered-data:job_type:condition_2:get_job_summary_1:action_result.summary.Job ID", value=json.dumps(filtered_result_0_summary_job_id))
     phantom.save_block_result(key="file_screenshot_formatting__inputs:2:get_job_screenshots_1:action_result.parameter.job_id", value=json.dumps(get_job_screenshots_1_parameter_job_id))
     phantom.save_block_result(key="file_screenshot_formatting__inputs:3:get_job_screenshots_1:action_result.data.*.file_name", value=json.dumps(get_job_screenshots_1_result_item_1))
     phantom.save_block_result(key="file_screenshot_formatting__inputs:4:get_job_screenshots_1:action_result.data.*.id", value=json.dumps(get_job_screenshots_1_result_item_2))
@@ -339,6 +378,30 @@ def debug_1(action=None, success=None, container=None, results=None, handle=None
     ################################################################################
 
     phantom.custom_function(custom_function="community/debug", parameters=parameters, name="debug_1")
+
+    return
+
+
+@phantom.playbook_block()
+def check_job_id(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("check_job_id() called")
+
+    # check for 'if' condition 1
+    found_match_1 = phantom.decision(
+        container=container,
+        conditions=[
+            ["get_finding_or_investigation_1:action_result.data.*.consolidated_findings.SAA_JOB_ID", "!=", ""]
+        ],
+        conditions_dps=[
+            ["get_finding_or_investigation_1:action_result.data.*.consolidated_findings.SAA_JOB_ID", "!=", ""]
+        ],
+        name="check_job_id:condition_1",
+        delimiter=None)
+
+    # call connected blocks if condition 1 matched
+    if found_match_1:
+        get_job_summary_1(action=action, success=success, container=container, results=results, handle=handle)
+        return
 
     return
 

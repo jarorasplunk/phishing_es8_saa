@@ -14,33 +14,6 @@
                     "targetPort": "2_in"
                 },
                 {
-                    "id": "port_2_to_port_5",
-                    "sourceNode": "2",
-                    "sourcePort": "2_out",
-                    "targetNode": "5",
-                    "targetPort": "5_in"
-                },
-                {
-                    "conditions": [
-                        {
-                            "conditionKey": "condition_key_0",
-                            "index": 0
-                        }
-                    ],
-                    "id": "port_5_to_port_8",
-                    "sourceNode": "5",
-                    "sourcePort": "5_out",
-                    "targetNode": "8",
-                    "targetPort": "8_in"
-                },
-                {
-                    "id": "port_8_to_port_9",
-                    "sourceNode": "8",
-                    "sourcePort": "8_out",
-                    "targetNode": "9",
-                    "targetPort": "9_in"
-                },
-                {
                     "id": "port_9_to_port_10",
                     "sourceNode": "9",
                     "sourcePort": "9_out",
@@ -69,14 +42,54 @@
                     "targetPort": "1_in"
                 },
                 {
-                    "id": "port_10_to_port_17",
+                    "id": "port_2_to_port_19",
+                    "sourceNode": "2",
+                    "sourcePort": "2_out",
+                    "targetNode": "19",
+                    "targetPort": "19_in"
+                },
+                {
+                    "conditions": [
+                        {
+                            "conditionKey": "condition_key_0",
+                            "index": 0
+                        }
+                    ],
+                    "id": "port_19_to_port_8",
+                    "sourceNode": "19",
+                    "sourcePort": "19_out",
+                    "targetNode": "8",
+                    "targetPort": "8_in"
+                },
+                {
+                    "id": "port_8_to_port_9",
+                    "sourceNode": "8",
+                    "sourcePort": "8_out",
+                    "targetNode": "9",
+                    "targetPort": "9_in"
+                },
+                {
+                    "id": "port_10_to_port_5",
                     "sourceNode": "10",
                     "sourcePort": "10_out",
-                    "targetNode": "17",
-                    "targetPort": "17_in"
+                    "targetNode": "5",
+                    "targetPort": "5_in"
+                },
+                {
+                    "conditions": [
+                        {
+                            "conditionKey": "condition_key_14",
+                            "index": 1
+                        }
+                    ],
+                    "id": "port_5_to_port_15",
+                    "sourceNode": "5",
+                    "sourcePort": "5_out",
+                    "targetNode": "15",
+                    "targetPort": "15_in"
                 }
             ],
-            "hash": "710d21f73fde654b8c7f369669abb6267180266c",
+            "hash": "cf27e6d8bf94af143d68622d2c62d2d4ed91c6f0",
             "nodes": {
                 "0": {
                     "data": {
@@ -92,7 +105,7 @@
                     "type": "start",
                     "warnings": {},
                     "x": 1000,
-                    "y": 419.9999999999998
+                    "y": 220
                 },
                 "1": {
                     "data": {
@@ -136,7 +149,7 @@
                             "pauseValue": 2
                         },
                         "parameters": {
-                            "job_id": "2c4d083f-d575-4495-a504-50d7e48e5a00"
+                            "job_id": "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.SAA_JOB_ID"
                         },
                         "requiredParameters": [
                             {
@@ -151,7 +164,7 @@
                     "type": "action",
                     "warnings": {},
                     "x": 980,
-                    "y": 1060
+                    "y": 820
                 },
                 "11": {
                     "data": {
@@ -335,8 +348,8 @@
                             "Connect block to playbook flow."
                         ]
                     },
-                    "x": 1220,
-                    "y": 1360
+                    "x": 1380,
+                    "y": 1320
                 },
                 "14": {
                     "data": {
@@ -363,11 +376,7 @@
                     "errors": {},
                     "id": "14",
                     "type": "format",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 980,
                     "y": 1320
                 },
@@ -382,8 +391,8 @@
                         "functionName": "file_screenshot_formatting",
                         "id": "15",
                         "inputParameters": [
-                            "get_job_summary_1:action_result.data.*.Parameters.*.Value",
-                            "get_job_summary_1:action_result.parameter.job_id",
+                            "filtered-data:job_type:condition_2:get_job_summary_1:action_result.data.*.Submission.Name",
+                            "filtered-data:job_type:condition_2:get_job_summary_1:action_result.summary.Job ID",
                             "get_job_screenshots_1:action_result.parameter.job_id",
                             "get_job_screenshots_1:action_result.data.*.file_name",
                             "get_job_screenshots_1:action_result.data.*.id"
@@ -396,15 +405,8 @@
                     "errors": {},
                     "id": "15",
                     "type": "code",
-                    "userCode": "\n    # Write your custom code here...\n    file_screenshot_formatting__report = \"\"\n    \n    for file, job_id in zip(get_job_summary_1_result_item_0, get_job_summary_1_parameter_job_id):\n        file_screenshot_formatting__report += f\"#### {file}\\n\"\n        for screenshot_job, screenshot_name, screenshot_id in zip(get_job_screenshots_1_parameter_job_id, get_job_screenshots_1_result_item_1, get_job_screenshots_1_result_item_2):\n            if job_id == screenshot_job:\n                file_screenshot_formatting__report += f\"![{screenshot_name}](/view?id={screenshot_id})\\n\"\n\n",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ],
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
+                    "userCode": "\n    # Write your custom code here...\n    file_screenshot_formatting__report = \"\"\n    \n    for file, job_id in zip(filtered_result_0_data___submission_name, filtered_result_0_summary_job_id):\n        file_screenshot_formatting__report += f\"#### {file}\\n\"\n        for screenshot_job, screenshot_name, screenshot_id in zip(get_job_screenshots_1_parameter_job_id, get_job_screenshots_1_result_item_1, get_job_screenshots_1_result_item_2):\n            if job_id == screenshot_job:\n                file_screenshot_formatting__report += f\"![{screenshot_name}](/view?id={screenshot_id})\\n\"\n\n",
+                    "warnings": {},
                     "x": 980,
                     "y": 1180
                 },
@@ -459,11 +461,7 @@
                     "errors": {},
                     "id": "16",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 980,
                     "y": 1484.5
                 },
@@ -641,9 +639,53 @@
                     "errors": {},
                     "id": "17",
                     "type": "utility",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ],
+                        "context": [
+                            "Connect block to playbook flow."
+                        ]
+                    },
                     "x": 1420,
                     "y": 1164.5
+                },
+                "19": {
+                    "data": {
+                        "advanced": {
+                            "customName": "check job id",
+                            "customNameId": 0,
+                            "join": []
+                        },
+                        "conditions": [
+                            {
+                                "comparisons": [
+                                    {
+                                        "conditionIndex": 0,
+                                        "op": "!=",
+                                        "param": "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.SAA_JOB_ID",
+                                        "value": ""
+                                    }
+                                ],
+                                "conditionIndex": 0,
+                                "conditionKey": "condition_key_0",
+                                "customName": "job id exists",
+                                "display": "If",
+                                "logic": "and",
+                                "type": "if"
+                            }
+                        ],
+                        "functionId": 1,
+                        "functionName": "check_job_id",
+                        "id": "19",
+                        "type": "decision"
+                    },
+                    "errors": {},
+                    "id": "19",
+                    "type": "decision",
+                    "warnings": {},
+                    "x": 1060,
+                    "y": 440
                 },
                 "2": {
                     "data": {
@@ -686,12 +728,12 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 980,
-                    "y": 520
+                    "y": 320
                 },
                 "5": {
                     "data": {
                         "advanced": {
-                            "customName": "filter saa jobid",
+                            "customName": "job type",
                             "customNameId": 0,
                             "join": []
                         },
@@ -700,18 +742,51 @@
                                 "comparisons": [
                                     {
                                         "conditionIndex": 0,
-                                        "op": "!=",
-                                        "param": "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.SAA_JOB_ID",
+                                        "op": "==",
+                                        "param": "get_job_summary_1:action_result.data.*.Submission.MD5",
                                         "value": ""
+                                    },
+                                    {
+                                        "conditionIndex": 0,
+                                        "op": "==",
+                                        "param": "get_job_summary_1:action_result.data.*.Submission.SHA256",
+                                        "value": ""
+                                    },
+                                    {
+                                        "conditionIndex": 0,
+                                        "op": "in",
+                                        "param": "http",
+                                        "value": "get_job_summary_1:action_result.data.*.Submission.Name"
                                     }
                                 ],
                                 "conditionIndex": 0,
                                 "conditionKey": "condition_key_0",
+                                "customName": "URL type",
+                                "logic": "and"
+                            },
+                            {
+                                "comparisons": [
+                                    {
+                                        "conditionIndex": 1,
+                                        "op": "!=",
+                                        "param": "get_job_summary_1:action_result.data.*.Submission.MD5",
+                                        "value": ""
+                                    },
+                                    {
+                                        "conditionIndex": 1,
+                                        "op": "!=",
+                                        "param": "get_job_summary_1:action_result.data.*.Submission.SHA256",
+                                        "value": ""
+                                    }
+                                ],
+                                "conditionIndex": 1,
+                                "conditionKey": "condition_key_14",
+                                "customName": "File type",
                                 "logic": "and"
                             }
                         ],
                         "functionId": 2,
-                        "functionName": "filter_saa_jobid",
+                        "functionName": "job_type",
                         "id": "5",
                         "type": "filter"
                     },
@@ -720,21 +795,23 @@
                     "type": "filter",
                     "warnings": {},
                     "x": 1040,
-                    "y": 684.5
+                    "y": 920
                 },
                 "8": {
                     "data": {
-                        "action": null,
-                        "actionType": null,
+                        "action": "get job summary",
+                        "actionType": "investigate",
                         "advanced": {
                             "join": []
                         },
-                        "connector": null,
-                        "connectorConfigs": [],
-                        "connectorId": null,
-                        "connectorVersion": null,
+                        "connector": "Splunk Attack Analyzer Connector for Splunk SOAR",
+                        "connectorConfigs": [
+                            "splunk_attack_analyzer"
+                        ],
+                        "connectorId": "de681fee-c552-45bf-9212-827b1c7529f8",
+                        "connectorVersion": "v1",
                         "functionId": 1,
-                        "functionName": "action_1",
+                        "functionName": "get_job_summary_1",
                         "id": "8",
                         "loop": {
                             "enabled": false,
@@ -745,7 +822,9 @@
                             "pauseUnit": "m",
                             "pauseValue": 2
                         },
-                        "parameters": {},
+                        "parameters": {
+                            "job_id": "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.SAA_JOB_ID"
+                        },
                         "requiredParameters": [
                             {
                                 "data_type": "string",
@@ -759,7 +838,7 @@
                     "type": "action",
                     "warnings": {},
                     "x": 980,
-                    "y": 860
+                    "y": 600
                 },
                 "9": {
                     "data": {
@@ -787,7 +866,7 @@
                             "pauseValue": 2
                         },
                         "parameters": {
-                            "job_id": "2c4d083f-d575-4495-a504-50d7e48e5a00"
+                            "job_id": "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.SAA_JOB_ID"
                         },
                         "requiredParameters": [
                             {
@@ -802,7 +881,7 @@
                     "type": "action",
                     "warnings": {},
                     "x": 980,
-                    "y": 960
+                    "y": 700
                 }
             },
             "notes": ""
@@ -815,7 +894,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-16T02:35:29.229113+00:00",
+    "create_time": "2025-06-16T03:08:36.521253+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
