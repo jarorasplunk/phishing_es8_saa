@@ -660,6 +660,42 @@ def decision_2(action=None, success=None, container=None, results=None, handle=N
 
 
 @phantom.playbook_block()
+def debug_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("debug_1() called")
+
+    normalized_file_summary_output__file_score_object = json.loads(_ if (_ := phantom.get_run_data(key="normalized_file_summary_output:file_score_object")) != "" else "null")  # pylint: disable=used-before-assignment
+
+    parameters = []
+
+    parameters.append({
+        "input_1": normalized_file_summary_output__file_score_object,
+        "input_2": None,
+        "input_3": None,
+        "input_4": None,
+        "input_5": None,
+        "input_6": None,
+        "input_7": None,
+        "input_8": None,
+        "input_9": None,
+        "input_10": None,
+    })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.custom_function(custom_function="community/debug", parameters=parameters, name="debug_1")
+
+    return
+
+
+@phantom.playbook_block()
 def on_finish(container, summary):
     phantom.debug("on_finish() called")
 
