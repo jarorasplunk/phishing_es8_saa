@@ -59,7 +59,7 @@ def job_type(action=None, success=None, container=None, results=None, handle=Non
 
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_2 or matched_results_2:
-        playbook_get_container_id_and_vault_list_1(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_2, filtered_results=matched_results_2)
+        normalized_file_summary_output(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_2, filtered_results=matched_results_2)
 
     return
 
@@ -287,7 +287,7 @@ def add_investigation_file_2(action=None, success=None, container=None, results=
     ## Custom Code End
     ################################################################################
 
-    phantom.act("add investigation file", parameters=parameters, name="add_investigation_file_2", assets=["builtin_mc_connector"], callback=normalized_file_summary_output)
+    phantom.act("add investigation file", parameters=parameters, name="add_investigation_file_2", assets=["builtin_mc_connector"])
 
     return
 
@@ -333,10 +333,10 @@ def add_finding_or_investigation_note_3(action=None, success=None, container=Non
 def normalized_file_summary_output(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("normalized_file_summary_output() called")
 
-    filtered_result_0_data_job_type = phantom.collect2(container=container, datapath=["filtered-data:job_type:condition_2:get_job_summary_1:action_result.data.*.Submission.Name","filtered-data:job_type:condition_2:get_job_summary_1:action_result.data.*.ID","filtered-data:job_type:condition_2:get_job_summary_1:action_result.summary.Score","filtered-data:job_type:condition_2:get_job_summary_1:action_result.data.*.Resources","filtered-data:job_type:condition_2:get_job_summary_1:action_result.data.*.Verdict","filtered-data:job_type:condition_2:get_job_summary_1:action_result.data.*.Tasks"])
+    filtered_result_0_data_job_type = phantom.collect2(container=container, datapath=["filtered-data:job_type:condition_2:get_job_summary_1:action_result.data.*.Submissions.*.Name","filtered-data:job_type:condition_2:get_job_summary_1:action_result.data.*.ID","filtered-data:job_type:condition_2:get_job_summary_1:action_result.summary.Score","filtered-data:job_type:condition_2:get_job_summary_1:action_result.data.*.Resources","filtered-data:job_type:condition_2:get_job_summary_1:action_result.data.*.Verdict","filtered-data:job_type:condition_2:get_job_summary_1:action_result.data.*.Tasks"])
     filtered_result_1_data_job_type = phantom.collect2(container=container, datapath=["filtered-data:job_type:condition_1:get_job_summary_2:action_result.parameter.job_id","filtered-data:job_type:condition_1:get_job_summary_2:action_result.data.*.Submission.Name"])
 
-    filtered_result_0_data___submission_name = [item[0] for item in filtered_result_0_data_job_type]
+    filtered_result_0_data___submissions___name = [item[0] for item in filtered_result_0_data_job_type]
     filtered_result_0_data___id = [item[1] for item in filtered_result_0_data_job_type]
     filtered_result_0_summary_score = [item[2] for item in filtered_result_0_data_job_type]
     filtered_result_0_data___resources = [item[3] for item in filtered_result_0_data_job_type]
@@ -360,7 +360,7 @@ def normalized_file_summary_output(action=None, success=None, container=None, re
 
     # Write your custom code here...
     
-    phantom.debug(filtered_result_1_data___submission_name)
+    phantom.debug(filtered_result_0_data___submissions___name)
     phantom.debug(filtered_result_0_data___id)
     phantom.debug(filtered_result_1_parameter_job_id)
     phantom.debug(filtered_result_0_summary_score)
@@ -439,7 +439,7 @@ def normalized_file_summary_output(action=None, success=None, container=None, re
     
     for job, file_name, score_num, resources, verdict, tasks in zip(
         filtered_result_1_parameter_job_id, 
-        filtered_result_0_data___submission_name, 
+        filtered_result_0_data___submissions___name, 
         filtered_result_0_summary_score, 
         filtered_result_0_data___resources, 
         filtered_result_0_data___verdict,
@@ -532,7 +532,7 @@ def normalized_file_summary_output(action=None, success=None, container=None, re
     ## Custom Code End
     ################################################################################
 
-    phantom.save_block_result(key="normalized_file_summary_output__inputs:0:filtered-data:job_type:condition_2:get_job_summary_1:action_result.data.*.Submission.Name", value=json.dumps(filtered_result_0_data___submission_name))
+    phantom.save_block_result(key="normalized_file_summary_output__inputs:0:filtered-data:job_type:condition_2:get_job_summary_1:action_result.data.*.Submissions.*.Name", value=json.dumps(filtered_result_0_data___submissions___name))
     phantom.save_block_result(key="normalized_file_summary_output__inputs:1:filtered-data:job_type:condition_2:get_job_summary_1:action_result.data.*.ID", value=json.dumps(filtered_result_0_data___id))
     phantom.save_block_result(key="normalized_file_summary_output__inputs:2:filtered-data:job_type:condition_1:get_job_summary_2:action_result.parameter.job_id", value=json.dumps(filtered_result_1_parameter_job_id))
     phantom.save_block_result(key="normalized_file_summary_output__inputs:3:filtered-data:job_type:condition_1:get_job_summary_2:action_result.data.*.Submission.Name", value=json.dumps(filtered_result_1_data___submission_name))
@@ -549,8 +549,6 @@ def normalized_file_summary_output(action=None, success=None, container=None, re
     phantom.save_block_result(key="normalized_file_summary_output:job_id", value=json.dumps(normalized_file_summary_output__job_id))
     phantom.save_block_result(key="normalized_file_summary_output:classifications", value=json.dumps(normalized_file_summary_output__classifications))
     phantom.save_block_result(key="normalized_file_summary_output:file_name", value=json.dumps(normalized_file_summary_output__file_name))
-
-    format_file_report(container=container)
 
     return
 
