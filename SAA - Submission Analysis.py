@@ -59,7 +59,7 @@ def job_type(action=None, success=None, container=None, results=None, handle=Non
 
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_2 or matched_results_2:
-        normalized_file_summary_output(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_2, filtered_results=matched_results_2)
+        pass
 
     return
 
@@ -155,7 +155,7 @@ def get_job_screenshots_1(action=None, success=None, container=None, results=Non
     ## Custom Code End
     ################################################################################
 
-    phantom.act("get job screenshots", parameters=parameters, name="get_job_screenshots_1", assets=["splunk_attack_analyzer"], callback=job_type)
+    phantom.act("get job screenshots", parameters=parameters, name="get_job_screenshots_1", assets=["splunk_attack_analyzer"], callback=decision_2)
 
     return
 
@@ -333,17 +333,15 @@ def add_finding_or_investigation_note_3(action=None, success=None, container=Non
 def normalized_file_summary_output(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("normalized_file_summary_output() called")
 
-    filtered_result_0_data_job_type = phantom.collect2(container=container, datapath=["filtered-data:job_type:condition_2:get_job_summary_1:action_result.data.*.Submissions.*.Name","filtered-data:job_type:condition_2:get_job_summary_1:action_result.data.*.ID","filtered-data:job_type:condition_2:get_job_summary_1:action_result.summary.Score","filtered-data:job_type:condition_2:get_job_summary_1:action_result.data.*.Resources","filtered-data:job_type:condition_2:get_job_summary_1:action_result.data.*.Verdict","filtered-data:job_type:condition_2:get_job_summary_1:action_result.data.*.Tasks"])
-    filtered_result_1_data_job_type = phantom.collect2(container=container, datapath=["filtered-data:job_type:condition_1:get_job_summary_2:action_result.parameter.job_id","filtered-data:job_type:condition_1:get_job_summary_2:action_result.data.*.Submission.Name"])
+    get_job_summary_1_result_data = phantom.collect2(container=container, datapath=["get_job_summary_1:action_result.data.*.Submission.Name","get_job_summary_1:action_result.data.*.ID","get_job_summary_1:action_result.parameter.job_id","get_job_summary_1:action_result.summary.Score","get_job_summary_1:action_result.data.*.Resources","get_job_summary_1:action_result.data.*.Verdict","get_job_summary_1:action_result.data.*.Tasks"], action_results=results)
 
-    filtered_result_0_data___submissions___name = [item[0] for item in filtered_result_0_data_job_type]
-    filtered_result_0_data___id = [item[1] for item in filtered_result_0_data_job_type]
-    filtered_result_0_summary_score = [item[2] for item in filtered_result_0_data_job_type]
-    filtered_result_0_data___resources = [item[3] for item in filtered_result_0_data_job_type]
-    filtered_result_0_data___verdict = [item[4] for item in filtered_result_0_data_job_type]
-    filtered_result_0_data___tasks = [item[5] for item in filtered_result_0_data_job_type]
-    filtered_result_1_parameter_job_id = [item[0] for item in filtered_result_1_data_job_type]
-    filtered_result_1_data___submission_name = [item[1] for item in filtered_result_1_data_job_type]
+    get_job_summary_1_result_item_0 = [item[0] for item in get_job_summary_1_result_data]
+    get_job_summary_1_result_item_1 = [item[1] for item in get_job_summary_1_result_data]
+    get_job_summary_1_parameter_job_id = [item[2] for item in get_job_summary_1_result_data]
+    get_job_summary_1_summary_score = [item[3] for item in get_job_summary_1_result_data]
+    get_job_summary_1_result_item_4 = [item[4] for item in get_job_summary_1_result_data]
+    get_job_summary_1_result_item_5 = [item[5] for item in get_job_summary_1_result_data]
+    get_job_summary_1_result_item_6 = [item[6] for item in get_job_summary_1_result_data]
 
     normalized_file_summary_output__file_score_object = None
     normalized_file_summary_output__scores = None
@@ -359,14 +357,13 @@ def normalized_file_summary_output(action=None, success=None, container=None, re
     ################################################################################
 
     # Write your custom code here...
-    
-    phantom.debug(filtered_result_0_data___submissions___name)
-    phantom.debug(filtered_result_0_data___id)
-    phantom.debug(filtered_result_1_parameter_job_id)
-    phantom.debug(filtered_result_0_summary_score)
-    phantom.debug(filtered_result_0_data___resources)
-    phantom.debug(filtered_result_0_data___verdict)
-    phantom.debug(filtered_result_0_data___tasks)
+    phantom.debug(get_job_summary_1_result_item_0)
+    phantom.debug(get_job_summary_1_result_item_1)
+    phantom.debug(get_job_summary_1_parameter_job_id)
+    phantom.debug(get_job_summary_1_summary_score)
+    phantom.debug(get_job_summary_1_result_item_4)
+    phantom.debug(get_job_summary_1_result_item_5)
+    phantom.debug(get_job_summary_1_result_item_6)
     
     score_table = {
         "0":"Unknown",
@@ -433,17 +430,17 @@ def normalized_file_summary_output(action=None, success=None, container=None, re
         
     ## pair forensic job results with url detonated
     job_file_dict = {}
-    for orig_file, orig_job, filtered_job in zip(filtered_result_1_data___submission_name, filtered_result_0_data___id, filtered_result_1_parameter_job_id):
+    for orig_file, orig_job, filtered_job in zip(get_job_summary_1_result_item_0, get_job_summary_1_result_item_1, get_job_summary_1_parameter_job_id):
         if orig_job == filtered_job:
             job_file_dict[filtered_job] = orig_file
     
     for job, file_name, score_num, resources, verdict, tasks in zip(
-        filtered_result_1_parameter_job_id, 
-        filtered_result_0_data___submissions___name, 
-        filtered_result_0_summary_score, 
-        filtered_result_0_data___resources, 
-        filtered_result_0_data___verdict,
-        filtered_result_0_data___tasks
+        get_job_summary_1_parameter_job_id, 
+        get_job_summary_1_result_item_0, 
+        get_job_summary_1_summary_score, 
+        get_job_summary_1_result_item_4, 
+        get_job_summary_1_result_item_5,
+        get_job_summary_1_result_item_6
     ):
         
         ## translate scores
@@ -520,7 +517,7 @@ def normalized_file_summary_output(action=None, success=None, container=None, re
         normalized_file_summary_output__file_name.append(file_name)
         normalized_file_summary_output__job_id.append(job)
         normalized_file_summary_output__classifications.append([verdict if verdict else "Unknown"])
-
+    
     phantom.debug(normalized_file_summary_output__scores)
     phantom.debug(normalized_file_summary_output__score_id)
     phantom.debug(normalized_file_summary_output__file)
@@ -532,14 +529,14 @@ def normalized_file_summary_output(action=None, success=None, container=None, re
     ## Custom Code End
     ################################################################################
 
-    phantom.save_block_result(key="normalized_file_summary_output__inputs:0:filtered-data:job_type:condition_2:get_job_summary_1:action_result.data.*.Submissions.*.Name", value=json.dumps(filtered_result_0_data___submissions___name))
-    phantom.save_block_result(key="normalized_file_summary_output__inputs:1:filtered-data:job_type:condition_2:get_job_summary_1:action_result.data.*.ID", value=json.dumps(filtered_result_0_data___id))
-    phantom.save_block_result(key="normalized_file_summary_output__inputs:2:filtered-data:job_type:condition_1:get_job_summary_2:action_result.parameter.job_id", value=json.dumps(filtered_result_1_parameter_job_id))
-    phantom.save_block_result(key="normalized_file_summary_output__inputs:3:filtered-data:job_type:condition_1:get_job_summary_2:action_result.data.*.Submission.Name", value=json.dumps(filtered_result_1_data___submission_name))
-    phantom.save_block_result(key="normalized_file_summary_output__inputs:4:filtered-data:job_type:condition_2:get_job_summary_1:action_result.summary.Score", value=json.dumps(filtered_result_0_summary_score))
-    phantom.save_block_result(key="normalized_file_summary_output__inputs:5:filtered-data:job_type:condition_2:get_job_summary_1:action_result.data.*.Resources", value=json.dumps(filtered_result_0_data___resources))
-    phantom.save_block_result(key="normalized_file_summary_output__inputs:6:filtered-data:job_type:condition_2:get_job_summary_1:action_result.data.*.Verdict", value=json.dumps(filtered_result_0_data___verdict))
-    phantom.save_block_result(key="normalized_file_summary_output__inputs:7:filtered-data:job_type:condition_2:get_job_summary_1:action_result.data.*.Tasks", value=json.dumps(filtered_result_0_data___tasks))
+    phantom.save_block_result(key="normalized_file_summary_output__inputs:0:get_job_summary_1:action_result.data.*.Submission.Name", value=json.dumps(get_job_summary_1_result_item_0))
+    phantom.save_block_result(key="normalized_file_summary_output__inputs:1:get_job_summary_1:action_result.data.*.ID", value=json.dumps(get_job_summary_1_result_item_1))
+    phantom.save_block_result(key="normalized_file_summary_output__inputs:2:get_job_summary_1:action_result.parameter.job_id", value=json.dumps(get_job_summary_1_parameter_job_id))
+    phantom.save_block_result(key="normalized_file_summary_output__inputs:3:get_job_summary_1:action_result.data.*.Submission.Name", value=json.dumps(get_job_summary_1_result_item_0))
+    phantom.save_block_result(key="normalized_file_summary_output__inputs:4:get_job_summary_1:action_result.summary.Score", value=json.dumps(get_job_summary_1_summary_score))
+    phantom.save_block_result(key="normalized_file_summary_output__inputs:5:get_job_summary_1:action_result.data.*.Resources", value=json.dumps(get_job_summary_1_result_item_4))
+    phantom.save_block_result(key="normalized_file_summary_output__inputs:6:get_job_summary_1:action_result.data.*.Verdict", value=json.dumps(get_job_summary_1_result_item_5))
+    phantom.save_block_result(key="normalized_file_summary_output__inputs:7:get_job_summary_1:action_result.data.*.Tasks", value=json.dumps(get_job_summary_1_result_item_6))
 
     phantom.save_block_result(key="normalized_file_summary_output:file_score_object", value=json.dumps(normalized_file_summary_output__file_score_object))
     phantom.save_block_result(key="normalized_file_summary_output:scores", value=json.dumps(normalized_file_summary_output__scores))
@@ -551,7 +548,6 @@ def normalized_file_summary_output(action=None, success=None, container=None, re
     phantom.save_block_result(key="normalized_file_summary_output:file_name", value=json.dumps(normalized_file_summary_output__file_name))
 
     return
-
 
 @phantom.playbook_block()
 def format_file_report(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
@@ -614,6 +610,49 @@ def get_finding_or_investigation_1(action=None, success=None, container=None, re
     ################################################################################
 
     phantom.act("get finding or investigation", parameters=parameters, name="get_finding_or_investigation_1", assets=["builtin_mc_connector"], callback=check_job_id)
+
+    return
+
+
+@phantom.playbook_block()
+def decision_2(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("decision_2() called")
+
+    # check for 'if' condition 1
+    found_match_1 = phantom.decision(
+        container=container,
+        conditions=[
+            ["get_job_summary_1:action_result.data.*.Submission.SHA256", "!=", ""]
+        ],
+        conditions_dps=[
+            ["get_job_summary_1:action_result.data.*.Submission.SHA256", "!=", ""]
+        ],
+        name="decision_2:condition_1",
+        delimiter=None)
+
+    # call connected blocks if condition 1 matched
+    if found_match_1:
+        normalized_file_summary_output(action=action, success=success, container=container, results=results, handle=handle)
+        return
+
+    # check for 'elif' condition 2
+    found_match_2 = phantom.decision(
+        container=container,
+        logical_operator="and",
+        conditions=[
+            ["get_job_summary_1:action_result.data.*.Submission.SHA256", "==", ""],
+            ["http", "in", "get_job_summary_1:action_result.data.*.Submission.Name"]
+        ],
+        conditions_dps=[
+            ["get_job_summary_1:action_result.data.*.Submission.SHA256", "==", ""],
+            ["http", "in", "get_job_summary_1:action_result.data.*.Submission.Name"]
+        ],
+        name="decision_2:condition_2",
+        delimiter=None)
+
+    # call connected blocks if condition 2 matched
+    if found_match_2:
+        return
 
     return
 
