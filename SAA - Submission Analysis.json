@@ -7,25 +7,11 @@
             "description": "",
             "edges": [
                 {
-                    "id": "port_0_to_port_2",
-                    "sourceNode": "0",
-                    "sourcePort": "0_out",
-                    "targetNode": "2",
-                    "targetPort": "2_in"
-                },
-                {
                     "id": "port_9_to_port_10",
                     "sourceNode": "9",
                     "sourcePort": "9_out",
                     "targetNode": "10",
                     "targetPort": "10_in"
-                },
-                {
-                    "id": "port_2_to_port_19",
-                    "sourceNode": "2",
-                    "sourcePort": "2_out",
-                    "targetNode": "19",
-                    "targetPort": "19_in"
                 },
                 {
                     "id": "port_8_to_port_9",
@@ -108,9 +94,23 @@
                     "sourcePort": "27_out",
                     "targetNode": "30",
                     "targetPort": "30_in"
+                },
+                {
+                    "id": "port_0_to_port_32",
+                    "sourceNode": "0",
+                    "sourcePort": "0_out",
+                    "targetNode": "32",
+                    "targetPort": "32_in"
+                },
+                {
+                    "id": "port_32_to_port_19",
+                    "sourceNode": "32",
+                    "sourcePort": "32_out",
+                    "targetNode": "19",
+                    "targetPort": "19_in"
                 }
             ],
-            "hash": "885f61b08d40395b5af1fa7fb5aa5a2fbc35be5c",
+            "hash": "684300ffe0a16ccc517d095556cfa75512086abf",
             "nodes": {
                 "0": {
                     "data": {
@@ -229,49 +229,6 @@
                     "warnings": {},
                     "x": 740,
                     "y": 324
-                },
-                "2": {
-                    "data": {
-                        "action": "get finding or investigation",
-                        "actionType": "get",
-                        "advanced": {
-                            "join": []
-                        },
-                        "connector": "Enterprise Security",
-                        "connectorConfigs": [
-                            "builtin_mc_connector"
-                        ],
-                        "connectorId": "7e971d03-6ae7-4429-b4e1-cf461003e75b",
-                        "connectorVersion": "v1",
-                        "functionId": 1,
-                        "functionName": "get_finding_or_investigation_1",
-                        "id": "2",
-                        "loop": {
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "parameters": {
-                            "id": "finding:investigation_guid"
-                        },
-                        "requiredParameters": [
-                            {
-                                "data_type": "string",
-                                "field": "id"
-                            }
-                        ],
-                        "type": "enterpriseSecurity"
-                    },
-                    "errors": {},
-                    "id": "2",
-                    "type": "enterpriseSecurity",
-                    "warnings": {},
-                    "x": 660,
-                    "y": 160
                 },
                 "23": {
                     "data": {
@@ -528,6 +485,51 @@
                     "x": 660,
                     "y": 1640
                 },
+                "32": {
+                    "data": {
+                        "action": "get finding or investigation",
+                        "actionType": "get",
+                        "advanced": {
+                            "customName": "get_finding_or_investigation_1",
+                            "customNameId": 0,
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": "7e971d03-6ae7-4429-b4e1-cf461003e75b",
+                        "connectorVersion": "v1",
+                        "functionId": 1,
+                        "functionName": "get_finding_or_investigation_1",
+                        "id": "32",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "id": "finding:investigation_id"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "32",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 660,
+                    "y": 144.5
+                },
                 "5": {
                     "data": {
                         "advanced": {
@@ -692,7 +694,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-17T05:11:04.352138+00:00",
+    "create_time": "2025-06-17T05:12:01.538602+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
