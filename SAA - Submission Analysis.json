@@ -124,7 +124,7 @@
                     "targetPort": "29_in"
                 }
             ],
-            "hash": "e3172d7892aaedf1484ca5bc411750b21dd75e6e",
+            "hash": "b303cd11199387d1faa5234c3730d23db1d552ee",
             "nodes": {
                 "0": {
                     "data": {
@@ -1056,7 +1056,7 @@
                             "normalized_file_summary_output:custom_function:job_id",
                             "filtered-data:job_type:condition_1:get_job_summary_1:action_result.summary.AppURL"
                         ],
-                        "template": "SOAR analyzed File(s) using Splunk Attack Analyzer.  The table below shows a summary of the information gathered.\n\n| File Name | Normalized Score | Score Id  | Classifications | Report Link | Source |\n| --- | --- | --- | --- | --- | --- |\n%%\n| `{0}` | {1} | {2} | {3} |  | Splunk Attack Analyzer (SAA) {5} |\n%%\n\nScreenshots associated with the detonated Files are attached in the \"Files\" section below.\n",
+                        "template": "SOAR analyzed File(s) using Splunk Attack Analyzer.  The table below shows a summary of the information gathered.\n\n| File Name | Normalized Score | Score Id  | Classifications | Report Link | Source |\n| --- | --- | --- | --- | --- | --- |\n%%\n| `{0}` | {1} | {2} | {3} | {5} | Splunk Attack Analyzer (SAA) |\n%%\n\nScreenshots associated with the detonated Files are attached in the \"Files\" section below.\n",
                         "type": "format"
                     },
                     "errors": {},
@@ -1234,7 +1234,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-17T00:47:17.976023+00:00",
+    "create_time": "2025-06-17T01:22:42.444946+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
