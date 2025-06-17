@@ -126,7 +126,7 @@
                     "type": "start",
                     "warnings": {},
                     "x": 680,
-                    "y": 6.999999999999936
+                    "y": 6.999999999999872
                 },
                 "1": {
                     "data": {
@@ -183,7 +183,11 @@
                     "errors": {},
                     "id": "10",
                     "type": "action",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 660,
                     "y": 800
                 },
@@ -265,7 +269,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 660,
-                    "y": 162
+                    "y": 160
                 },
                 "23": {
                     "data": {
@@ -302,7 +306,11 @@
                     "errors": {},
                     "id": "23",
                     "type": "playbook",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 660,
                     "y": 1120
                 },
@@ -390,7 +398,11 @@
                     "errors": {},
                     "id": "27",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 660,
                     "y": 1380
                 },
@@ -446,7 +458,11 @@
                     "errors": {},
                     "id": "29",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 660,
                     "y": 1760
                 },
@@ -671,7 +687,11 @@
                     "errors": {},
                     "id": "9",
                     "type": "action",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 660,
                     "y": 652
                 }
