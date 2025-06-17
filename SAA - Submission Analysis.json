@@ -183,11 +183,7 @@
                     "errors": {},
                     "id": "10",
                     "type": "action",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 660,
                     "y": 800
                 },
@@ -306,11 +302,7 @@
                     "errors": {},
                     "id": "23",
                     "type": "playbook",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 660,
                     "y": 1120
                 },
@@ -398,11 +390,7 @@
                     "errors": {},
                     "id": "27",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 660,
                     "y": 1380
                 },
@@ -458,11 +446,7 @@
                     "errors": {},
                     "id": "29",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 660,
                     "y": 1760
                 },
@@ -687,11 +671,7 @@
                     "errors": {},
                     "id": "9",
                     "type": "action",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 660,
                     "y": 652
                 }
