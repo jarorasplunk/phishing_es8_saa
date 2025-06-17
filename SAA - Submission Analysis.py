@@ -615,6 +615,15 @@ def normalized_file_summary_output(action=None, success=None, container=None, re
     ################################################################################
 
     # Write your custom code here...
+    
+    phantom.debug(filtered_result_0_data___submission_name)
+    phantom.debug(filtered_result_0_data___id)
+    phantom.debug(filtered_result_0_parameter_job_id)
+    phantom.debug(filtered_result_0_summary_score)
+    phantom.debug(filtered_result_0_data___resources)
+    phantom.debug(filtered_result_0_data___verdict)
+    phantom.debug(filtered_result_0_data___tasks)
+    
     score_table = {
         "0":"Unknown",
         "1":"Very_Safe",
@@ -768,6 +777,12 @@ def normalized_file_summary_output(action=None, success=None, container=None, re
         normalized_file_summary_output__job_id.append(job)
         normalized_file_summary_output__classifications.append([verdict if verdict else "Unknown"])
 
+    phantom.debug(normalized_file_summary_output__scores)
+    phantom.debug(normalized_file_summary_output__score_id)
+    phantom.debug(normalized_file_summary_output__file)
+    phantom.debug(normalized_file_summary_output__file_name)
+    phantom.debug(normalized_file_summary_output__job_id)
+    phantom.debug(normalized_file_summary_output__classifications)
 
     ################################################################################
     ## Custom Code End
