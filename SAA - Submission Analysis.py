@@ -91,7 +91,7 @@ def job_type(action=None, success=None, container=None, results=None, handle=Non
 
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_2 or matched_results_2:
-        image_base64(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_2, filtered_results=matched_results_2)
+        playbook_get_container_id_and_vault_list_1(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_2, filtered_results=matched_results_2)
 
     return
 
@@ -427,19 +427,7 @@ def playbook_get_container_id_and_vault_list_1(action=None, success=None, contai
     ################################################################################
 
     # call playbook "local/get container id and vault list", returns the playbook_run_id
-    playbook_run_id = phantom.playbook("local/get container id and vault list", container=container, name="playbook_get_container_id_and_vault_list_1", callback=playbook_get_container_id_and_vault_list_1_callback, inputs=inputs)
-
-    return
-
-
-@phantom.playbook_block()
-def playbook_get_container_id_and_vault_list_1_callback(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("playbook_get_container_id_and_vault_list_1_callback() called")
-
-    
-    # Downstream End block cannot be called directly, since execution will call on_finish automatically.
-    # Using placeholder callback function so child playbook is run synchronously.
-
+    playbook_run_id = phantom.playbook("local/get container id and vault list", container=container, name="playbook_get_container_id_and_vault_list_1", callback=image_base64, inputs=inputs)
 
     return
 
@@ -494,16 +482,16 @@ def add_investigation_file_2(action=None, success=None, container=None, results=
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id"])
+    get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.investigation_id","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
     image_base64__image_base64 = json.loads(_ if (_ := phantom.get_run_data(key="image_base64:image_base64")) != "" else "null")  # pylint: disable=used-before-assignment
 
     parameters = []
 
     # build parameters list for 'add_investigation_file_2' call
-    for finding_data_item in finding_data:
-        if finding_data_item[0] is not None and image_base64__image_base64 is not None:
+    for get_finding_or_investigation_1_result_item in get_finding_or_investigation_1_result_data:
+        if get_finding_or_investigation_1_result_item[0] is not None and image_base64__image_base64 is not None:
             parameters.append({
-                "id": finding_data_item[0],
+                "id": get_finding_or_investigation_1_result_item[0],
                 "data": image_base64__image_base64,
                 "file_name": "Screenshot",
                 "source_type": "Note",
@@ -519,33 +507,7 @@ def add_investigation_file_2(action=None, success=None, container=None, results=
     ## Custom Code End
     ################################################################################
 
-    phantom.act("add investigation file", parameters=parameters, name="add_investigation_file_2", assets=["builtin_mc_connector"], callback=format_screenshots)
-
-    return
-
-
-@phantom.playbook_block()
-def format_screenshots(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("format_screenshots() called")
-
-    template = """Screenshots from the SAA detonation job has been added to to the \"Files\" section below."""
-
-    # parameter list for template variable replacement
-    parameters = []
-
-    ################################################################################
-    ## Custom Code Start
-    ################################################################################
-
-    # Write your custom code here...
-
-    ################################################################################
-    ## Custom Code End
-    ################################################################################
-
-    phantom.format(container=container, template=template, parameters=parameters, name="format_screenshots")
-
-    normalized_file_summary_output(container=container)
+    phantom.act("add investigation file", parameters=parameters, name="add_investigation_file_2", assets=["builtin_mc_connector"], callback=normalized_file_summary_output)
 
     return
 
