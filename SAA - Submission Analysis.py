@@ -365,15 +365,17 @@ def add_finding_or_investigation_note_3(action=None, success=None, container=Non
 def normalized_file_summary_output(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("normalized_file_summary_output() called")
 
-    filtered_result_0_data_job_type = phantom.collect2(container=container, datapath=["filtered-data:job_type:condition_1:get_job_summary_1:action_result.data.*.Submission.Name","filtered-data:job_type:condition_1:get_job_summary_1:action_result.data.*.ID","filtered-data:job_type:condition_1:get_job_summary_1:action_result.parameter.job_id","filtered-data:job_type:condition_1:get_job_summary_1:action_result.summary.Score","filtered-data:job_type:condition_1:get_job_summary_1:action_result.data.*.Resources","filtered-data:job_type:condition_1:get_job_summary_1:action_result.data.*.Verdict","filtered-data:job_type:condition_1:get_job_summary_1:action_result.data.*.Tasks"])
+    filtered_result_0_data_job_type = phantom.collect2(container=container, datapath=["filtered-data:job_type:condition_2:get_job_summary_1:action_result.data.*.Submission.Name","filtered-data:job_type:condition_2:get_job_summary_1:action_result.data.*.ID","filtered-data:job_type:condition_2:get_job_summary_1:action_result.summary.Score","filtered-data:job_type:condition_2:get_job_summary_1:action_result.data.*.Resources","filtered-data:job_type:condition_2:get_job_summary_1:action_result.data.*.Verdict","filtered-data:job_type:condition_2:get_job_summary_1:action_result.data.*.Tasks"])
+    filtered_result_1_data_job_type = phantom.collect2(container=container, datapath=["filtered-data:job_type:condition_1:get_job_summary_2:action_result.parameter.job_id","filtered-data:job_type:condition_1:get_job_summary_2:action_result.data.*.Submission.Name"])
 
     filtered_result_0_data___submission_name = [item[0] for item in filtered_result_0_data_job_type]
     filtered_result_0_data___id = [item[1] for item in filtered_result_0_data_job_type]
-    filtered_result_0_parameter_job_id = [item[2] for item in filtered_result_0_data_job_type]
-    filtered_result_0_summary_score = [item[3] for item in filtered_result_0_data_job_type]
-    filtered_result_0_data___resources = [item[4] for item in filtered_result_0_data_job_type]
-    filtered_result_0_data___verdict = [item[5] for item in filtered_result_0_data_job_type]
-    filtered_result_0_data___tasks = [item[6] for item in filtered_result_0_data_job_type]
+    filtered_result_0_summary_score = [item[2] for item in filtered_result_0_data_job_type]
+    filtered_result_0_data___resources = [item[3] for item in filtered_result_0_data_job_type]
+    filtered_result_0_data___verdict = [item[4] for item in filtered_result_0_data_job_type]
+    filtered_result_0_data___tasks = [item[5] for item in filtered_result_0_data_job_type]
+    filtered_result_1_parameter_job_id = [item[0] for item in filtered_result_1_data_job_type]
+    filtered_result_1_data___submission_name = [item[1] for item in filtered_result_1_data_job_type]
 
     normalized_file_summary_output__file_score_object = None
     normalized_file_summary_output__scores = None
@@ -390,9 +392,9 @@ def normalized_file_summary_output(action=None, success=None, container=None, re
 
     # Write your custom code here...
     
-    phantom.debug(filtered_result_0_data___submission_name)
+    phantom.debug(filtered_result_1_data___submission_name)
     phantom.debug(filtered_result_0_data___id)
-    phantom.debug(filtered_result_0_parameter_job_id)
+    phantom.debug(filtered_result_1_parameter_job_id)
     phantom.debug(filtered_result_0_summary_score)
     phantom.debug(filtered_result_0_data___resources)
     phantom.debug(filtered_result_0_data___verdict)
@@ -463,12 +465,12 @@ def normalized_file_summary_output(action=None, success=None, container=None, re
         
     ## pair forensic job results with url detonated
     job_file_dict = {}
-    for orig_file, orig_job, filtered_job in zip(filtered_result_0_data___submission_name, filtered_result_0_data___id, filtered_result_0_parameter_job_id):
+    for orig_file, orig_job, filtered_job in zip(filtered_result_1_data___submission_name, filtered_result_0_data___id, filtered_result_1_parameter_job_id):
         if orig_job == filtered_job:
             job_file_dict[filtered_job] = orig_file
     
     for job, file_name, score_num, resources, verdict, tasks in zip(
-        filtered_result_0_parameter_job_id, 
+        filtered_result_1_parameter_job_id, 
         filtered_result_0_data___submission_name, 
         filtered_result_0_summary_score, 
         filtered_result_0_data___resources, 
@@ -562,14 +564,14 @@ def normalized_file_summary_output(action=None, success=None, container=None, re
     ## Custom Code End
     ################################################################################
 
-    phantom.save_block_result(key="normalized_file_summary_output__inputs:0:filtered-data:job_type:condition_1:get_job_summary_1:action_result.data.*.Submission.Name", value=json.dumps(filtered_result_0_data___submission_name))
-    phantom.save_block_result(key="normalized_file_summary_output__inputs:1:filtered-data:job_type:condition_1:get_job_summary_1:action_result.data.*.ID", value=json.dumps(filtered_result_0_data___id))
-    phantom.save_block_result(key="normalized_file_summary_output__inputs:2:filtered-data:job_type:condition_1:get_job_summary_1:action_result.parameter.job_id", value=json.dumps(filtered_result_0_parameter_job_id))
-    phantom.save_block_result(key="normalized_file_summary_output__inputs:3:filtered-data:job_type:condition_1:get_job_summary_1:action_result.data.*.Submission.Name", value=json.dumps(filtered_result_0_data___submission_name))
-    phantom.save_block_result(key="normalized_file_summary_output__inputs:4:filtered-data:job_type:condition_1:get_job_summary_1:action_result.summary.Score", value=json.dumps(filtered_result_0_summary_score))
-    phantom.save_block_result(key="normalized_file_summary_output__inputs:5:filtered-data:job_type:condition_1:get_job_summary_1:action_result.data.*.Resources", value=json.dumps(filtered_result_0_data___resources))
-    phantom.save_block_result(key="normalized_file_summary_output__inputs:6:filtered-data:job_type:condition_1:get_job_summary_1:action_result.data.*.Verdict", value=json.dumps(filtered_result_0_data___verdict))
-    phantom.save_block_result(key="normalized_file_summary_output__inputs:7:filtered-data:job_type:condition_1:get_job_summary_1:action_result.data.*.Tasks", value=json.dumps(filtered_result_0_data___tasks))
+    phantom.save_block_result(key="normalized_file_summary_output__inputs:0:filtered-data:job_type:condition_2:get_job_summary_1:action_result.data.*.Submission.Name", value=json.dumps(filtered_result_0_data___submission_name))
+    phantom.save_block_result(key="normalized_file_summary_output__inputs:1:filtered-data:job_type:condition_2:get_job_summary_1:action_result.data.*.ID", value=json.dumps(filtered_result_0_data___id))
+    phantom.save_block_result(key="normalized_file_summary_output__inputs:2:filtered-data:job_type:condition_1:get_job_summary_2:action_result.parameter.job_id", value=json.dumps(filtered_result_1_parameter_job_id))
+    phantom.save_block_result(key="normalized_file_summary_output__inputs:3:filtered-data:job_type:condition_1:get_job_summary_2:action_result.data.*.Submission.Name", value=json.dumps(filtered_result_1_data___submission_name))
+    phantom.save_block_result(key="normalized_file_summary_output__inputs:4:filtered-data:job_type:condition_2:get_job_summary_1:action_result.summary.Score", value=json.dumps(filtered_result_0_summary_score))
+    phantom.save_block_result(key="normalized_file_summary_output__inputs:5:filtered-data:job_type:condition_2:get_job_summary_1:action_result.data.*.Resources", value=json.dumps(filtered_result_0_data___resources))
+    phantom.save_block_result(key="normalized_file_summary_output__inputs:6:filtered-data:job_type:condition_2:get_job_summary_1:action_result.data.*.Verdict", value=json.dumps(filtered_result_0_data___verdict))
+    phantom.save_block_result(key="normalized_file_summary_output__inputs:7:filtered-data:job_type:condition_2:get_job_summary_1:action_result.data.*.Tasks", value=json.dumps(filtered_result_0_data___tasks))
 
     phantom.save_block_result(key="normalized_file_summary_output:file_score_object", value=json.dumps(normalized_file_summary_output__file_score_object))
     phantom.save_block_result(key="normalized_file_summary_output:scores", value=json.dumps(normalized_file_summary_output__scores))
