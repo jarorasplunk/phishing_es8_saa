@@ -562,7 +562,7 @@ def format_file_report(action=None, success=None, container=None, results=None, 
         "normalized_file_summary_output:custom_function:score_id",
         "normalized_file_summary_output:custom_function:classifications",
         "normalized_file_summary_output:custom_function:job_id",
-        "filtered-data:job_type:condition_1:get_job_summary_1:action_result.summary.AppURL"
+        "get_job_summary_1:action_result.summary.AppURL"
     ]
 
     ################################################################################
