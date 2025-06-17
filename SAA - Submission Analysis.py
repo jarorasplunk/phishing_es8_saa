@@ -548,6 +548,7 @@ def normalized_file_summary_output(action=None, success=None, container=None, re
     phantom.save_block_result(key="normalized_file_summary_output:file_name", value=json.dumps(normalized_file_summary_output__file_name))
     
     format_file_report(container=container)
+    debug_1(container=container)
 
     return
 
