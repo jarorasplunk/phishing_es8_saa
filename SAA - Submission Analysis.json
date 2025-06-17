@@ -42,20 +42,6 @@
                     "targetPort": "5_in"
                 },
                 {
-                    "id": "port_15_to_port_11",
-                    "sourceNode": "15",
-                    "sourcePort": "15_out",
-                    "targetNode": "11",
-                    "targetPort": "11_in"
-                },
-                {
-                    "id": "port_11_to_port_16",
-                    "sourceNode": "11",
-                    "sourcePort": "11_out",
-                    "targetNode": "16",
-                    "targetPort": "16_in"
-                },
-                {
                     "id": "port_25_to_port_27",
                     "sourceNode": "25",
                     "sourcePort": "25_out",
@@ -124,7 +110,7 @@
                     "targetPort": "30_in"
                 }
             ],
-            "hash": "8f7272572a3fc66ef4fba871d8704a2d9d01e2db",
+            "hash": "464a1405bdf5dc07e55cdc8843ad935d5d09f08e",
             "nodes": {
                 "0": {
                     "data": {
@@ -197,511 +183,9 @@
                     "errors": {},
                     "id": "10",
                     "type": "action",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 660,
                     "y": 800
-                },
-                "11": {
-                    "data": {
-                        "advanced": {
-                            "join": []
-                        },
-                        "customFunction": {
-                            "draftMode": false,
-                            "name": "debug",
-                            "repoName": "community"
-                        },
-                        "functionId": 2,
-                        "functionName": "debug_2",
-                        "id": "11",
-                        "loop": {
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "selectMore": false,
-                        "type": "utility",
-                        "utilities": {
-                            "debug": {
-                                "description": "Print debug messages with the type and value of 0-10 different inputs. This is useful for checking the values of input data or the outputs of other playbook blocks.",
-                                "fields": [
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_1",
-                                        "name": "input_1",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_2",
-                                        "name": "input_2",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_3",
-                                        "name": "input_3",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_4",
-                                        "name": "input_4",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_5",
-                                        "name": "input_5",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_6",
-                                        "name": "input_6",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_7",
-                                        "name": "input_7",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_8",
-                                        "name": "input_8",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_9",
-                                        "name": "input_9",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_10",
-                                        "name": "input_10",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    }
-                                ],
-                                "label": "debug",
-                                "name": "debug"
-                            }
-                        },
-                        "utilityType": "custom_function",
-                        "values": {
-                            "debug": {
-                                "input_1": [
-                                    "container:id"
-                                ],
-                                "input_10": null,
-                                "input_2": null,
-                                "input_3": null,
-                                "input_4": null,
-                                "input_5": null,
-                                "input_6": null,
-                                "input_7": null,
-                                "input_8": null,
-                                "input_9": null
-                            }
-                        }
-                    },
-                    "errors": {},
-                    "id": "11",
-                    "type": "utility",
-                    "warnings": {},
-                    "x": 0,
-                    "y": 169
-                },
-                "14": {
-                    "data": {
-                        "advanced": {
-                            "customName": "format summary report",
-                            "customNameId": 0,
-                            "join": []
-                        },
-                        "functionId": 1,
-                        "functionName": "format_summary_report",
-                        "id": "14",
-                        "parameters": [
-                            "get_job_summary_1:action_result.data.*.ResourcesType",
-                            "get_job_summary_1:action_result.data.*.Resources.Name",
-                            "get_job_summary_1:action_result.data.*.Resources.Score",
-                            "get_job_summary_1:action_result.data.*.Resources.DisplayScore",
-                            "get_job_summary_1:action_result.data.*.Verdict",
-                            "get_job_summary_1:action_result.summary.AppURL",
-                            "file_screenshot_formatting:custom_function:report"
-                        ],
-                        "template": "Splunk Attack Analyzer - Job Summary:\n\n| Submission | Normalized Score | Score Id  | Classifications | Report Link | Source |\n| --- | --- | --- | --- | --- | --- |\n%%\n| {0}:`{1}` | {2} | {3} | {4} | {5} | Splunk Attack Analyzer (SAA) |\n%%\n\nScreenshots associated with the detonation are shown below (if available):\n\n{6{6}}",
-                        "type": "format"
-                    },
-                    "errors": {},
-                    "id": "14",
-                    "type": "format",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ],
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
-                    "x": 340,
-                    "y": 7.000000000000007
-                },
-                "15": {
-                    "data": {
-                        "advanced": {
-                            "customName": "file screenshot formatting",
-                            "customNameId": 0,
-                            "join": []
-                        },
-                        "functionId": 1,
-                        "functionName": "file_screenshot_formatting",
-                        "id": "15",
-                        "inputParameters": [
-                            "filtered-data:job_type:condition_2:get_job_summary_1:action_result.data.*.Submission.Name",
-                            "filtered-data:job_type:condition_2:get_job_summary_1:action_result.summary.Job ID",
-                            "get_job_screenshots_1:action_result.parameter.job_id",
-                            "get_job_screenshots_1:action_result.data.*.file_name",
-                            "get_job_screenshots_1:action_result.data.*.id"
-                        ],
-                        "outputVariables": [
-                            "report"
-                        ],
-                        "type": "code"
-                    },
-                    "errors": {},
-                    "id": "15",
-                    "type": "code",
-                    "userCode": "\n    # Write your custom code here...\n    file_screenshot_formatting__report = \"\"\n    \n    for file, job_id in zip(filtered_result_0_data___submission_name, filtered_result_0_summary_job_id):\n        file_screenshot_formatting__report += f\"#### {file}\\n\"\n        for screenshot_job, screenshot_name, screenshot_id in zip(get_job_screenshots_1_parameter_job_id, get_job_screenshots_1_result_item_1, get_job_screenshots_1_result_item_2):\n            if job_id == screenshot_job:\n                file_screenshot_formatting__report += f\"![{screenshot_name}](/view?id={screenshot_id})\\n\"\n\n",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ],
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
-                    "x": 0,
-                    "y": 1.0658141036401503e-14
-                },
-                "16": {
-                    "data": {
-                        "action": "add finding or investigation note",
-                        "actionType": "post",
-                        "advanced": {
-                            "join": []
-                        },
-                        "connector": "Enterprise Security",
-                        "connectorConfigs": [
-                            "builtin_mc_connector"
-                        ],
-                        "connectorId": "7e971d03-6ae7-4429-b4e1-cf461003e75b",
-                        "connectorVersion": "v1",
-                        "functionId": 4,
-                        "functionName": "add_finding_or_investigation_note_4",
-                        "id": "16",
-                        "loop": {
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "parameters": {
-                            "content": "test",
-                            "files": [
-                                "get_job_screenshots_1:action_result.data.*.id"
-                            ],
-                            "id": "get_finding_or_investigation_1:action_result.data.*.finding_id",
-                            "title": "Splunk Attack Analyzer Report"
-                        },
-                        "requiredParameters": [
-                            {
-                                "data_type": "string",
-                                "field": "id"
-                            },
-                            {
-                                "data_type": "string",
-                                "default": "",
-                                "field": "title"
-                            },
-                            {
-                                "data_type": "string",
-                                "default": "",
-                                "field": "content"
-                            }
-                        ],
-                        "type": "enterpriseSecurity"
-                    },
-                    "errors": {},
-                    "id": "16",
-                    "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
-                    "x": 0,
-                    "y": 325
-                },
-                "17": {
-                    "data": {
-                        "advanced": {
-                            "join": []
-                        },
-                        "customFunction": {
-                            "draftMode": false,
-                            "name": "debug",
-                            "repoName": "community"
-                        },
-                        "functionId": 1,
-                        "functionName": "debug_1",
-                        "id": "17",
-                        "loop": {
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "selectMore": false,
-                        "type": "utility",
-                        "utilities": {
-                            "debug": {
-                                "description": "Print debug messages with the type and value of 0-10 different inputs. This is useful for checking the values of input data or the outputs of other playbook blocks.",
-                                "fields": [
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_1",
-                                        "name": "input_1",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_2",
-                                        "name": "input_2",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_3",
-                                        "name": "input_3",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_4",
-                                        "name": "input_4",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_5",
-                                        "name": "input_5",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_6",
-                                        "name": "input_6",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_7",
-                                        "name": "input_7",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_8",
-                                        "name": "input_8",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_9",
-                                        "name": "input_9",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_10",
-                                        "name": "input_10",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    }
-                                ],
-                                "label": "debug",
-                                "name": "debug"
-                            }
-                        },
-                        "utilityType": "custom_function",
-                        "values": {
-                            "debug": {
-                                "input_1": [
-                                    "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.SAA_JOB_ID"
-                                ],
-                                "input_10": null,
-                                "input_2": null,
-                                "input_3": null,
-                                "input_4": null,
-                                "input_5": null,
-                                "input_6": null,
-                                "input_7": null,
-                                "input_8": null,
-                                "input_9": null
-                            }
-                        }
-                    },
-                    "errors": {},
-                    "id": "17",
-                    "type": "utility",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ],
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
-                    "x": 980,
-                    "y": 7.000000000000007
                 },
                 "19": {
                     "data": {
@@ -818,11 +302,7 @@
                     "errors": {},
                     "id": "23",
                     "type": "playbook",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 660,
                     "y": 1120
                 },
@@ -910,11 +390,7 @@
                     "errors": {},
                     "id": "27",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 660,
                     "y": 1380
                 },
@@ -970,11 +446,7 @@
                     "errors": {},
                     "id": "29",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 660,
                     "y": 1760
                 },
@@ -1195,11 +667,7 @@
                     "errors": {},
                     "id": "9",
                     "type": "action",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 660,
                     "y": 652
                 }
@@ -1214,7 +682,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-17T01:48:03.427608+00:00",
+    "create_time": "2025-06-17T01:48:37.313875+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
