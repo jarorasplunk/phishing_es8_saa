@@ -528,10 +528,10 @@ def add_finding_or_investigation_note_3(action=None, success=None, container=Non
         if get_finding_or_investigation_1_result_item[0] is not None and format_file_report is not None:
             parameters.append({
                 "id": get_finding_or_investigation_1_result_item[0],
-                "title": "Splunk Attack Analyzer Report",
-                "content": format_file_report,
                 "files": [
                 ],
+                "title": "Splunk Attack Analyzer Report",
+                "content": format_file_report,
             })
 
     ################################################################################

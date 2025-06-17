@@ -124,7 +124,7 @@
                     "targetPort": "30_in"
                 }
             ],
-            "hash": "885f61b08d40395b5af1fa7fb5aa5a2fbc35be5c",
+            "hash": "8f7272572a3fc66ef4fba871d8704a2d9d01e2db",
             "nodes": {
                 "0": {
                     "data": {
@@ -140,7 +140,7 @@
                     "type": "start",
                     "warnings": {},
                     "x": 680,
-                    "y": 7
+                    "y": 6.999999999999936
                 },
                 "1": {
                     "data": {
@@ -197,7 +197,11 @@
                     "errors": {},
                     "id": "10",
                     "type": "action",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 660,
                     "y": 800
                 },
@@ -413,7 +417,7 @@
                         ]
                     },
                     "x": 340,
-                    "y": 7
+                    "y": 7.000000000000007
                 },
                 "15": {
                     "data": {
@@ -450,7 +454,7 @@
                         ]
                     },
                     "x": 0,
-                    "y": 0
+                    "y": 1.0658141036401503e-14
                 },
                 "16": {
                     "data": {
@@ -697,7 +701,7 @@
                         ]
                     },
                     "x": 980,
-                    "y": 7
+                    "y": 7.000000000000007
                 },
                 "19": {
                     "data": {
@@ -814,7 +818,11 @@
                     "errors": {},
                     "id": "23",
                     "type": "playbook",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 660,
                     "y": 1120
                 },
@@ -902,7 +910,11 @@
                     "errors": {},
                     "id": "27",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 660,
                     "y": 1380
                 },
@@ -958,7 +970,11 @@
                     "errors": {},
                     "id": "29",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 660,
                     "y": 1760
                 },
@@ -1179,7 +1195,11 @@
                     "errors": {},
                     "id": "9",
                     "type": "action",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 660,
                     "y": 652
                 }
@@ -1194,7 +1214,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-17T01:31:19.098062+00:00",
+    "create_time": "2025-06-17T01:48:03.427608+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
