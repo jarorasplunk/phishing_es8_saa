@@ -85,8 +85,8 @@
                 {
                     "conditions": [
                         {
-                            "conditionKey": "condition_key_0",
-                            "index": 0
+                            "conditionKey": "condition_key_14",
+                            "index": 1
                         }
                     ],
                     "id": "port_5_to_port_25",
@@ -124,7 +124,7 @@
                     "targetPort": "29_in"
                 }
             ],
-            "hash": "885f61b08d40395b5af1fa7fb5aa5a2fbc35be5c",
+            "hash": "e3172d7892aaedf1484ca5bc411750b21dd75e6e",
             "nodes": {
                 "0": {
                     "data": {
@@ -1030,7 +1030,11 @@
                     "id": "30",
                     "type": "code",
                     "userCode": "\n    # Write your custom code here...\n    score_table = {\n        \"0\":\"Unknown\",\n        \"1\":\"Very_Safe\",\n        \"2\":\"Safe\",\n        \"3\":\"Probably_Safe\",\n        \"4\":\"Leans_Safe\",\n        \"5\":\"May_not_be_Safe\",\n        \"6\":\"Exercise_Caution\",\n        \"7\":\"Suspicious_or_Risky\",\n        \"8\":\"Possibly_Malicious\",\n        \"9\":\"Probably_Malicious\",\n        \"10\":\"Malicious\"\n    }\n\n    classification_ids = {\n        \"Unknown\": 0,\n        \"Adware\": 1,\n        \"Backdoor\": 2,\n        \"Bot\": 3,\n        \"Bootkit\": 4,\n        \"DDOS\": 5,\n        \"Downloader\": 6,\n        \"Dropper\": 7,\n        \"Exploit-Kit\": 8,\n        \"Keylogger\": 9,\n        \"Ransomware\": 10,\n        \"Remote-Access-Trojan\": 11,\n        \"Resource-Exploitation\": 13,\n        \"Rogue-Security-Software\": 14,\n        \"Rootkit\": 15,\n        \"Screen-Capture\": 16,\n        \"Spyware\": 17,\n        \"Trojan\": 18,\n        \"Virus\": 19,\n        \"Webshell\": 20,\n        \"Wiper\": 21,\n        \"Worm\": 22,\n        \"Other\": 99\n    }\n\n    normalized_file_summary_output__file_score_object = []\n    normalized_file_summary_output__scores = []\n    normalized_file_summary_output__categories = []\n    normalized_file_summary_output__score_id = []\n    normalized_file_summary_output__file = []\n    normalized_file_summary_output__job_id = []\n    normalized_file_summary_output__classifications = []\n    normalized_file_summary_output__file_name = []\n    \n    \n    def find_sha1_details(target_id, task_list):\n        '''\n        Attempt to find the detail object with a sha1\n        '''\n        for task in task_list:\n            if (target_id == task.get('ResourceID')\n                and task.get('Results',{}).get('Details', {}).get('sha1')):\n                task_result_details = task['Results']['Details']\n                task_result_details.pop('RootTaskID', None)\n                return task_result_details\n        return None\n\n        \n    ## pair forensic job results with url detonated\n    job_file_dict = {}\n    for orig_file, orig_job, filtered_job in zip(filtered_result_0_data___submission_name, filtered_result_0_data___id, filtered_result_0_parameter_job_id):\n        if orig_job == filtered_job:\n            job_file_dict[filtered_job] = orig_file\n    \n    for job, file_name, score_num, resources, verdict, tasks in zip(\n        filtered_result_0_parameter_job_id, \n        filtered_result_0_data___submission_name, \n        filtered_result_0_summary_score, \n        filtered_result_0_data___resources, \n        filtered_result_0_data___verdict,\n        filtered_result_0_data___tasks\n    ):\n        \n        ## translate scores\n        score_id = int(score_num/10) if score_num > 0 else 0\n        score = score_table[str(score_id)]\n        file = job_file_dict[job]\n        attributes = {}\n        \n        ## build.a sub dictionary of high priority related observables\n        related_observables = []\n        for sub_observ in resources:\n            if sub_observ['Name'] != file_name:\n                        \n                details = find_sha1_details(sub_observ['ID'], tasks)\n                second_num = sub_observ['DisplayScore']\n                second_num_id = int(second_num/10) if second_num > 0 else 0\n                sub_observ_dict = {\n                    'value': sub_observ['Name'],\n                    'type': sub_observ['Type'].lower(),\n                    'reputation': {\n                        'score': score_table[str(second_num_id)],\n                        'orig_score': second_num,\n                        'score_id': second_num_id\n                    },\n                    'source': 'Splunk Attack Analyzer'\n                }\n                if details:\n                    details['name'] = sub_observ['Name']\n                    details.pop('exiftool', None)\n                    sub_observ_dict['attributes'] = details\n                # check if observ is already in related_observables\n                skip_observ = False\n                for idx, item in enumerate(related_observables):\n                    if (sub_observ.get('FileMetadata', {}).get('SHA256', 'null_one') \n                        == item.get('attributes', {}).get('sha256', 'null_two')\n                        and sub_observ['DisplayScore'] > item['reputation']['orig_score']):\n                        related_observables[idx] = sub_observ_dict\n                        skip_observ = True\n                    elif sub_observ['Name'] == item['value']:\n                        skip_observ = True\n                if not skip_observ:\n                    related_observables.append(sub_observ_dict)\n            elif sub_observ['Name'] == file_name:\n                details = find_sha1_details(sub_observ['ID'], tasks)\n                if details:\n                    details.pop('exiftool', None)\n                    details['name'] = file_name\n                    attributes = details\n                else:\n                    file_metadata = sub_observ.get('FileMetadata', {})\n                    attributes = {\n                        'name': file_name,\n                        'sha256': file_metadata.get('SHA256'),\n                        'md5': file_metadata.get('MD5'),\n                        'size': file_metadata.get('Size')\n                    }\n                    if file_metadata.get('MimeType'):\n                        attributes['mime_type'] = file_metadata['MimeType']\n        \n        normalized_file_summary_output__file_score_object.append({\n            'value': file, \n            'orig_score': score_num, \n            'score': score, \n            'score_id': score_id, \n            'classifications': [verdict if verdict else \"Unknown\"],\n            'classification_ids': [classification_ids.get(verdict, 99) if verdict else 0],\n            'related_observables': related_observables,\n            'attributes': attributes\n                \n        })\n        normalized_file_summary_output__scores.append(score)\n        normalized_file_summary_output__score_id.append(score_id)\n        normalized_file_summary_output__file.append(file)\n        normalized_file_summary_output__file_name.append(file_name)\n        normalized_file_summary_output__job_id.append(job)\n        normalized_file_summary_output__classifications.append([verdict if verdict else \"Unknown\"])\n\n\n",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 820,
                     "y": 1640
                 },
@@ -1058,7 +1062,11 @@
                     "errors": {},
                     "id": "31",
                     "type": "format",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 820,
                     "y": 1764.5
                 },
@@ -1226,7 +1234,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-16T23:48:09.449489+00:00",
+    "create_time": "2025-06-17T00:47:17.976023+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
