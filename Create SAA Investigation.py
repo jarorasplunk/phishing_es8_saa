@@ -74,6 +74,7 @@ def get_finding_or_investigation_2(action=None, success=None, container=None, re
         if start_investigations_1_result_item[0] is not None:
             parameters.append({
                 "id": start_investigations_1_result_item[0],
+                "map_consolidated_findings": 1,
             })
 
     ################################################################################
@@ -131,12 +132,10 @@ def playbook_dispatch_playbooks_1(action=None, success=None, container=None, res
     phantom.debug("playbook_dispatch_playbooks_1() called")
 
     get_playbook_name__playbook_name = json.loads(_ if (_ := phantom.get_run_data(key="get_playbook_name:playbook_name")) != "" else "null")  # pylint: disable=used-before-assignment
-    get_playbook_name__playbook_repo = json.loads(_ if (_ := phantom.get_run_data(key="get_playbook_name:playbook_repo")) != "" else "null")  # pylint: disable=used-before-assignment
 
     inputs = {
+        "playbook_tags": ["saa"],
         "playbook_name": get_playbook_name__playbook_name,
-        "playbook_repo": get_playbook_name__playbook_repo,
-        "playbook_tags": ["enrichment"],
     }
 
     ################################################################################

@@ -42,7 +42,7 @@
                     "targetPort": "3_in"
                 }
             ],
-            "hash": "7c44b4fdc06574d87a114763f522fd84de3b3fb5",
+            "hash": "0a5223fb05d2d1e0741312923d3d14a62e68e4b6",
             "nodes": {
                 "0": {
                     "data": {
@@ -64,7 +64,7 @@
                     "type": "start",
                     "warnings": {},
                     "x": 1000,
-                    "y": 140
+                    "y": 139.99999999999994
                 },
                 "1": {
                     "data": {
@@ -162,7 +162,8 @@
                             "pauseValue": 2
                         },
                         "parameters": {
-                            "id": "start_investigations_1:action_result.data.*.id"
+                            "id": "start_investigations_1:action_result.data.*.id",
+                            "map_consolidated_findings": "1"
                         },
                         "requiredParameters": [
                             {
@@ -220,15 +221,9 @@
                                 ],
                                 "deduplicate": false
                             },
-                            "playbook_repo": {
-                                "datapaths": [
-                                    "get_playbook_name:custom_function:playbook_repo"
-                                ],
-                                "deduplicate": false
-                            },
                             "playbook_tags": {
                                 "datapaths": [
-                                    "enrichment"
+                                    "saa"
                                 ],
                                 "deduplicate": false
                             }
@@ -270,10 +265,10 @@
         "playbook_trigger": "artifact_created",
         "playbook_type": "es",
         "python_version": "3.9",
-        "schema": "5.0.17",
-        "version": "6.4.1.342"
+        "schema": "5.0.20",
+        "version": "6.4.1.361"
     },
-    "create_time": "2025-06-16T23:17:31.444365+00:00",
+    "create_time": "2025-06-26T09:59:02.970666+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
