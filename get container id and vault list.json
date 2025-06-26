@@ -5,8 +5,30 @@
     "coa": {
         "data": {
             "description": "",
-            "edges": [],
-            "hash": "34f214649e27c33ea22c0dd6363172679b9d6dd0",
+            "edges": [
+                {
+                    "id": "port_0_to_port_2",
+                    "sourceNode": "0",
+                    "sourcePort": "0_out",
+                    "targetNode": "2",
+                    "targetPort": "2_in"
+                },
+                {
+                    "id": "port_2_to_port_4",
+                    "sourceNode": "2",
+                    "sourcePort": "2_out",
+                    "targetNode": "4",
+                    "targetPort": "4_in"
+                },
+                {
+                    "id": "port_4_to_port_1",
+                    "sourceNode": "4",
+                    "sourcePort": "4_out",
+                    "targetNode": "1",
+                    "targetPort": "1_in"
+                }
+            ],
+            "hash": "26f7fe3c4b1229715262734e48ade7c909b25d13",
             "nodes": {
                 "0": {
                     "data": {
@@ -39,19 +61,182 @@
                     "warnings": {},
                     "x": 1000,
                     "y": 1000
+                },
+                "2": {
+                    "data": {
+                        "action": "get finding or investigation",
+                        "actionType": "get",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": "7e971d03-6ae7-4429-b4e1-cf461003e75b",
+                        "connectorVersion": "v1",
+                        "functionId": 1,
+                        "functionName": "get_finding_or_investigation_1",
+                        "id": "2",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "id": "playbook_input:investigation_id"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "2",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 980,
+                    "y": 564.5
+                },
+                "4": {
+                    "data": {
+                        "advanced": {
+                            "join": []
+                        },
+                        "customFunction": {
+                            "draftMode": false,
+                            "name": "vault_list",
+                            "repoName": "community"
+                        },
+                        "functionId": 2,
+                        "functionName": "vault_list_2",
+                        "id": "4",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "selectMore": false,
+                        "type": "utility",
+                        "utilities": {
+                            "vault_list": {
+                                "description": "List all of the vault items based on the provided criteria such as a vault id, container id, and file name. If no inputs provided, it will default to current container. Returns a list of items. May return more variables than listed in outputs.",
+                                "fields": [
+                                    {
+                                        "dataTypes": [
+                                            "phantom container id"
+                                        ],
+                                        "description": "Optional parameter to filter vault items from this specific container. Defaults to current container if no inputs provided.",
+                                        "inputType": "item",
+                                        "label": "container_id",
+                                        "name": "container_id",
+                                        "placeholder": "container:id",
+                                        "renderType": "datapath",
+                                        "required": false
+                                    },
+                                    {
+                                        "dataTypes": [
+                                            "vault id"
+                                        ],
+                                        "description": "Optional parameter to filter vault items matching this vault ID. Defaults to None.",
+                                        "inputType": "item",
+                                        "label": "vault_id",
+                                        "name": "vault_id",
+                                        "placeholder": "artifact:*.cef.vault_id",
+                                        "renderType": "datapath",
+                                        "required": false
+                                    },
+                                    {
+                                        "dataTypes": [
+                                            "*"
+                                        ],
+                                        "description": "Optional parameter to filter vault items matching this file name. Defaults to None.",
+                                        "inputType": "item",
+                                        "label": "file_name",
+                                        "name": "file_name",
+                                        "placeholder": "artifact:*.cef.file_name",
+                                        "renderType": "datapath",
+                                        "required": false
+                                    }
+                                ],
+                                "label": "vault_list",
+                                "name": "vault_list"
+                            }
+                        },
+                        "utilityType": "custom_function",
+                        "values": {
+                            "vault_list": {
+                                "container_id": "container:id",
+                                "file_name": null,
+                                "vault_id": null
+                            }
+                        }
+                    },
+                    "errors": {},
+                    "id": "4",
+                    "type": "utility",
+                    "warnings": {},
+                    "x": 980,
+                    "y": 704.5
                 }
             },
             "notes": ""
         },
-        "input_spec": null,
-        "output_spec": null,
+        "input_spec": [
+            {
+                "contains": [],
+                "description": "",
+                "name": "investigation_id"
+            }
+        ],
+        "output_spec": [
+            {
+                "contains": [],
+                "datapaths": [
+                    "container:id"
+                ],
+                "deduplicate": false,
+                "description": "",
+                "metadata": {},
+                "name": "container"
+            },
+            {
+                "contains": [
+                    ""
+                ],
+                "datapaths": [
+                    "vault_list_2:custom_function_result.data.path"
+                ],
+                "deduplicate": false,
+                "description": "",
+                "metadata": {
+                    "vault_list_2:custom_function_result.data.path": {
+                        "contains": [
+                            ""
+                        ]
+                    }
+                },
+                "name": "vault_location"
+            }
+        ],
         "playbook_trigger": "artifact_created",
         "playbook_type": "data",
         "python_version": "3.9",
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-26T10:16:39.025884+00:00",
+    "create_time": "2025-06-26T10:19:18.515164+00:00",
     "draft_mode": false,
     "labels": [
         "*"
