@@ -108,7 +108,7 @@ def get_job_screenshots_1(action=None, success=None, container=None, results=Non
     ## Custom Code End
     ################################################################################
 
-    phantom.act("get job screenshots", parameters=parameters, name="get_job_screenshots_1", assets=["saa"], callback=decision_2)
+    phantom.act("get job screenshots", parameters=parameters, name="get_job_screenshots_1", assets=["saa"], callback=playbook_get_container_id_and_vault_list_1)
 
     return
 
@@ -240,7 +240,7 @@ def add_investigation_file_2(action=None, success=None, container=None, results=
     ## Custom Code End
     ################################################################################
 
-    phantom.act("add investigation file", parameters=parameters, name="add_investigation_file_2", assets=["builtin_mc_connector"])
+    phantom.act("add investigation file", parameters=parameters, name="add_investigation_file_2", assets=["builtin_mc_connector"], callback=normalized_file_summary_output)
 
     return
 
@@ -501,7 +501,6 @@ def normalized_file_summary_output(action=None, success=None, container=None, re
     phantom.save_block_result(key="normalized_file_summary_output:file_name", value=json.dumps(normalized_file_summary_output__file_name))
     
     format_file_report(container=container)
-    debug_1(container=container)
 
     return
 
@@ -509,7 +508,7 @@ def normalized_file_summary_output(action=None, success=None, container=None, re
 def format_file_report(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("format_file_report() called")
 
-    template = """SOAR analyzed File(s) using Splunk Attack Analyzer.  The table below shows a summary of the information gathered.\n\n| File Name | Normalized Score | Score Id  | Classifications | Report Link | Source |\n| --- | --- | --- | --- | --- | --- |\n%%\n| `{0}` | {1} | {2} | {3} | {5} | Splunk Attack Analyzer (SAA) |\n%%\n\nScreenshots associated with the detonated Files are attached in the \"Files\" section below.\n"""
+    template = """The table below shows a summary of the information gathered by Splunk Attack Analyzer:\n\n| File Name | Normalized Score | Score Id  | Classifications | Report Link | Source |\n| --- | --- | --- | --- | --- | --- |\n%%\n| `{0}` | {1} | {2} | {3} | {5} | Splunk Attack Analyzer (SAA) |\n%%\n\nScreenshots associated with the detonated Files are attached in the \"Files\" section below.\n"""
 
     # parameter list for template variable replacement
     parameters = [
@@ -588,7 +587,6 @@ def decision_2(action=None, success=None, container=None, results=None, handle=N
 
     # call connected blocks if condition 1 matched
     if found_match_1:
-        normalized_file_summary_output(action=action, success=success, container=container, results=results, handle=handle)
         return
 
     # check for 'elif' condition 2
@@ -609,42 +607,6 @@ def decision_2(action=None, success=None, container=None, results=None, handle=N
     # call connected blocks if condition 2 matched
     if found_match_2:
         return
-
-    return
-
-
-@phantom.playbook_block()
-def debug_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("debug_1() called")
-
-    normalized_file_summary_output__file_score_object = json.loads(_ if (_ := phantom.get_run_data(key="normalized_file_summary_output:file_score_object")) != "" else "null")  # pylint: disable=used-before-assignment
-
-    parameters = []
-
-    parameters.append({
-        "input_1": normalized_file_summary_output__file_score_object,
-        "input_2": None,
-        "input_3": None,
-        "input_4": None,
-        "input_5": None,
-        "input_6": None,
-        "input_7": None,
-        "input_8": None,
-        "input_9": None,
-        "input_10": None,
-    })
-
-    ################################################################################
-    ## Custom Code Start
-    ################################################################################
-
-    # Write your custom code here...
-
-    ################################################################################
-    ## Custom Code End
-    ################################################################################
-
-    phantom.custom_function(custom_function="community/debug", parameters=parameters, name="debug_1")
 
     return
 

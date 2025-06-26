@@ -76,26 +76,6 @@
                     "targetPort": "19_in"
                 },
                 {
-                    "id": "port_10_to_port_33",
-                    "sourceNode": "10",
-                    "sourcePort": "10_out",
-                    "targetNode": "33",
-                    "targetPort": "33_in"
-                },
-                {
-                    "conditions": [
-                        {
-                            "conditionKey": "condition_key_4",
-                            "index": 0
-                        }
-                    ],
-                    "id": "port_33_to_port_30",
-                    "sourceNode": "33",
-                    "sourcePort": "33_out",
-                    "targetNode": "30",
-                    "targetPort": "30_in"
-                },
-                {
                     "id": "port_30_to_port_31",
                     "sourceNode": "30",
                     "sourcePort": "30_out",
@@ -103,14 +83,21 @@
                     "targetPort": "31_in"
                 },
                 {
-                    "id": "port_30_to_port_34",
-                    "sourceNode": "30",
-                    "sourcePort": "30_out",
-                    "targetNode": "34",
-                    "targetPort": "34_in"
+                    "id": "port_10_to_port_23",
+                    "sourceNode": "10",
+                    "sourcePort": "10_out",
+                    "targetNode": "23",
+                    "targetPort": "23_in"
+                },
+                {
+                    "id": "port_27_to_port_30",
+                    "sourceNode": "27",
+                    "sourcePort": "27_out",
+                    "targetNode": "30",
+                    "targetPort": "30_in"
                 }
             ],
-            "hash": "01bc24acc0979254f8440cdc51cc81c72e2f6d55",
+            "hash": "23f15f84b89f6e6d0c4d1f6836ce1aa17625eb34",
             "nodes": {
                 "0": {
                     "data": {
@@ -265,14 +252,7 @@
                     "errors": {},
                     "id": "23",
                     "type": "playbook",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ],
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 660,
                     "y": 1160
                 },
@@ -360,11 +340,7 @@
                     "errors": {},
                     "id": "27",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 660,
                     "y": 1380
                 },
@@ -425,7 +401,7 @@
                     "y": 1760
                 },
                 "30": {
-                    "customCode": "@phantom.playbook_block()\ndef normalized_file_summary_output(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):\n    phantom.debug(\"normalized_file_summary_output() called\")\n\n    get_job_summary_1_result_data = phantom.collect2(container=container, datapath=[\"get_job_summary_1:action_result.data.*.Submission.Name\",\"get_job_summary_1:action_result.data.*.ID\",\"get_job_summary_1:action_result.parameter.job_id\",\"get_job_summary_1:action_result.summary.Score\",\"get_job_summary_1:action_result.data.*.Resources\",\"get_job_summary_1:action_result.data.*.Verdict\",\"get_job_summary_1:action_result.data.*.Tasks\"], action_results=results)\n\n    get_job_summary_1_result_item_0 = [item[0] for item in get_job_summary_1_result_data]\n    get_job_summary_1_result_item_1 = [item[1] for item in get_job_summary_1_result_data]\n    get_job_summary_1_parameter_job_id = [item[2] for item in get_job_summary_1_result_data]\n    get_job_summary_1_summary_score = [item[3] for item in get_job_summary_1_result_data]\n    get_job_summary_1_result_item_4 = [item[4] for item in get_job_summary_1_result_data]\n    get_job_summary_1_result_item_5 = [item[5] for item in get_job_summary_1_result_data]\n    get_job_summary_1_result_item_6 = [item[6] for item in get_job_summary_1_result_data]\n\n    normalized_file_summary_output__file_score_object = None\n    normalized_file_summary_output__scores = None\n    normalized_file_summary_output__categories = None\n    normalized_file_summary_output__score_id = None\n    normalized_file_summary_output__file = None\n    normalized_file_summary_output__job_id = None\n    normalized_file_summary_output__classifications = None\n    normalized_file_summary_output__file_name = None\n\n    ################################################################################\n    ## Custom Code Start\n    ################################################################################\n\n    # Write your custom code here...\n    phantom.debug(get_job_summary_1_result_item_0)\n    phantom.debug(get_job_summary_1_result_item_1)\n    phantom.debug(get_job_summary_1_parameter_job_id)\n    phantom.debug(get_job_summary_1_summary_score)\n    phantom.debug(get_job_summary_1_result_item_4)\n    phantom.debug(get_job_summary_1_result_item_5)\n    phantom.debug(get_job_summary_1_result_item_6)\n    \n    score_table = {\n        \"0\":\"Unknown\",\n        \"1\":\"Very_Safe\",\n        \"2\":\"Safe\",\n        \"3\":\"Probably_Safe\",\n        \"4\":\"Leans_Safe\",\n        \"5\":\"May_not_be_Safe\",\n        \"6\":\"Exercise_Caution\",\n        \"7\":\"Suspicious_or_Risky\",\n        \"8\":\"Possibly_Malicious\",\n        \"9\":\"Probably_Malicious\",\n        \"10\":\"Malicious\"\n    }\n\n    classification_ids = {\n        \"Unknown\": 0,\n        \"Adware\": 1,\n        \"Backdoor\": 2,\n        \"Bot\": 3,\n        \"Bootkit\": 4,\n        \"DDOS\": 5,\n        \"Downloader\": 6,\n        \"Dropper\": 7,\n        \"Exploit-Kit\": 8,\n        \"Keylogger\": 9,\n        \"Ransomware\": 10,\n        \"Remote-Access-Trojan\": 11,\n        \"Resource-Exploitation\": 13,\n        \"Rogue-Security-Software\": 14,\n        \"Rootkit\": 15,\n        \"Screen-Capture\": 16,\n        \"Spyware\": 17,\n        \"Trojan\": 18,\n        \"Virus\": 19,\n        \"Webshell\": 20,\n        \"Wiper\": 21,\n        \"Worm\": 22,\n        \"Other\": 99\n    }\n\n    normalized_file_summary_output__file_score_object = []\n    normalized_file_summary_output__scores = []\n    normalized_file_summary_output__categories = []\n    normalized_file_summary_output__score_id = []\n    normalized_file_summary_output__file = []\n    normalized_file_summary_output__job_id = []\n    normalized_file_summary_output__classifications = []\n    normalized_file_summary_output__file_name = []\n    \n    \n    def find_sha1_details(target_id, task_list):\n        '''\n        Attempt to find the detail object with a sha1\n        '''\n        for task in task_list:\n            if (target_id == task.get('ResourceID')\n                and task.get('Results',{}).get('Details', {}).get('sha1')):\n                task_result_details = task['Results']['Details']\n                task_result_details.pop('RootTaskID', None)\n                return task_result_details\n        return None\n\n        \n    ## pair forensic job results with url detonated\n    job_file_dict = {}\n    for orig_file, orig_job, filtered_job in zip(get_job_summary_1_result_item_0, get_job_summary_1_result_item_1, get_job_summary_1_parameter_job_id):\n        if orig_job == filtered_job:\n            job_file_dict[filtered_job] = orig_file\n    \n    for job, file_name, score_num, resources, verdict, tasks in zip(\n        get_job_summary_1_parameter_job_id, \n        get_job_summary_1_result_item_0, \n        get_job_summary_1_summary_score, \n        get_job_summary_1_result_item_4, \n        get_job_summary_1_result_item_5,\n        get_job_summary_1_result_item_6\n    ):\n        \n        ## translate scores\n        score_id = int(score_num/10) if score_num > 0 else 0\n        score = score_table[str(score_id)]\n        file = job_file_dict[job]\n        attributes = {}\n        \n        ## build.a sub dictionary of high priority related observables\n        related_observables = []\n        for sub_observ in resources:\n            if sub_observ['Name'] != file_name:\n                        \n                details = find_sha1_details(sub_observ['ID'], tasks)\n                second_num = sub_observ['DisplayScore']\n                second_num_id = int(second_num/10) if second_num > 0 else 0\n                sub_observ_dict = {\n                    'value': sub_observ['Name'],\n                    'type': sub_observ['Type'].lower(),\n                    'reputation': {\n                        'score': score_table[str(second_num_id)],\n                        'orig_score': second_num,\n                        'score_id': second_num_id\n                    },\n                    'source': 'Splunk Attack Analyzer'\n                }\n                if details:\n                    details['name'] = sub_observ['Name']\n                    details.pop('exiftool', None)\n                    sub_observ_dict['attributes'] = details\n                # check if observ is already in related_observables\n                skip_observ = False\n                for idx, item in enumerate(related_observables):\n                    if (sub_observ.get('FileMetadata', {}).get('SHA256', 'null_one') \n                        == item.get('attributes', {}).get('sha256', 'null_two')\n                        and sub_observ['DisplayScore'] > item['reputation']['orig_score']):\n                        related_observables[idx] = sub_observ_dict\n                        skip_observ = True\n                    elif sub_observ['Name'] == item['value']:\n                        skip_observ = True\n                if not skip_observ:\n                    related_observables.append(sub_observ_dict)\n            elif sub_observ['Name'] == file_name:\n                details = find_sha1_details(sub_observ['ID'], tasks)\n                if details:\n                    details.pop('exiftool', None)\n                    details['name'] = file_name\n                    attributes = details\n                else:\n                    file_metadata = sub_observ.get('FileMetadata', {})\n                    attributes = {\n                        'name': file_name,\n                        'sha256': file_metadata.get('SHA256'),\n                        'md5': file_metadata.get('MD5'),\n                        'size': file_metadata.get('Size')\n                    }\n                    if file_metadata.get('MimeType'):\n                        attributes['mime_type'] = file_metadata['MimeType']\n        \n        normalized_file_summary_output__file_score_object.append({\n            'value': file, \n            'orig_score': score_num, \n            'score': score, \n            'score_id': score_id, \n            'classifications': [verdict if verdict else \"Unknown\"],\n            'classification_ids': [classification_ids.get(verdict, 99) if verdict else 0],\n            'related_observables': related_observables,\n            'attributes': attributes\n                \n        })\n        normalized_file_summary_output__scores.append(score)\n        normalized_file_summary_output__score_id.append(score_id)\n        normalized_file_summary_output__file.append(file)\n        normalized_file_summary_output__file_name.append(file_name)\n        normalized_file_summary_output__job_id.append(job)\n        normalized_file_summary_output__classifications.append([verdict if verdict else \"Unknown\"])\n    \n    phantom.debug(normalized_file_summary_output__scores)\n    phantom.debug(normalized_file_summary_output__score_id)\n    phantom.debug(normalized_file_summary_output__file)\n    phantom.debug(normalized_file_summary_output__file_name)\n    phantom.debug(normalized_file_summary_output__job_id)\n    phantom.debug(normalized_file_summary_output__classifications)\n\n    ################################################################################\n    ## Custom Code End\n    ################################################################################\n\n    phantom.save_block_result(key=\"normalized_file_summary_output__inputs:0:get_job_summary_1:action_result.data.*.Submission.Name\", value=json.dumps(get_job_summary_1_result_item_0))\n    phantom.save_block_result(key=\"normalized_file_summary_output__inputs:1:get_job_summary_1:action_result.data.*.ID\", value=json.dumps(get_job_summary_1_result_item_1))\n    phantom.save_block_result(key=\"normalized_file_summary_output__inputs:2:get_job_summary_1:action_result.parameter.job_id\", value=json.dumps(get_job_summary_1_parameter_job_id))\n    phantom.save_block_result(key=\"normalized_file_summary_output__inputs:3:get_job_summary_1:action_result.data.*.Submission.Name\", value=json.dumps(get_job_summary_1_result_item_0))\n    phantom.save_block_result(key=\"normalized_file_summary_output__inputs:4:get_job_summary_1:action_result.summary.Score\", value=json.dumps(get_job_summary_1_summary_score))\n    phantom.save_block_result(key=\"normalized_file_summary_output__inputs:5:get_job_summary_1:action_result.data.*.Resources\", value=json.dumps(get_job_summary_1_result_item_4))\n    phantom.save_block_result(key=\"normalized_file_summary_output__inputs:6:get_job_summary_1:action_result.data.*.Verdict\", value=json.dumps(get_job_summary_1_result_item_5))\n    phantom.save_block_result(key=\"normalized_file_summary_output__inputs:7:get_job_summary_1:action_result.data.*.Tasks\", value=json.dumps(get_job_summary_1_result_item_6))\n\n    phantom.save_block_result(key=\"normalized_file_summary_output:file_score_object\", value=json.dumps(normalized_file_summary_output__file_score_object))\n    phantom.save_block_result(key=\"normalized_file_summary_output:scores\", value=json.dumps(normalized_file_summary_output__scores))\n    phantom.save_block_result(key=\"normalized_file_summary_output:categories\", value=json.dumps(normalized_file_summary_output__categories))\n    phantom.save_block_result(key=\"normalized_file_summary_output:score_id\", value=json.dumps(normalized_file_summary_output__score_id))\n    phantom.save_block_result(key=\"normalized_file_summary_output:file\", value=json.dumps(normalized_file_summary_output__file))\n    phantom.save_block_result(key=\"normalized_file_summary_output:job_id\", value=json.dumps(normalized_file_summary_output__job_id))\n    phantom.save_block_result(key=\"normalized_file_summary_output:classifications\", value=json.dumps(normalized_file_summary_output__classifications))\n    phantom.save_block_result(key=\"normalized_file_summary_output:file_name\", value=json.dumps(normalized_file_summary_output__file_name))\n    \n    format_file_report(container=container)\n    debug_1(container=container)\n\n    return",
+                    "customCode": "@phantom.playbook_block()\ndef normalized_file_summary_output(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):\n    phantom.debug(\"normalized_file_summary_output() called\")\n\n    get_job_summary_1_result_data = phantom.collect2(container=container, datapath=[\"get_job_summary_1:action_result.data.*.Submission.Name\",\"get_job_summary_1:action_result.data.*.ID\",\"get_job_summary_1:action_result.parameter.job_id\",\"get_job_summary_1:action_result.summary.Score\",\"get_job_summary_1:action_result.data.*.Resources\",\"get_job_summary_1:action_result.data.*.Verdict\",\"get_job_summary_1:action_result.data.*.Tasks\"], action_results=results)\n\n    get_job_summary_1_result_item_0 = [item[0] for item in get_job_summary_1_result_data]\n    get_job_summary_1_result_item_1 = [item[1] for item in get_job_summary_1_result_data]\n    get_job_summary_1_parameter_job_id = [item[2] for item in get_job_summary_1_result_data]\n    get_job_summary_1_summary_score = [item[3] for item in get_job_summary_1_result_data]\n    get_job_summary_1_result_item_4 = [item[4] for item in get_job_summary_1_result_data]\n    get_job_summary_1_result_item_5 = [item[5] for item in get_job_summary_1_result_data]\n    get_job_summary_1_result_item_6 = [item[6] for item in get_job_summary_1_result_data]\n\n    normalized_file_summary_output__file_score_object = None\n    normalized_file_summary_output__scores = None\n    normalized_file_summary_output__categories = None\n    normalized_file_summary_output__score_id = None\n    normalized_file_summary_output__file = None\n    normalized_file_summary_output__job_id = None\n    normalized_file_summary_output__classifications = None\n    normalized_file_summary_output__file_name = None\n\n    ################################################################################\n    ## Custom Code Start\n    ################################################################################\n\n    # Write your custom code here...\n    phantom.debug(get_job_summary_1_result_item_0)\n    phantom.debug(get_job_summary_1_result_item_1)\n    phantom.debug(get_job_summary_1_parameter_job_id)\n    phantom.debug(get_job_summary_1_summary_score)\n    phantom.debug(get_job_summary_1_result_item_4)\n    phantom.debug(get_job_summary_1_result_item_5)\n    phantom.debug(get_job_summary_1_result_item_6)\n    \n    score_table = {\n        \"0\":\"Unknown\",\n        \"1\":\"Very_Safe\",\n        \"2\":\"Safe\",\n        \"3\":\"Probably_Safe\",\n        \"4\":\"Leans_Safe\",\n        \"5\":\"May_not_be_Safe\",\n        \"6\":\"Exercise_Caution\",\n        \"7\":\"Suspicious_or_Risky\",\n        \"8\":\"Possibly_Malicious\",\n        \"9\":\"Probably_Malicious\",\n        \"10\":\"Malicious\"\n    }\n\n    classification_ids = {\n        \"Unknown\": 0,\n        \"Adware\": 1,\n        \"Backdoor\": 2,\n        \"Bot\": 3,\n        \"Bootkit\": 4,\n        \"DDOS\": 5,\n        \"Downloader\": 6,\n        \"Dropper\": 7,\n        \"Exploit-Kit\": 8,\n        \"Keylogger\": 9,\n        \"Ransomware\": 10,\n        \"Remote-Access-Trojan\": 11,\n        \"Resource-Exploitation\": 13,\n        \"Rogue-Security-Software\": 14,\n        \"Rootkit\": 15,\n        \"Screen-Capture\": 16,\n        \"Spyware\": 17,\n        \"Trojan\": 18,\n        \"Virus\": 19,\n        \"Webshell\": 20,\n        \"Wiper\": 21,\n        \"Worm\": 22,\n        \"Other\": 99\n    }\n\n    normalized_file_summary_output__file_score_object = []\n    normalized_file_summary_output__scores = []\n    normalized_file_summary_output__categories = []\n    normalized_file_summary_output__score_id = []\n    normalized_file_summary_output__file = []\n    normalized_file_summary_output__job_id = []\n    normalized_file_summary_output__classifications = []\n    normalized_file_summary_output__file_name = []\n    \n    \n    def find_sha1_details(target_id, task_list):\n        '''\n        Attempt to find the detail object with a sha1\n        '''\n        for task in task_list:\n            if (target_id == task.get('ResourceID')\n                and task.get('Results',{}).get('Details', {}).get('sha1')):\n                task_result_details = task['Results']['Details']\n                task_result_details.pop('RootTaskID', None)\n                return task_result_details\n        return None\n\n        \n    ## pair forensic job results with url detonated\n    job_file_dict = {}\n    for orig_file, orig_job, filtered_job in zip(get_job_summary_1_result_item_0, get_job_summary_1_result_item_1, get_job_summary_1_parameter_job_id):\n        if orig_job == filtered_job:\n            job_file_dict[filtered_job] = orig_file\n    \n    for job, file_name, score_num, resources, verdict, tasks in zip(\n        get_job_summary_1_parameter_job_id, \n        get_job_summary_1_result_item_0, \n        get_job_summary_1_summary_score, \n        get_job_summary_1_result_item_4, \n        get_job_summary_1_result_item_5,\n        get_job_summary_1_result_item_6\n    ):\n        \n        ## translate scores\n        score_id = int(score_num/10) if score_num > 0 else 0\n        score = score_table[str(score_id)]\n        file = job_file_dict[job]\n        attributes = {}\n        \n        ## build.a sub dictionary of high priority related observables\n        related_observables = []\n        for sub_observ in resources:\n            if sub_observ['Name'] != file_name:\n                        \n                details = find_sha1_details(sub_observ['ID'], tasks)\n                second_num = sub_observ['DisplayScore']\n                second_num_id = int(second_num/10) if second_num > 0 else 0\n                sub_observ_dict = {\n                    'value': sub_observ['Name'],\n                    'type': sub_observ['Type'].lower(),\n                    'reputation': {\n                        'score': score_table[str(second_num_id)],\n                        'orig_score': second_num,\n                        'score_id': second_num_id\n                    },\n                    'source': 'Splunk Attack Analyzer'\n                }\n                if details:\n                    details['name'] = sub_observ['Name']\n                    details.pop('exiftool', None)\n                    sub_observ_dict['attributes'] = details\n                # check if observ is already in related_observables\n                skip_observ = False\n                for idx, item in enumerate(related_observables):\n                    if (sub_observ.get('FileMetadata', {}).get('SHA256', 'null_one') \n                        == item.get('attributes', {}).get('sha256', 'null_two')\n                        and sub_observ['DisplayScore'] > item['reputation']['orig_score']):\n                        related_observables[idx] = sub_observ_dict\n                        skip_observ = True\n                    elif sub_observ['Name'] == item['value']:\n                        skip_observ = True\n                if not skip_observ:\n                    related_observables.append(sub_observ_dict)\n            elif sub_observ['Name'] == file_name:\n                details = find_sha1_details(sub_observ['ID'], tasks)\n                if details:\n                    details.pop('exiftool', None)\n                    details['name'] = file_name\n                    attributes = details\n                else:\n                    file_metadata = sub_observ.get('FileMetadata', {})\n                    attributes = {\n                        'name': file_name,\n                        'sha256': file_metadata.get('SHA256'),\n                        'md5': file_metadata.get('MD5'),\n                        'size': file_metadata.get('Size')\n                    }\n                    if file_metadata.get('MimeType'):\n                        attributes['mime_type'] = file_metadata['MimeType']\n        \n        normalized_file_summary_output__file_score_object.append({\n            'value': file, \n            'orig_score': score_num, \n            'score': score, \n            'score_id': score_id, \n            'classifications': [verdict if verdict else \"Unknown\"],\n            'classification_ids': [classification_ids.get(verdict, 99) if verdict else 0],\n            'related_observables': related_observables,\n            'attributes': attributes\n                \n        })\n        normalized_file_summary_output__scores.append(score)\n        normalized_file_summary_output__score_id.append(score_id)\n        normalized_file_summary_output__file.append(file)\n        normalized_file_summary_output__file_name.append(file_name)\n        normalized_file_summary_output__job_id.append(job)\n        normalized_file_summary_output__classifications.append([verdict if verdict else \"Unknown\"])\n    \n    phantom.debug(normalized_file_summary_output__scores)\n    phantom.debug(normalized_file_summary_output__score_id)\n    phantom.debug(normalized_file_summary_output__file)\n    phantom.debug(normalized_file_summary_output__file_name)\n    phantom.debug(normalized_file_summary_output__job_id)\n    phantom.debug(normalized_file_summary_output__classifications)\n\n    ################################################################################\n    ## Custom Code End\n    ################################################################################\n\n    phantom.save_block_result(key=\"normalized_file_summary_output__inputs:0:get_job_summary_1:action_result.data.*.Submission.Name\", value=json.dumps(get_job_summary_1_result_item_0))\n    phantom.save_block_result(key=\"normalized_file_summary_output__inputs:1:get_job_summary_1:action_result.data.*.ID\", value=json.dumps(get_job_summary_1_result_item_1))\n    phantom.save_block_result(key=\"normalized_file_summary_output__inputs:2:get_job_summary_1:action_result.parameter.job_id\", value=json.dumps(get_job_summary_1_parameter_job_id))\n    phantom.save_block_result(key=\"normalized_file_summary_output__inputs:3:get_job_summary_1:action_result.data.*.Submission.Name\", value=json.dumps(get_job_summary_1_result_item_0))\n    phantom.save_block_result(key=\"normalized_file_summary_output__inputs:4:get_job_summary_1:action_result.summary.Score\", value=json.dumps(get_job_summary_1_summary_score))\n    phantom.save_block_result(key=\"normalized_file_summary_output__inputs:5:get_job_summary_1:action_result.data.*.Resources\", value=json.dumps(get_job_summary_1_result_item_4))\n    phantom.save_block_result(key=\"normalized_file_summary_output__inputs:6:get_job_summary_1:action_result.data.*.Verdict\", value=json.dumps(get_job_summary_1_result_item_5))\n    phantom.save_block_result(key=\"normalized_file_summary_output__inputs:7:get_job_summary_1:action_result.data.*.Tasks\", value=json.dumps(get_job_summary_1_result_item_6))\n\n    phantom.save_block_result(key=\"normalized_file_summary_output:file_score_object\", value=json.dumps(normalized_file_summary_output__file_score_object))\n    phantom.save_block_result(key=\"normalized_file_summary_output:scores\", value=json.dumps(normalized_file_summary_output__scores))\n    phantom.save_block_result(key=\"normalized_file_summary_output:categories\", value=json.dumps(normalized_file_summary_output__categories))\n    phantom.save_block_result(key=\"normalized_file_summary_output:score_id\", value=json.dumps(normalized_file_summary_output__score_id))\n    phantom.save_block_result(key=\"normalized_file_summary_output:file\", value=json.dumps(normalized_file_summary_output__file))\n    phantom.save_block_result(key=\"normalized_file_summary_output:job_id\", value=json.dumps(normalized_file_summary_output__job_id))\n    phantom.save_block_result(key=\"normalized_file_summary_output:classifications\", value=json.dumps(normalized_file_summary_output__classifications))\n    phantom.save_block_result(key=\"normalized_file_summary_output:file_name\", value=json.dumps(normalized_file_summary_output__file_name))\n    \n    format_file_report(container=container)\n\n    return",
                     "data": {
                         "advanced": {
                             "customName": "normalized_file_summary_output",
@@ -462,8 +438,8 @@
                     "type": "code",
                     "userCode": "\n    # Write your custom code here...\n    \n    score_table = {\n        \"0\":\"Unknown\",\n        \"1\":\"Very_Safe\",\n        \"2\":\"Safe\",\n        \"3\":\"Probably_Safe\",\n        \"4\":\"Leans_Safe\",\n        \"5\":\"May_not_be_Safe\",\n        \"6\":\"Exercise_Caution\",\n        \"7\":\"Suspicious_or_Risky\",\n        \"8\":\"Possibly_Malicious\",\n        \"9\":\"Probably_Malicious\",\n        \"10\":\"Malicious\"\n    }\n\n    classification_ids = {\n        \"Unknown\": 0,\n        \"Adware\": 1,\n        \"Backdoor\": 2,\n        \"Bot\": 3,\n        \"Bootkit\": 4,\n        \"DDOS\": 5,\n        \"Downloader\": 6,\n        \"Dropper\": 7,\n        \"Exploit-Kit\": 8,\n        \"Keylogger\": 9,\n        \"Ransomware\": 10,\n        \"Remote-Access-Trojan\": 11,\n        \"Resource-Exploitation\": 13,\n        \"Rogue-Security-Software\": 14,\n        \"Rootkit\": 15,\n        \"Screen-Capture\": 16,\n        \"Spyware\": 17,\n        \"Trojan\": 18,\n        \"Virus\": 19,\n        \"Webshell\": 20,\n        \"Wiper\": 21,\n        \"Worm\": 22,\n        \"Other\": 99\n    }\n\n    normalized_file_summary_output__file_score_object = []\n    normalized_file_summary_output__scores = []\n    normalized_file_summary_output__categories = []\n    normalized_file_summary_output__score_id = []\n    normalized_file_summary_output__file = []\n    normalized_file_summary_output__job_id = []\n    normalized_file_summary_output__classifications = []\n    normalized_file_summary_output__file_name = []\n    \n    \n    def find_sha1_details(target_id, task_list):\n        '''\n        Attempt to find the detail object with a sha1\n        '''\n        for task in task_list:\n            if (target_id == task.get('ResourceID')\n                and task.get('Results',{}).get('Details', {}).get('sha1')):\n                task_result_details = task['Results']['Details']\n                task_result_details.pop('RootTaskID', None)\n                return task_result_details\n        return None\n\n        \n    ## pair forensic job results with url detonated\n    job_file_dict = {}\n    for orig_file, orig_job, filtered_job in zip(get_job_summary_1_result_item_0, get_job_summary_1_result_item_1, get_job_summary_1_parameter_job_id):\n        if orig_job == filtered_job:\n            job_file_dict[filtered_job] = orig_file\n    \n    for job, file_name, score_num, resources, verdict, tasks in zip(\n        get_job_summary_1_parameter_job_id, \n        get_job_summary_1_result_item_0, \n        get_job_summary_1_summary_score, \n        get_job_summary_1_result_item_4, \n        get_job_summary_1_result_item_5,\n        filtered_result_1_data___tasks\n    ):\n        \n        ## translate scores\n        score_id = int(score_num/10) if score_num > 0 else 0\n        score = score_table[str(score_id)]\n        file = job_file_dict[job]\n        attributes = {}\n        \n        ## build.a sub dictionary of high priority related observables\n        related_observables = []\n        for sub_observ in resources:\n            if sub_observ['Name'] != file_name:\n                        \n                details = find_sha1_details(sub_observ['ID'], tasks)\n                second_num = sub_observ['DisplayScore']\n                second_num_id = int(second_num/10) if second_num > 0 else 0\n                sub_observ_dict = {\n                    'value': sub_observ['Name'],\n                    'type': sub_observ['Type'].lower(),\n                    'reputation': {\n                        'score': score_table[str(second_num_id)],\n                        'orig_score': second_num,\n                        'score_id': second_num_id\n                    },\n                    'source': 'Splunk Attack Analyzer'\n                }\n                if details:\n                    details['name'] = sub_observ['Name']\n                    details.pop('exiftool', None)\n                    sub_observ_dict['attributes'] = details\n                # check if observ is already in related_observables\n                skip_observ = False\n                for idx, item in enumerate(related_observables):\n                    if (sub_observ.get('FileMetadata', {}).get('SHA256', 'null_one') \n                        == item.get('attributes', {}).get('sha256', 'null_two')\n                        and sub_observ['DisplayScore'] > item['reputation']['orig_score']):\n                        related_observables[idx] = sub_observ_dict\n                        skip_observ = True\n                    elif sub_observ['Name'] == item['value']:\n                        skip_observ = True\n                if not skip_observ:\n                    related_observables.append(sub_observ_dict)\n            elif sub_observ['Name'] == file_name:\n                details = find_sha1_details(sub_observ['ID'], tasks)\n                if details:\n                    details.pop('exiftool', None)\n                    details['name'] = file_name\n                    attributes = details\n                else:\n                    file_metadata = sub_observ.get('FileMetadata', {})\n                    attributes = {\n                        'name': file_name,\n                        'sha256': file_metadata.get('SHA256'),\n                        'md5': file_metadata.get('MD5'),\n                        'size': file_metadata.get('Size')\n                    }\n                    if file_metadata.get('MimeType'):\n                        attributes['mime_type'] = file_metadata['MimeType']\n        \n        normalized_file_summary_output__file_score_object.append({\n            'value': file, \n            'orig_score': score_num, \n            'score': score, \n            'score_id': score_id, \n            'classifications': [verdict if verdict else \"Unknown\"],\n            'classification_ids': [classification_ids.get(verdict, 99) if verdict else 0],\n            'related_observables': related_observables,\n            'attributes': attributes\n                \n        })\n        normalized_file_summary_output__scores.append(score)\n        normalized_file_summary_output__score_id.append(score_id)\n        normalized_file_summary_output__file.append(file)\n        normalized_file_summary_output__file_name.append(file_name)\n        normalized_file_summary_output__job_id.append(job)\n        normalized_file_summary_output__classifications.append([verdict if verdict else \"Unknown\"])\n    \n    phantom.debug(normalized_file_summary_output__scores)\n    phantom.debug(normalized_file_summary_output__score_id)\n    phantom.debug(normalized_file_summary_output__file)\n    phantom.debug(normalized_file_summary_output__file_name)\n    phantom.debug(normalized_file_summary_output__job_id)\n    phantom.debug(normalized_file_summary_output__classifications)\n\n",
                     "warnings": {},
-                    "x": 120,
-                    "y": 1320
+                    "x": 680,
+                    "y": 1480
                 },
                 "31": {
                     "data": {
@@ -483,7 +459,7 @@
                             "normalized_file_summary_output:custom_function:job_id",
                             "get_job_summary_1:action_result.summary.AppURL"
                         ],
-                        "template": "SOAR analyzed File(s) using Splunk Attack Analyzer.  The table below shows a summary of the information gathered.\n\n| File Name | Normalized Score | Score Id  | Classifications | Report Link | Source |\n| --- | --- | --- | --- | --- | --- |\n%%\n| `{0}` | {1} | {2} | {3} | {5} | Splunk Attack Analyzer (SAA) |\n%%\n\nScreenshots associated with the detonated Files are attached in the \"Files\" section below.\n",
+                        "template": "The table below shows a summary of the information gathered by Splunk Attack Analyzer:\n\n| File Name | Normalized Score | Score Id  | Classifications | Report Link | Source |\n| --- | --- | --- | --- | --- | --- |\n%%\n| `{0}` | {1} | {2} | {3} | {5} | Splunk Attack Analyzer (SAA) |\n%%\n\nScreenshots associated with the detonated Files are attached in the \"Files\" section below.\n",
                         "type": "format"
                     },
                     "errors": {},
@@ -591,187 +567,16 @@
                     "errors": {},
                     "id": "33",
                     "type": "decision",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ],
+                        "context": [
+                            "Connect block to playbook flow."
+                        ]
+                    },
                     "x": 480,
                     "y": 940
-                },
-                "34": {
-                    "data": {
-                        "advanced": {
-                            "join": []
-                        },
-                        "customFunction": {
-                            "draftMode": false,
-                            "name": "debug",
-                            "repoName": "community"
-                        },
-                        "functionId": 1,
-                        "functionName": "debug_1",
-                        "id": "34",
-                        "loop": {
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "selectMore": false,
-                        "type": "utility",
-                        "utilities": {
-                            "debug": {
-                                "description": "Print debug messages with the type and value of 0-10 different inputs. This is useful for checking the values of input data or the outputs of other playbook blocks.",
-                                "fields": [
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_1",
-                                        "name": "input_1",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_2",
-                                        "name": "input_2",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_3",
-                                        "name": "input_3",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_4",
-                                        "name": "input_4",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_5",
-                                        "name": "input_5",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_6",
-                                        "name": "input_6",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_7",
-                                        "name": "input_7",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_8",
-                                        "name": "input_8",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_9",
-                                        "name": "input_9",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_10",
-                                        "name": "input_10",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    }
-                                ],
-                                "label": "debug",
-                                "name": "debug"
-                            }
-                        },
-                        "utilityType": "custom_function",
-                        "values": {
-                            "debug": {
-                                "input_1": [
-                                    "normalized_file_summary_output:custom_function:file_score_object"
-                                ],
-                                "input_10": null,
-                                "input_2": null,
-                                "input_3": null,
-                                "input_4": null,
-                                "input_5": null,
-                                "input_6": null,
-                                "input_7": null,
-                                "input_8": null,
-                                "input_9": null
-                            }
-                        }
-                    },
-                    "errors": {},
-                    "id": "34",
-                    "type": "utility",
-                    "warnings": {},
-                    "x": -250,
-                    "y": 1604.5
                 },
                 "8": {
                     "data": {
@@ -870,7 +675,7 @@
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-26T10:04:59.773531+00:00",
+    "create_time": "2025-06-26T10:13:16.098307+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
