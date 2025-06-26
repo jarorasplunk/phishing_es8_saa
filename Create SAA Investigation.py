@@ -23,7 +23,7 @@ def start_investigations_1(action=None, success=None, container=None, results=No
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    finding_data = phantom.collect2(container=container, datapath=["finding:consolidated_findings.rule_title","finding:owner","finding:status","finding:urgency","finding:description","finding:disposition","finding:id","finding:sensitivity","finding:consolidated_findings.investigation_type"])
+    finding_data = phantom.collect2(container=container, datapath=["finding:consolidated_findings.rule_title","finding:owner","finding:status","finding:urgency","finding:description","finding:disposition","finding:id","finding:sensitivity","finding:consolidated_findings.incident_type"])
 
     parameters = []
 
