@@ -30,7 +30,7 @@
                 {
                     "conditions": [
                         {
-                            "conditionKey": "condition_key_0",
+                            "conditionKey": "condition_key_3",
                             "index": 0
                         }
                     ],
@@ -85,7 +85,7 @@
                 {
                     "conditions": [
                         {
-                            "conditionKey": "condition_key_0",
+                            "conditionKey": "condition_key_4",
                             "index": 0
                         }
                     ],
@@ -110,7 +110,7 @@
                     "targetPort": "34_in"
                 }
             ],
-            "hash": "01bc24acc0979254f8440cdc51cc81c72e2f6d55",
+            "hash": "836110e6b7657c6c59ebaea015ddbee2e608d934",
             "nodes": {
                 "0": {
                     "data": {
@@ -132,7 +132,7 @@
                     "type": "start",
                     "warnings": {},
                     "x": 680,
-                    "y": -3.836930773104541e-13
+                    "y": -4.476419235288631e-13
                 },
                 "1": {
                     "data": {
@@ -159,7 +159,7 @@
                         },
                         "connector": "Splunk Attack Analyzer Connector for Splunk SOAR",
                         "connectorConfigs": [
-                            "splunk_attack_analyzer"
+                            "saa"
                         ],
                         "connectorId": "de681fee-c552-45bf-9212-827b1c7529f8",
                         "connectorVersion": "v1",
@@ -189,7 +189,11 @@
                     "errors": {},
                     "id": "10",
                     "type": "action",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 660,
                     "y": 800
                 },
@@ -211,7 +215,7 @@
                                     }
                                 ],
                                 "conditionIndex": 0,
-                                "conditionKey": "condition_key_0",
+                                "conditionKey": "condition_key_3",
                                 "customName": "job id exists",
                                 "display": "If",
                                 "logic": "and",
@@ -420,7 +424,11 @@
                     "errors": {},
                     "id": "29",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 660,
                     "y": 1760
                 },
@@ -554,7 +562,7 @@
                                     }
                                 ],
                                 "conditionIndex": 0,
-                                "conditionKey": "condition_key_0",
+                                "conditionKey": "condition_key_4",
                                 "customName": "File type",
                                 "display": "If",
                                 "logic": "and",
@@ -576,7 +584,7 @@
                                     }
                                 ],
                                 "conditionIndex": 1,
-                                "conditionKey": "condition_key_12",
+                                "conditionKey": "condition_key_5",
                                 "customName": "URL type",
                                 "display": "Else If",
                                 "logic": "and",
@@ -773,80 +781,6 @@
                     "x": -250,
                     "y": 1604.5
                 },
-                "5": {
-                    "data": {
-                        "advanced": {
-                            "customName": "job type",
-                            "customNameId": 0,
-                            "join": []
-                        },
-                        "conditions": [
-                            {
-                                "comparisons": [
-                                    {
-                                        "conditionIndex": 0,
-                                        "op": "==",
-                                        "param": "get_job_summary_1:action_result.data.*.Submission.MD5",
-                                        "value": ""
-                                    },
-                                    {
-                                        "conditionIndex": 0,
-                                        "op": "==",
-                                        "param": "get_job_summary_1:action_result.data.*.Submission.SHA256",
-                                        "value": ""
-                                    },
-                                    {
-                                        "conditionIndex": 0,
-                                        "op": "in",
-                                        "param": "http",
-                                        "value": "get_job_summary_1:action_result.data.*.Submission.Name"
-                                    }
-                                ],
-                                "conditionIndex": 0,
-                                "conditionKey": "condition_key_0",
-                                "customName": "URL type",
-                                "logic": "and"
-                            },
-                            {
-                                "comparisons": [
-                                    {
-                                        "conditionIndex": 1,
-                                        "op": "!=",
-                                        "param": "get_job_summary_1:action_result.data.*.Submission.MD5",
-                                        "value": ""
-                                    },
-                                    {
-                                        "conditionIndex": 1,
-                                        "op": "!=",
-                                        "param": "get_job_summary_1:action_result.data.*.Submission.SHA256",
-                                        "value": ""
-                                    }
-                                ],
-                                "conditionIndex": 1,
-                                "conditionKey": "condition_key_14",
-                                "customName": "File type",
-                                "logic": "and"
-                            }
-                        ],
-                        "functionId": 2,
-                        "functionName": "job_type",
-                        "id": "5",
-                        "type": "filter"
-                    },
-                    "errors": {},
-                    "id": "5",
-                    "type": "filter",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ],
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
-                    "x": 720,
-                    "y": 940
-                },
                 "8": {
                     "data": {
                         "action": "get job summary",
@@ -856,7 +790,7 @@
                         },
                         "connector": "Splunk Attack Analyzer Connector for Splunk SOAR",
                         "connectorConfigs": [
-                            "splunk_attack_analyzer"
+                            "saa"
                         ],
                         "connectorId": "de681fee-c552-45bf-9212-827b1c7529f8",
                         "connectorVersion": "v1",
@@ -899,7 +833,7 @@
                         },
                         "connector": "Splunk Attack Analyzer Connector for Splunk SOAR",
                         "connectorConfigs": [
-                            "splunk_attack_analyzer"
+                            "saa"
                         ],
                         "connectorId": "de681fee-c552-45bf-9212-827b1c7529f8",
                         "connectorVersion": "v1",
@@ -929,7 +863,11 @@
                     "errors": {},
                     "id": "9",
                     "type": "action",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 660,
                     "y": 652
                 }
@@ -941,10 +879,10 @@
         "playbook_trigger": "artifact_created",
         "playbook_type": "es",
         "python_version": "3.9",
-        "schema": "5.0.17",
-        "version": "6.4.1.342"
+        "schema": "5.0.20",
+        "version": "6.4.1.361"
     },
-    "create_time": "2025-06-17T07:42:30.294552+00:00",
+    "create_time": "2025-06-26T10:04:59.773531+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

@@ -18,53 +18,6 @@ def on_start(container):
     return
 
 @phantom.playbook_block()
-def job_type(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("job_type() called")
-
-    # collect filtered artifact ids and results for 'if' condition 1
-    matched_artifacts_1, matched_results_1 = phantom.condition(
-        container=container,
-        logical_operator="and",
-        conditions=[
-            ["get_job_summary_1:action_result.data.*.Submission.MD5", "==", ""],
-            ["get_job_summary_1:action_result.data.*.Submission.SHA256", "==", ""],
-            ["http", "in", "get_job_summary_1:action_result.data.*.Submission.Name"]
-        ],
-        conditions_dps=[
-            ["get_job_summary_1:action_result.data.*.Submission.MD5", "==", ""],
-            ["get_job_summary_1:action_result.data.*.Submission.SHA256", "==", ""],
-            ["http", "in", "get_job_summary_1:action_result.data.*.Submission.Name"]
-        ],
-        name="job_type:condition_1",
-        delimiter=None)
-
-    # call connected blocks if filtered artifacts or results
-    if matched_artifacts_1 or matched_results_1:
-        pass
-
-    # collect filtered artifact ids and results for 'if' condition 2
-    matched_artifacts_2, matched_results_2 = phantom.condition(
-        container=container,
-        logical_operator="and",
-        conditions=[
-            ["get_job_summary_1:action_result.data.*.Submission.MD5", "!=", ""],
-            ["get_job_summary_1:action_result.data.*.Submission.SHA256", "!=", ""]
-        ],
-        conditions_dps=[
-            ["get_job_summary_1:action_result.data.*.Submission.MD5", "!=", ""],
-            ["get_job_summary_1:action_result.data.*.Submission.SHA256", "!=", ""]
-        ],
-        name="job_type:condition_2",
-        delimiter=None)
-
-    # call connected blocks if filtered artifacts or results
-    if matched_artifacts_2 or matched_results_2:
-        pass
-
-    return
-
-
-@phantom.playbook_block()
 def get_job_summary_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("get_job_summary_1() called")
 
@@ -91,7 +44,7 @@ def get_job_summary_1(action=None, success=None, container=None, results=None, h
     ## Custom Code End
     ################################################################################
 
-    phantom.act("get job summary", parameters=parameters, name="get_job_summary_1", assets=["splunk_attack_analyzer"], callback=get_job_forensics_1)
+    phantom.act("get job summary", parameters=parameters, name="get_job_summary_1", assets=["saa"], callback=get_job_forensics_1)
 
     return
 
@@ -123,7 +76,7 @@ def get_job_forensics_1(action=None, success=None, container=None, results=None,
     ## Custom Code End
     ################################################################################
 
-    phantom.act("get job forensics", parameters=parameters, name="get_job_forensics_1", assets=["splunk_attack_analyzer"], callback=get_job_screenshots_1)
+    phantom.act("get job forensics", parameters=parameters, name="get_job_forensics_1", assets=["saa"], callback=get_job_screenshots_1)
 
     return
 
@@ -155,7 +108,7 @@ def get_job_screenshots_1(action=None, success=None, container=None, results=Non
     ## Custom Code End
     ################################################################################
 
-    phantom.act("get job screenshots", parameters=parameters, name="get_job_screenshots_1", assets=["splunk_attack_analyzer"], callback=decision_2)
+    phantom.act("get job screenshots", parameters=parameters, name="get_job_screenshots_1", assets=["saa"], callback=decision_2)
 
     return
 
