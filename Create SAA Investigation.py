@@ -60,6 +60,21 @@ def start_investigations_1(action=None, success=None, container=None, results=No
 
 
 @phantom.playbook_block()
+def loop_get_finding_or_investigation_2(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("loop_get_finding_or_investigation_2() called")
+
+    loop_state = phantom.LoopState(state=loop_state_json)
+
+    if loop_state.should_continue(container=container, results=results): # should_continue evaluates iteration/timeout/conditions
+        loop_state.increment() # increments iteration count
+        get_finding_or_investigation_2(container=container, loop_state_json=loop_state.to_json())
+    else:
+        get_playbook_name(container=container)
+
+    return
+
+
+@phantom.playbook_block()
 def get_finding_or_investigation_2(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("get_finding_or_investigation_2() called")
 
@@ -77,6 +92,22 @@ def get_finding_or_investigation_2(action=None, success=None, container=None, re
                 "map_consolidated_findings": 1,
             })
 
+    if not loop_state_json:
+        # Loop state is empty. We are creating a new one from the inputs
+        loop_state_json = {
+            # Looping configs
+            "current_iteration": 1,
+            "max_iterations": 3,
+            "conditions": [
+                ["get_finding_or_investigation_2:action_result.data.*.response_plans.*.phases.*.tasks.*.suggestions.playbooks.*.playbook_id", "is not empty", "undefined"]
+            ],
+            "max_ttl": 600,
+            "delay_time": 60,
+        }
+
+    # Load state from the JSON passed to it
+    loop_state = phantom.LoopState(state=loop_state_json)
+
     ################################################################################
     ## Custom Code Start
     ################################################################################
@@ -87,7 +118,7 @@ def get_finding_or_investigation_2(action=None, success=None, container=None, re
     ## Custom Code End
     ################################################################################
 
-    phantom.act("get finding or investigation", parameters=parameters, name="get_finding_or_investigation_2", assets=["builtin_mc_connector"], callback=get_playbook_name)
+    phantom.act("get finding or investigation", parameters=parameters, name="get_finding_or_investigation_2", assets=["builtin_mc_connector"], callback=loop_get_finding_or_investigation_2, loop_state=loop_state.to_json())
 
     return
 

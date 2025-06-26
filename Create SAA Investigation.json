@@ -42,7 +42,7 @@
                     "targetPort": "3_in"
                 }
             ],
-            "hash": "0a5223fb05d2d1e0741312923d3d14a62e68e4b6",
+            "hash": "4471708f24e0dcca16d8b313798820c4899fa1af",
             "nodes": {
                 "0": {
                     "data": {
@@ -153,13 +153,29 @@
                         "functionName": "get_finding_or_investigation_2",
                         "id": "3",
                         "loop": {
-                            "enabled": false,
+                            "conditions": [
+                                {
+                                    "comparisons": [
+                                        {
+                                            "conditionIndex": 0,
+                                            "op": "is not empty",
+                                            "param": "get_finding_or_investigation_2:action_result.data.*.response_plans.*.phases.*.tasks.*.suggestions.playbooks.*.playbook_id"
+                                        }
+                                    ],
+                                    "conditionIndex": 0,
+                                    "conditionKey": "condition_key_0",
+                                    "display": "If",
+                                    "logic": "and",
+                                    "type": "if"
+                                }
+                            ],
+                            "enabled": true,
                             "exitAfterUnit": "m",
                             "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
+                            "exitConditionEnabled": true,
+                            "exitLoopAfter": 3,
                             "pauseUnit": "m",
-                            "pauseValue": 2
+                            "pauseValue": 1
                         },
                         "parameters": {
                             "id": "start_investigations_1:action_result.data.*.id",
@@ -268,7 +284,7 @@
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-26T09:59:02.970666+00:00",
+    "create_time": "2025-06-26T23:47:02.400669+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
