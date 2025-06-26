@@ -138,40 +138,12 @@ def check_job_id(action=None, success=None, container=None, results=None, handle
 
 
 @phantom.playbook_block()
-def playbook_get_container_id_and_vault_list_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("playbook_get_container_id_and_vault_list_1() called")
-
-    get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.investigation_id"], action_results=results)
-
-    get_finding_or_investigation_1_result_item_0 = [item[0] for item in get_finding_or_investigation_1_result_data]
-
-    inputs = {
-        "finding_id": get_finding_or_investigation_1_result_item_0,
-    }
-
-    ################################################################################
-    ## Custom Code Start
-    ################################################################################
-
-    # Write your custom code here...
-
-    ################################################################################
-    ## Custom Code End
-    ################################################################################
-
-    # call playbook "local/get container id and vault list", returns the playbook_run_id
-    playbook_run_id = phantom.playbook("local/get container id and vault list", container=container, name="playbook_get_container_id_and_vault_list_1", callback=image_base64, inputs=inputs)
-
-    return
-
-
-@phantom.playbook_block()
 def image_base64(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("image_base64() called")
 
-    playbook_get_container_id_and_vault_list_1_output_vault_list = phantom.collect2(container=container, datapath=["playbook_get_container_id_and_vault_list_1:playbook_output:vault_list"])
+    playbook_get_container_id_and_vault_list_1_output_vault_location = phantom.collect2(container=container, datapath=["playbook_get_container_id_and_vault_list_1:playbook_output:vault_location"])
 
-    playbook_get_container_id_and_vault_list_1_output_vault_list_values = [item[0] for item in playbook_get_container_id_and_vault_list_1_output_vault_list]
+    playbook_get_container_id_and_vault_list_1_output_vault_location_values = [item[0] for item in playbook_get_container_id_and_vault_list_1_output_vault_location]
 
     image_base64__image_base64 = None
     image_base64__status = None
@@ -184,10 +156,10 @@ def image_base64(action=None, success=None, container=None, results=None, handle
     image_base64__image_base64 = []
     image_base64__status = []
     import base64
-    phantom.debug(type(playbook_get_container_id_and_vault_list_1_output_vault_list_values))
-    phantom.debug(playbook_get_container_id_and_vault_list_1_output_vault_list_values)
-    for i in range(len(playbook_get_container_id_and_vault_list_1_output_vault_list_values)):            
-        image_path = playbook_get_container_id_and_vault_list_1_output_vault_list_values[i]
+    phantom.debug(type(playbook_get_container_id_and_vault_list_1_output_vault_location_values))
+    phantom.debug(playbook_get_container_id_and_vault_list_1_output_vault_location_values)
+    for i in range(len(playbook_get_container_id_and_vault_list_1_output_vault_location_values)):            
+        image_path = playbook_get_container_id_and_vault_list_1_output_vault_location_values[i]
         phantom.debug(image_path)            
         with open(image_path, "rb") as image_file:        
             encoded_string = base64.b64encode(image_file.read()).decode('utf-8')                
@@ -199,7 +171,7 @@ def image_base64(action=None, success=None, container=None, results=None, handle
     ## Custom Code End
     ################################################################################
 
-    phantom.save_block_result(key="image_base64__inputs:0:playbook_get_container_id_and_vault_list_1:playbook_output:vault_list", value=json.dumps(playbook_get_container_id_and_vault_list_1_output_vault_list_values))
+    phantom.save_block_result(key="image_base64__inputs:0:playbook_get_container_id_and_vault_list_1:playbook_output:vault_location", value=json.dumps(playbook_get_container_id_and_vault_list_1_output_vault_location_values))
 
     phantom.save_block_result(key="image_base64:image_base64", value=json.dumps(image_base64__image_base64))
     phantom.save_block_result(key="image_base64:status", value=json.dumps(image_base64__status))
@@ -570,43 +542,29 @@ def get_finding_or_investigation_1(action=None, success=None, container=None, re
 
 
 @phantom.playbook_block()
-def decision_2(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("decision_2() called")
+def playbook_get_container_id_and_vault_list_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("playbook_get_container_id_and_vault_list_1() called")
 
-    # check for 'if' condition 1
-    found_match_1 = phantom.decision(
-        container=container,
-        conditions=[
-            ["get_job_summary_1:action_result.data.*.Submission.SHA256", "!=", ""]
-        ],
-        conditions_dps=[
-            ["get_job_summary_1:action_result.data.*.Submission.SHA256", "!=", ""]
-        ],
-        name="decision_2:condition_1",
-        delimiter=None)
+    get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.investigation_id"], action_results=results)
 
-    # call connected blocks if condition 1 matched
-    if found_match_1:
-        return
+    get_finding_or_investigation_1_result_item_0 = [item[0] for item in get_finding_or_investigation_1_result_data]
 
-    # check for 'elif' condition 2
-    found_match_2 = phantom.decision(
-        container=container,
-        logical_operator="and",
-        conditions=[
-            ["get_job_summary_1:action_result.data.*.Submission.SHA256", "==", ""],
-            ["http", "in", "get_job_summary_1:action_result.data.*.Submission.Name"]
-        ],
-        conditions_dps=[
-            ["get_job_summary_1:action_result.data.*.Submission.SHA256", "==", ""],
-            ["http", "in", "get_job_summary_1:action_result.data.*.Submission.Name"]
-        ],
-        name="decision_2:condition_2",
-        delimiter=None)
+    inputs = {
+        "investigation_id": get_finding_or_investigation_1_result_item_0,
+    }
 
-    # call connected blocks if condition 2 matched
-    if found_match_2:
-        return
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    # call playbook "phishing_es8_saa/get container id and vault list", returns the playbook_run_id
+    playbook_run_id = phantom.playbook("phishing_es8_saa/get container id and vault list", container=container, name="playbook_get_container_id_and_vault_list_1", callback=image_base64, inputs=inputs)
 
     return
 

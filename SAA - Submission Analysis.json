@@ -55,13 +55,6 @@
                     "targetPort": "29_in"
                 },
                 {
-                    "id": "port_23_to_port_25",
-                    "sourceNode": "23",
-                    "sourcePort": "23_out",
-                    "targetNode": "25",
-                    "targetPort": "25_in"
-                },
-                {
                     "id": "port_0_to_port_32",
                     "sourceNode": "0",
                     "sourcePort": "0_out",
@@ -83,21 +76,28 @@
                     "targetPort": "31_in"
                 },
                 {
-                    "id": "port_10_to_port_23",
-                    "sourceNode": "10",
-                    "sourcePort": "10_out",
-                    "targetNode": "23",
-                    "targetPort": "23_in"
-                },
-                {
                     "id": "port_27_to_port_30",
                     "sourceNode": "27",
                     "sourcePort": "27_out",
                     "targetNode": "30",
                     "targetPort": "30_in"
+                },
+                {
+                    "id": "port_10_to_port_34",
+                    "sourceNode": "10",
+                    "sourcePort": "10_out",
+                    "targetNode": "34",
+                    "targetPort": "34_in"
+                },
+                {
+                    "id": "port_34_to_port_25",
+                    "sourceNode": "34",
+                    "sourcePort": "34_out",
+                    "targetNode": "25",
+                    "targetPort": "25_in"
                 }
             ],
-            "hash": "01bc24acc0979254f8440cdc51cc81c72e2f6d55",
+            "hash": "0dc9bb5520c0236969fd56916021f1a2d6198fb5",
             "nodes": {
                 "0": {
                     "data": {
@@ -119,7 +119,7 @@
                     "type": "start",
                     "warnings": {},
                     "x": 680,
-                    "y": -4.476419235288631e-13
+                    "y": -5.115907697472721e-13
                 },
                 "1": {
                     "data": {
@@ -217,45 +217,6 @@
                     "x": 740,
                     "y": 324
                 },
-                "23": {
-                    "data": {
-                        "advanced": {
-                            "join": []
-                        },
-                        "functionId": 1,
-                        "functionName": "playbook_get_container_id_and_vault_list_1",
-                        "id": "23",
-                        "inputs": {
-                            "finding_id": {
-                                "datapaths": [
-                                    "get_finding_or_investigation_1:action_result.data.*.investigation_id"
-                                ],
-                                "deduplicate": false
-                            }
-                        },
-                        "loop": {
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "playbookName": "get container id and vault list",
-                        "playbookRepo": 2,
-                        "playbookRepoName": "local",
-                        "playbookType": "data",
-                        "synchronous": true,
-                        "type": "playbook"
-                    },
-                    "errors": {},
-                    "id": "23",
-                    "type": "playbook",
-                    "warnings": {},
-                    "x": 660,
-                    "y": 1160
-                },
                 "25": {
                     "data": {
                         "advanced": {
@@ -267,7 +228,7 @@
                         "functionName": "image_base64",
                         "id": "25",
                         "inputParameters": [
-                            "playbook_get_container_id_and_vault_list_1:playbook_output:vault_list"
+                            "playbook_get_container_id_and_vault_list_1:playbook_output:vault_location"
                         ],
                         "outputVariables": [
                             "image_base64",
@@ -278,7 +239,7 @@
                     "errors": {},
                     "id": "25",
                     "type": "code",
-                    "userCode": "\n    # Write your custom code here...\n    image_base64__image_base64 = []\n    image_base64__status = []\n    import base64\n    phantom.debug(type(playbook_get_container_id_and_vault_list_1_output_vault_list_values))\n    phantom.debug(playbook_get_container_id_and_vault_list_1_output_vault_list_values)\n    for i in range(len(playbook_get_container_id_and_vault_list_1_output_vault_list_values)):            \n        image_path = playbook_get_container_id_and_vault_list_1_output_vault_list_values[i]\n        phantom.debug(image_path)            \n        with open(image_path, \"rb\") as image_file:        \n            encoded_string = base64.b64encode(image_file.read()).decode('utf-8')                \n        image_base64__image_base64.append(encoded_string)\n        image_base64__status.append(\"success\")\n        phantom.debug(image_base64__image_base64)            \n        phantom.debug(image_base64__status)\n",
+                    "userCode": "\n    # Write your custom code here...\n    image_base64__image_base64 = []\n    image_base64__status = []\n    import base64\n    phantom.debug(type(playbook_get_container_id_and_vault_list_1_output_vault_location_values))\n    phantom.debug(playbook_get_container_id_and_vault_list_1_output_vault_location_values)\n    for i in range(len(playbook_get_container_id_and_vault_list_1_output_vault_location_values)):            \n        image_path = playbook_get_container_id_and_vault_list_1_output_vault_location_values[i]\n        phantom.debug(image_path)            \n        with open(image_path, \"rb\") as image_file:        \n            encoded_string = base64.b64encode(image_file.read()).decode('utf-8')                \n        image_base64__image_base64.append(encoded_string)\n        image_base64__status.append(\"success\")\n        phantom.debug(image_base64__image_base64)            \n        phantom.debug(image_base64__status)\n",
                     "warnings": {},
                     "x": 660,
                     "y": 1260
@@ -514,69 +475,44 @@
                     "x": 660,
                     "y": 144.5
                 },
-                "33": {
+                "34": {
                     "data": {
                         "advanced": {
                             "join": []
                         },
-                        "conditions": [
-                            {
-                                "comparisons": [
-                                    {
-                                        "conditionIndex": 0,
-                                        "op": "!=",
-                                        "param": "get_job_summary_1:action_result.data.*.Submission.SHA256",
-                                        "value": ""
-                                    }
+                        "functionId": 1,
+                        "functionName": "playbook_get_container_id_and_vault_list_1",
+                        "id": "34",
+                        "inputs": {
+                            "investigation_id": {
+                                "datapaths": [
+                                    "get_finding_or_investigation_1:action_result.data.*.investigation_id"
                                 ],
-                                "conditionIndex": 0,
-                                "conditionKey": "condition_key_4",
-                                "customName": "File type",
-                                "display": "If",
-                                "logic": "and",
-                                "type": "if"
-                            },
-                            {
-                                "comparisons": [
-                                    {
-                                        "conditionIndex": 1,
-                                        "op": "==",
-                                        "param": "get_job_summary_1:action_result.data.*.Submission.SHA256",
-                                        "value": ""
-                                    },
-                                    {
-                                        "conditionIndex": 1,
-                                        "op": "in",
-                                        "param": "http",
-                                        "value": "get_job_summary_1:action_result.data.*.Submission.Name"
-                                    }
-                                ],
-                                "conditionIndex": 1,
-                                "conditionKey": "condition_key_5",
-                                "customName": "URL type",
-                                "display": "Else If",
-                                "logic": "and",
-                                "type": "elif"
+                                "deduplicate": false
                             }
-                        ],
-                        "functionId": 2,
-                        "functionName": "decision_2",
-                        "id": "33",
-                        "type": "decision"
+                        },
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "playbookName": "get container id and vault list",
+                        "playbookRepo": 4,
+                        "playbookRepoName": "phishing_es8_saa",
+                        "playbookType": "data",
+                        "synchronous": true,
+                        "type": "playbook"
                     },
                     "errors": {},
-                    "id": "33",
-                    "type": "decision",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ],
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
-                    "x": 480,
-                    "y": 940
+                    "id": "34",
+                    "type": "playbook",
+                    "warnings": {},
+                    "x": 660,
+                    "y": 1004.5
                 },
                 "8": {
                     "data": {
@@ -675,7 +611,7 @@
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-26T10:13:16.098307+00:00",
+    "create_time": "2025-06-26T10:22:07.282905+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
