@@ -97,7 +97,7 @@
                     "targetPort": "25_in"
                 }
             ],
-            "hash": "0dc9bb5520c0236969fd56916021f1a2d6198fb5",
+            "hash": "01bc24acc0979254f8440cdc51cc81c72e2f6d55",
             "nodes": {
                 "0": {
                     "data": {
@@ -118,8 +118,8 @@
                     "id": "0",
                     "type": "start",
                     "warnings": {},
-                    "x": 680,
-                    "y": -5.115907697472721e-13
+                    "x": 660,
+                    "y": 0
                 },
                 "1": {
                     "data": {
@@ -215,7 +215,7 @@
                     "type": "decision",
                     "warnings": {},
                     "x": 740,
-                    "y": 324
+                    "y": 320
                 },
                 "25": {
                     "data": {
@@ -473,7 +473,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 660,
-                    "y": 144.5
+                    "y": 140
                 },
                 "34": {
                     "data": {
@@ -512,7 +512,7 @@
                     "type": "playbook",
                     "warnings": {},
                     "x": 660,
-                    "y": 1004.5
+                    "y": 1000
                 },
                 "8": {
                     "data": {
@@ -531,6 +531,23 @@
                         "functionName": "get_job_summary_1",
                         "id": "8",
                         "loop": {
+                            "conditions": [
+                                {
+                                    "comparisons": [
+                                        {
+                                            "conditionIndex": 0,
+                                            "op": "==",
+                                            "param": "",
+                                            "value": ""
+                                        }
+                                    ],
+                                    "conditionIndex": 0,
+                                    "conditionKey": "condition_key_0",
+                                    "display": "If",
+                                    "logic": "and",
+                                    "type": "if"
+                                }
+                            ],
                             "enabled": false,
                             "exitAfterUnit": "m",
                             "exitAfterValue": 10,
@@ -555,7 +572,7 @@
                     "type": "action",
                     "warnings": {},
                     "x": 660,
-                    "y": 504
+                    "y": 500
                 },
                 "9": {
                     "data": {
