@@ -97,7 +97,7 @@
                     "targetPort": "25_in"
                 }
             ],
-            "hash": "01bc24acc0979254f8440cdc51cc81c72e2f6d55",
+            "hash": "d0733eb43bd5d004e6145d0378746cd871692170",
             "nodes": {
                 "0": {
                     "data": {
@@ -239,7 +239,7 @@
                     "errors": {},
                     "id": "25",
                     "type": "code",
-                    "userCode": "\n    # Write your custom code here...\n    image_base64__image_base64 = []\n    image_base64__status = []\n    import base64\n    phantom.debug(type(playbook_get_container_id_and_vault_list_1_output_vault_location_values))\n    phantom.debug(playbook_get_container_id_and_vault_list_1_output_vault_location_values)\n    for i in range(len(playbook_get_container_id_and_vault_list_1_output_vault_location_values)):            \n        image_path = playbook_get_container_id_and_vault_list_1_output_vault_location_values[i]\n        phantom.debug(image_path)            \n        with open(image_path, \"rb\") as image_file:        \n            encoded_string = base64.b64encode(image_file.read()).decode('utf-8')                \n        image_base64__image_base64.append(encoded_string)\n        image_base64__status.append(\"success\")\n        phantom.debug(image_base64__image_base64)            \n        phantom.debug(image_base64__status)\n",
+                    "userCode": "\n    # Write your custom code here...\n    image_base64__image_base64 = []\n    image_base64__status = []\n    import base64\n    phantom.debug(type(playbook_get_container_id_and_vault_list_1_output_vault_location_values))\n    phantom.debug(playbook_get_container_id_and_vault_list_1_output_vault_location_values)\n    for i in range(len(playbook_get_container_id_and_vault_list_1_output_vault_location_values)):\n        if playbook_get_container_id_and_vault_list_1_output_vault_location_values[i]:\n            image_path = playbook_get_container_id_and_vault_list_1_output_vault_location_values[i]\n            phantom.debug(image_path)            \n            with open(image_path, \"rb\") as image_file:        \n                encoded_string = base64.b64encode(image_file.read()).decode('utf-8')                \n            image_base64__image_base64.append(encoded_string)\n            image_base64__status.append(\"success\")\n            phantom.debug(image_base64__image_base64)            \n            phantom.debug(image_base64__status)\n",
                     "warnings": {},
                     "x": 660,
                     "y": 1260
@@ -628,7 +628,7 @@
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-26T10:22:07.282905+00:00",
+    "create_time": "2025-06-27T00:44:57.348667+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
